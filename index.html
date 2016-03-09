@@ -1,0 +1,50 @@
+---
+layout: default
+class: index
+---
+<main class="index-container container" itemscope itemprop="author" itemtype="http://schema.org/Person">
+  <meta itemprop="name" content="{{ site.title }}">
+  <meta itemprop="description" content="{{ site.description }}">
+  <meta itemprop="image" content="https://www.gravatar.com/avatar/{{ site.gravatar_md5 }}.png">
+
+  <h1 class="sr-only">Tasso Evangelista</h1>
+
+  <div class="text-center">
+    <div class="index-photo">
+      <img src="https://www.gravatar.com/avatar/{{ site.gravatar }}.png?s=512" alt="" class="img-responsive">
+    </div>
+
+    <div class="index-logo-title">
+      <span class="tasso">Tasso</span>&nbsp;<span class="evangelista">Evangelista</span>
+    </div>
+
+    <div class="index-quote">{{ page.description | default: site.description }}</div>
+
+    <div class="index-contact">
+      <a href="mailto:{{ site.email }}" class="index-contact-link">
+        <span class="fa fa-envelope"></span>
+        <span class="sr-only" itemprop="email">{{ site.email }}</span>
+      </a>
+      &middot;
+      <a href="http://twitter.com/{{ site.twitter_username }}" target="_blank" class="index-contact-link">
+        <span class="fa fa-twitter"></span>
+        <span class="sr-only" itemprop="url">http://twitter.com/{{ site.twitter_username }}</span>
+      </a>
+      &middot;
+      <a href="http://github.com/{{ site.github_username }}" target="_blank" class="index-contact-link">
+        <span class="fa fa-github"></span>
+        <span class="sr-only" itemprop="url">http://github.com/{{ site.github_username }}</span>
+      </a>
+      &middot;
+      <a href="http://bitbucket.org/{{ site.bitbucket_username }}" target="_blank" class="index-contact-link">
+        <span class="fa fa-bitbucket"></span>
+        <span class="sr-only" itemprop="url">http://bitbucket.org/{{ site.bitbucket_username }}</span>
+      </a>
+      &middot;
+      <a href="http://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" class="index-contact-link">
+        <span class="fa fa-linkedin"></span>
+        <span class="sr-only" itemprop="url">http://linkedin.com/in/{{ site.linkedin_username }}</span>
+      </a>
+    </div>
+  </div>
+</main>

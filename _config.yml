@@ -1,0 +1,21 @@
+# Site settings
+title: Tasso Evangelista
+email: tasso@tassoevan.me
+gravatar: 46f8da200f3fa1c9e05dae5d9e28521e
+description: "Desenvolvedor com experiência em PHP e estudante de Engenharia Química."
+baseurl: ""
+url: "http://tassoevan.github.io"
+twitter_username: tassoevan
+github_username:  tassoevan
+bitbucket_username:  tassoevan
+linkedin_username:  tassoevan
+google_analytics_tracking_id: UA-31191590-3
+
+# Build settings
+gems: [jekyll-paginate]
+markdown: kramdown
+permalink: pretty
+sass:
+    style: compressed
+paginate: 10
+paginate_path: "/posts/:num/"

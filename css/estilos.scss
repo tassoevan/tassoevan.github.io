@@ -1,0 +1,161 @@
+---
+---
+/*
+ * Website styles
+ */
+
+/*
+ * Variables
+ */
+
+$sans-serif-font: 'Open Sans', Helvetica, Arial, sans-serif;
+$monospace-font: 'Ubuntu Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+$serif-font: 'Volkorn', 'Times New Roman', serif;
+$title-font: $sans-serif-font;
+$text-font: $sans-serif-font;
+$link-hover-time: 200ms;
+//$main-color: #3366CC;
+$main-color: #3F7F8B;
+$high-main-color: lighten($main-color, 10%);
+$muted-color: #666666;
+$code-color: lighten($main-color, 25%);
+$background-color: #222222;
+$foreground-color: #ffffff;
+
+/*
+ * General styles
+ */
+
+body {
+  background-color: $background-color;
+  color: $foreground-color;
+  margin-left: calc(100vw - 100%);
+  margin-right: 0;
+  font-family: $title-font;
+  font-size: 12pt;
+
+  @media screen and (min-width: 768px) {
+    font-size: 16pt;
+  }
+}
+
+a {
+ transition: color $link-hover-time linear,
+             border-color $link-hover-time linear;
+
+  &, &:visited, &:active {
+    color: $main-color;
+    border-color: $main-color;
+  }
+
+  &:hover, &:focus {
+    color: $high-main-color;
+    border-color: rgba(154, 184, 207, 50);
+    outline: 0;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $title-font;
+  color: $main-color;
+
+  code:not(.hljs) {
+    font-family: $monospace-font;
+    font-size: inherit;
+    color: $code-color;
+    text-decoration: inherit;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    display: inline-block;
+  }
+}
+
+/*
+ * Page-specific styles
+ */
+
+/*
+ * Index page styles
+ */
+
+body.index {  
+  .menu-logo-title {
+    @media screen and (min-width: 768px) {
+      visibility: hidden;
+    }
+  }
+  
+  .index-container {
+    margin-top: 5em;
+    color: #ffffff;
+
+    @media screen and (min-width: 768px) {
+      margin-top: 1.5em;
+      padding: 3em 0 1.5em 0;
+    }
+
+    .index-logo-title {
+      font-size: 2em;
+      line-height: 100%;
+
+      @media screen and (min-width: 768px) {
+        font-size: 4em;
+      }
+
+      .tasso {
+        color: $main-color;
+        font-weight: bold;
+      }
+    }
+
+    .index-photo {
+      margin: 1em;
+      
+      .img-responsive {
+        width: 8em;
+        margin: 0 auto;
+        border-radius: .5em;
+      }
+    }
+    
+    .index-quote {
+      margin: 0 auto 2em auto;
+      width: 16em;
+
+      @media screen and (min-width: 768px) {
+        font-size: 1.5em;
+        width: 24em;
+      }
+    }
+
+    .index-contact {
+      font-size: 200%;
+      
+      .index-contact-link {
+        display: inline-block;
+        color: $main-color;
+
+        &:focus, &:hover {
+          color: $high-main-color;
+        }
+      }
+    }
+  }
+}
+
+/*
+ * 'Page not found' page styles
+ */
+
+body.not-found {
+  .not-found-container {
+      margin-top: 5em;
+      color: #ffffff;
+    
+    .not-found-title {
+      font-size: 2em;
+      line-height: 1.5em;
+    }
+  }
+}
