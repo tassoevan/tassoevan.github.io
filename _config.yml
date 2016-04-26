@@ -12,7 +12,9 @@ linkedin_username:  tassoevan
 google_analytics_tracking_id: UA-31191590-3
 
 # Build settings
-gems: [jekyll-paginate]
+gems:
+    - jekyll-paginate
+    - jekyll-sitemap
 markdown: kramdown
 permalink: pretty
 sass:
