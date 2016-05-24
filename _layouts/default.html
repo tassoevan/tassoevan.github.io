@@ -24,17 +24,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700%7CUbuntu+Mono:400,700%7CVollkorn:400,700">
 
   <meta name="theme-color" content="#222222">
-</head>
 
-<body{% if page.class %} class="{{ page.class }}"{% endif %} itemscope itemtype="http://schema.org/WebPage">
-  <meta itemprop="name" content="{{ page.title | default: site.title }}"/>
-  <meta itemprop="description" content="{{ page.description | default: site.description }}"/>
-
-  {{ content }}
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -46,5 +36,15 @@
   ga('require', 'displayfeatures');
   ga('require', 'linkid', 'linkid.js');
   </script>
-</body>
+</head>
+
+<body{% if page.class %} class="{{ page.class }}"{% endif %} itemscope itemtype="http://schema.org/WebPage">
+  <meta itemprop="name" content="{{ page.title | default: site.title }}"/>
+  <meta itemprop="description" content="{{ page.description | default: site.description }}"/>
+
+  {{ content }}
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>  
 </html>
