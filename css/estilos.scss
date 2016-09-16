@@ -198,7 +198,7 @@ body.simple-page {
       font-weight: normal;
       background-color: fade($main-color, 25%);
     }
-    
+
     code:not(.hljs) {
       font-family: $monospace-font;
       font-size: inherit;
@@ -209,11 +209,11 @@ body.simple-page {
       border-radius: 0;
       display: inline-block;
     }
-    
+
     a code {
       color: inherit;
     }
-    
+
     pre {
       background: none;
       border: none;
@@ -231,13 +231,13 @@ body.simple-page {
  * Index page styles
  */
 
-body.index {  
+body.index {
   .menu-logo-title {
     @media screen and (min-width: 768px) {
       visibility: hidden;
     }
   }
-  
+
   .index-container {
     margin-top: 5em;
     color: #ffffff;
@@ -263,14 +263,14 @@ body.index {
 
     .index-photo {
       margin: 1em;
-      
+
       .img-responsive {
         width: 8em;
         margin: 0 auto;
         border-radius: .5em;
       }
     }
-    
+
     .index-quote {
       margin: 0 auto 2em auto;
       width: 16em;
@@ -283,7 +283,7 @@ body.index {
 
     .index-contact {
       font-size: 200%;
-      
+
       .index-contact-link {
         display: inline-block;
         color: $main-color;
@@ -304,10 +304,141 @@ body.not-found {
   .not-found-container {
       margin-top: 5em;
       color: #ffffff;
-    
+
     .not-found-title {
       font-size: 2em;
       line-height: 1.5em;
+    }
+  }
+}
+
+/*
+ * Posts list page and post page styles
+ */
+
+body.posts, body.post {
+  .posts-container, .post-container {
+    margin-top: 5em;
+
+    .post-ref {
+      padding-bottom: 2em;
+      margin-bottom: 2em;
+
+      .post-before-title {
+        font-family: $text-font;
+        font-size: .7em;
+
+        .post-label {
+          background: $main-color;
+          font-size: inherit;
+          font-weight: normal;
+        }
+
+        .post-time {
+          padding-left: 1em;
+          color: $muted-color;
+          font-style: oblique;
+          font-size: inherit;
+        }
+      }
+
+      .post-title {
+        font-size: 2em;
+        line-height: 1.25em;
+      }
+
+      .post-description {
+        font-family: $text-font;
+      }
+    }
+  }
+
+  .pager .previous a, .pager .next a {
+    background: none;
+    border: none;
+    border-radius: 0;
+  }
+}
+
+body.post {
+  .post-container {
+    .post-ref {
+      padding-bottom: 1em;
+      margin-bottom: 1em;
+
+      .post-title-container {
+        .post-time {
+          font-family: $text-font;
+          font-style: oblique;
+          font-size: .75em;
+          line-height: 100%;
+          color: $muted-color;
+        }
+      }
+
+      .post-description {
+        font-family: $text-font;
+        font-style: oblique;
+        font-size: .75em;
+      }
+    }
+
+    .post-text {
+      font-family: $text-font;
+
+      h1 {
+        font-size: 1.5em;
+        line-height: 1.5em;
+        margin: 1em 0 .5em 0;
+      }
+
+      h2 {
+        font-size: 1.25em;
+        line-height: 1.25em;
+        margin: 1em 0 .5em 0;
+      }
+
+      h3 {
+        font-size: 1em;
+        line-height: 1em;
+        margin: 1em 0 .5em 0;
+      }
+
+      p {
+        line-height: 2em;
+        text-align: justify;
+      }
+
+      strong {
+        font-weight: normal;
+        background-color: fade($main-color, 25%);
+      }
+
+      code:not(.hljs) {
+        font-family: $monospace-font;
+        font-size: inherit;
+        color: $code-color;
+        text-decoration: inherit;
+        background: none;
+        padding: 0;
+        border-radius: 0;
+        display: inline-block;
+      }
+
+      a code {
+        color: inherit;
+      }
+
+      pre {
+        background: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 0.5em;
+      }
     }
   }
 }
