@@ -1,23 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-{% include head.html %}
-
-<body class="simple-page" itemscope itemtype="http://schema.org/WebPage">
-  <meta itemprop="name" content="{{ page.title | default: site.title }}"/>
-  <meta itemprop="description" content="{{ page.description | default: site.description }}"/>
-
-  {% include navbar.html %}
-
-  <div class="page-container container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2">
-        {{ content }}
-      </div>
+---
+layout: default
+class: simple-page
+---
+<div class="page-container container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      {{ content }}
     </div>
   </div>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
-</body>  
-</html>
+</div>
