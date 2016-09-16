@@ -1,0 +1,48 @@
+---
+layout: default
+title: Posts
+class: posts
+---
+  <div class="posts-container container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        <div class="page-content">
+          <h1 class="page-header sr-only">Posts no blog</h1>
+
+          <ul class="posts-list list-unstyled">
+{% for post in paginator.posts %}
+            <li class="post-ref">
+              <div class="post-before-title">
+                <span class="label post-label">{{ post.small_title | markdown }}</span>
+                <time datetime="{{ post.publish_date | date: '%c' }}" title="{{ post.publish_date | date: '%c' }}" class="post-time">
+                  {{ post.publish_date | date: '%d/%m/%Y %H:%M' }}
+                </time>
+              </div>
+
+              <h2 class="post-title">
+                <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title | markdown }}</a>
+              </h2>
+
+              <div class="post-description">
+                {{ post.description }}
+              </div>
+            </li>
+{% endfor %}
+          </ul>
+        </div>
+
+{% if paginator.previous_page or paginator.next_page %}
+        <div role="navigation">
+          <ul class="pager">
+{% if paginator.previous_page %}
+            <li class="next"><a href="{{ paginator.previous_page_path | prepend: site.baseurl }}">Posts mais recentes &rarr;</a></li>
+{% endif %}
+{% if paginator.next_page %}
+            <li class="previous"><a href="{{ paginator.next_page_path | prepend: site.baseurl }}">&larr; Posts mais antigos</a></li>
+{% endif %}
+          </ul>
+        </div>
+{% endif %}
+      </div>
+    </div>
+  </div>
