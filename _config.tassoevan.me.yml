@@ -16,9 +16,7 @@ google_analytics_tracking_id: UA-31191590-1
 gems:
     - jekyll-paginate
     - jekyll-sitemap
-
-markdown: redcarpet
-
+markdown: kramdown
 permalink: pretty
 sass:
     style: compressed
