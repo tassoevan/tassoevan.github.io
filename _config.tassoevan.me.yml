@@ -14,11 +14,14 @@ google_analytics_tracking_id: UA-31191590-1
 
 # Build settings
 gems:
-    - jekyll-paginate
-    - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-sitemap
 markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 permalink: pretty
 sass:
-    style: compressed
+  style: compressed
 paginate: 10
 paginate_path: "/posts/:num/"
