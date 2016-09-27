@@ -8,13 +8,13 @@ layout: post
 ---
 Em projetos PHP atuais, é praticamente impossível um desenvolvedor fazer tudo do zero. Sempre existe um framework, uma library (biblioteca de código) ou até uma "funçãozinha" que outros devs escreveram e que nós utilizamos para entregar tudo dentro de prazos.
 
-Alguns exemplos? [Laravel](http://laravel.com/){target=_blank}, [Zend Framework](http://framework.zend.com/){target=_blank}, [Yii](http://www.yiiframework.com/){target=_blank}, [Symfony](https://symfony.com/){target=_blank}, [Climate](http://climate.thephpleague.com/){target=_blank} etc.
+Alguns exemplos? [Laravel](http://laravel.com/), [Zend Framework](http://framework.zend.com/), [Yii](http://www.yiiframework.com/), [Symfony](https://symfony.com/), [Climate](http://climate.thephpleague.com/) etc.
 
 Cada vez que utilizamos algo do tipo, estamos gerando uma *dependência* no projeto. Para que a nossa aplicação funcione, todas as dependências devem *ser resolvidas*, isto é, o código delas deve estar acessível.
 
 # O que é?
 
-O [Composer](https://getcomposer.org/){target=_blank} é um *gerenciador de dependências* escrito em e escrito para PHP. Através dele, todas as dependências de um projeto são baixadas da Internet automaticamente na forma de *pacotes* e corretamente disponibilizadas num diretório. Inclusive com direito a autoloader.
+O [Composer](https://getcomposer.org/) é um *gerenciador de dependências* escrito em e escrito para PHP. Através dele, todas as dependências de um projeto são baixadas da Internet automaticamente na forma de *pacotes* e corretamente disponibilizadas num diretório. Inclusive com direito a autoloader.
 
 # Como instalar?
 
@@ -34,13 +34,13 @@ Então instalar é fácil como digitar no terminal isto:
 $ php -r "readfile('https://getcomposer.org/installer');" | sudo php -- --install-dir=/usr/bin --filename=composer
 ```
 
-Para mais detalhes, consulte: [http://getcomposer.org/doc/00-intro.md#installation-nix](http://getcomposer.org/doc/00-intro.md#installation-nix){target=_blank}
+Para mais detalhes, consulte: [http://getcomposer.org/doc/00-intro.md#installation-nix](http://getcomposer.org/doc/00-intro.md#installation-nix)
 
 ## Windows
 
-Baixe e execute o [instalador oficial](https://getcomposer.org/Composer-Setup.exe){target=_blank}.
+Baixe e execute o [instalador oficial](https://getcomposer.org/Composer-Setup.exe).
 
-Para mais detalhes, consulte: [http://getcomposer.org/doc/00-intro.md#installation-windows](http://getcomposer.org/doc/00-intro.md#installation-windows){target=_blank}
+Para mais detalhes, consulte: [http://getcomposer.org/doc/00-intro.md#installation-windows](http://getcomposer.org/doc/00-intro.md#installation-windows)
 
 # Como descrevar as dependências?
 
@@ -76,9 +76,9 @@ Agora podemos adicionar algumas dependências.
 
 Dentro da propriedade `require`, eu defini que meu projeto tem como dependência o framework Yii.
 
-**Por que ele está descrito como `yiisoft/yii2`?** Porque foi assim que a Yiisoft o registrou no [Packagist](https://packagist.org/packages/yiisoft/yii2){target=_blank}, o principal repositório de pacotes do Composer.
+**Por que ele está descrito como `yiisoft/yii2`?** Porque foi assim que a Yiisoft o registrou no [Packagist](https://packagist.org/packages/yiisoft/yii2), o principal repositório de pacotes do Composer.
 
-**O que significa `~2.0.0`?** Estamos especificando que queremos qualquer pacote cuja versão seja igual ou superior a 2.0.0 e inferior a 2.1.0. Existem várias [formas de descrever as versões](https://getcomposer.org/doc/02-libraries.md#specifying-the-version){target=_blank} que precisamos. As recomendações principais são (1) evitar as versões `dev-master`, que são baseadas no último código escrito nos pacotes e, portanto, mutáveis; e (2) evitar a tentação de utilizar `*` para ter sempre a última versão disponível. Existe uma diferença enorme, por exemplo, entre a versão 1.1 e a versão 2.0 do Yii. Atualizar dependências assim significa conviver com o fato de ter que mudar todo seu código quando uma delas for atualizada.
+**O que significa `~2.0.0`?** Estamos especificando que queremos qualquer pacote cuja versão seja igual ou superior a 2.0.0 e inferior a 2.1.0. Existem várias [formas de descrever as versões](https://getcomposer.org/doc/02-libraries.md#specifying-the-version) que precisamos. As recomendações principais são (1) evitar as versões `dev-master`, que são baseadas no último código escrito nos pacotes e, portanto, mutáveis; e (2) evitar a tentação de utilizar `*` para ter sempre a última versão disponível. Existe uma diferença enorme, por exemplo, entre a versão 1.1 e a versão 2.0 do Yii. Atualizar dependências assim significa conviver com o fato de ter que mudar todo seu código quando uma delas for atualizada.
 
 # Enfim, como utilizar?
 
