@@ -1,4 +1,9 @@
 RewriteEngine On
 RewriteRule ^sites/.*$ / [L,R]
 
+<IfModule mod_rewrite.c>
+  RewriteCond %{SERVER_PORT} !^443
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=302,L]
+</IfModule>
+
 ErrorDocument 404 /404.html
