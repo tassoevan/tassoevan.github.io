@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd `dirname ${BASH_SOURCE[0]}`
+rm -rf _site
+jekyll build --config _config.tassoevan.me.yml
+rsync -avp --del --exclude=/sites/ --exclude=/erros/ _site/ tassoevan@tassoevan.me:www/
+cd ~-
