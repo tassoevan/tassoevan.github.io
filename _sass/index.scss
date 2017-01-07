@@ -19,8 +19,10 @@ body.index {
     }
 
     .index-logo-title {
+      font-family: $serif-font;
       font-size: 2em;
       line-height: 100%;
+      margin-bottom: 1em;
 
       @media screen and (min-width: 768px) {
         font-size: 4em;
@@ -39,16 +41,6 @@ body.index {
         width: 8em;
         margin: 0 auto;
         border-radius: .5em;
-      }
-    }
-
-    .index-quote {
-      margin: 0 auto 2em auto;
-      width: 16em;
-
-      @media screen and (min-width: 768px) {
-        font-size: 1.5em;
-        width: 24em;
       }
     }
 
