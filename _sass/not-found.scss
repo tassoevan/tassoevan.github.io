@@ -5,7 +5,7 @@
 body.not-found {
   .not-found-container {
       margin-top: 5em;
-      color: #ffffff;
+      color: $foreground-color;
 
     .not-found-title {
       font-size: 2em;
