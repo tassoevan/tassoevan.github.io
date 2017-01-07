@@ -12,7 +12,7 @@ styles:
           <div class="post-before-title">
             <span class="label post-label">{{ page.small_title | markdown }}</span>
             <time datetime="{{ post.publish_date | date: '%c' }}" class="post-time">
-              {{ page.publish_date | date: '%d/%m/%Y %H:%M') }}
+              {{ page.publish_date | date: '%d/%m/%Y %H:%M' }}
             </time>
           </div>
 
@@ -90,7 +90,7 @@ styles:
           {{ content }}
         </section>
 
-{% if page.previous or page.next -%}
+{% if page.previous or page.next %}
         <div class="articles" role="navigation">
           <ul class="pager">
 {% if page.next %}

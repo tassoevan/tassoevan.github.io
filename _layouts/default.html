@@ -9,7 +9,7 @@
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
   <meta property="og:url" content="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-  <meta property="og:image" content="{% if page.image %}{{ site.url ~ page.image }}{% else %}https://www.gravatar.com/avatar/{{ site.gravatar }}.png?s=512{% endif %}">
+  <meta property="og:image" content="{% if page.image %}{{ page.image | prepend: site.baseurl | prepend: site.url }}{% else %}https://www.gravatar.com/avatar/{{ site.gravatar }}.png?s=512{% endif %}">
   <meta property="og:description" content="{{ page.description | default: site.description }}">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{% if page.title %}{{ page.title }} &middot; {% endif %}{{ site.title }}">
