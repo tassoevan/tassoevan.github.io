@@ -7,8 +7,8 @@ body.posts, body.post {
     margin-top: 5em;
 
     .post-ref {
-      padding-bottom: 2em;
-      margin-bottom: 2em;
+      padding-bottom: 1em;
+      margin-bottom: 1em;
 
       .post-before-title {
         font-family: $text-font;
@@ -29,12 +29,13 @@ body.posts, body.post {
       }
 
       .post-title {
-        font-size: 2em;
+        font-size: 1.25em;
         line-height: 1.25em;
       }
 
       .post-description {
         font-family: $text-font;
+        font-size: .75em;
       }
     }
   }
@@ -71,6 +72,7 @@ body.post {
 
     .post-text {
       font-family: $text-font;
+      font-size: .75em;
 
       h1 {
         font-size: 1.5em;
