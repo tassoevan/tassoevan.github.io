@@ -1,27 +1,12 @@
-import { useStaticQuery, graphql } from 'gatsby';
 import React from 'react';
 import 'normalize.css';
 
 import Hero from '../components/Hero';
 import SEO from '../components/SEO';
+import { useSiteMetadata } from '../hooks/useSiteMetadata';
 
 const IndexPage = () => {
-  const {
-    site: {
-      siteMetadata: { title, description },
-    },
-  } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-          }
-        }
-      }
-    `
-  );
+  const { title, description } = useSiteMetadata();
 
   return (
     <Hero>
