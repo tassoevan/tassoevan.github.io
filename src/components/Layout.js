@@ -1,6 +1,8 @@
-import { createGlobalStyle } from 'styled-components';
+import React from 'react';
+import styled, { createGlobalStyle } from 'styled-components';
 import 'normalize.css';
 import 'sakura.css';
+import { useSiteMetadata } from '../hooks/useSiteMetadata';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -20,4 +22,20 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export default GlobalStyle;
+const BodyTitle = styled.h1`
+  display: none;
+`;
+
+function Layout({ children }) {
+  const { title } = useSiteMetadata();
+
+  return (
+    <>
+      <GlobalStyle />
+      <BodyTitle>{title}</BodyTitle>
+      {children}
+    </>
+  );
+}
+
+export default Layout;

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link, useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
+import Post from './Post';
 
 const StyledPostList = styled.div`
   max-width: 38em;
@@ -15,29 +16,45 @@ function PostList() {
         filter: { frontmatter: { published: { eq: true } } }
       ) {
         nodes {
-          id
-          excerpt(pruneLength: 250)
+          body
           frontmatter {
             title
             date
+            formattedDate: date(formatString: "LLL", locale: "pt-BR")
           }
           fields {
             slug
+          }
+          wordCount {
+            words
           }
         }
       }
     }
   `);
 
-  return data.allMdx.nodes.map(({ id, frontmatter, fields, excerpt }) => (
-    <StyledPostList key={id}>
-      <h2>
-        <Link to={fields.slug}>{frontmatter.title}</Link>
-      </h2>
-      <p>{frontmatter.date}</p>
-      <p>{excerpt}</p>
+  return (
+    <StyledPostList>
+      {data.allMdx.nodes.map(
+        ({
+          frontmatter: { title, date, formattedDate },
+          fields: { slug },
+          wordCount: { words },
+          body,
+        }) => (
+          <Post
+            key={slug}
+            slug={slug}
+            title={title}
+            date={date}
+            formattedDate={formattedDate}
+            words={words}
+            body={body}
+          />
+        )
+      )}
     </StyledPostList>
-  ));
+  );
 }
 
 export default PostList;

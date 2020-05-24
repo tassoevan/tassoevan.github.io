@@ -1,35 +1,32 @@
-import { Link } from 'gatsby';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
 import React from 'react';
-import styled from 'styled-components';
 import SEO from '../components/SEO';
-import GlobalStyle from '../components/GlobalStyle';
+import Layout from '../components/Layout';
 import NavBar from '../components/NavBar';
-
-const StyledPost = styled.article`
-  max-width: 38em;
-  margin: 0 auto;
-`;
+import Post from '../components/Post';
 
 function PostTemplate({ data, pageContext }) {
   const {
-    frontmatter: { title, date },
+    frontmatter: { title, date, formattedDate },
     body,
+    wordCount: { words },
   } = data.mdx;
-  const { slug } = pageContext;
+  const { slug, next } = pageContext;
 
   return (
     <>
       <SEO title={title} />
-      <GlobalStyle />
-      <NavBar />
-      <StyledPost>
-        <h2>
-          <Link to={slug}>{title}</Link>
-        </h2>
-        <p>{date}</p>
-        <MDXRenderer>{body}</MDXRenderer>
-      </StyledPost>
+      <Layout>
+        <NavBar />
+        <Post
+          slug={slug}
+          title={title}
+          date={date}
+          formattedDate={formattedDate}
+          words={words}
+          body={body}
+          next={next}
+        />
+      </Layout>
     </>
   );
 }
@@ -43,6 +40,10 @@ export const query = graphql`
       frontmatter {
         title
         date
+        formattedDate: date(formatString: "LLL", locale: "pt-BR")
+      }
+      wordCount {
+        words
       }
     }
   }
