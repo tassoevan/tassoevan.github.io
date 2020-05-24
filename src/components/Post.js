@@ -15,7 +15,7 @@ const NextArticle = styled.footer`
 `;
 
 function Post({ title, date, formattedDate, body, words, slug, next }) {
-  const estimatedTimeReading = Math.round(words / 200);
+  const estimatedTimeReading = Math.max(1, Math.round(words / 200));
 
   return (
     <StyledPost>
