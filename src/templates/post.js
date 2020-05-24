@@ -8,14 +8,15 @@ import Post from '../components/Post';
 function PostTemplate({ data, pageContext }) {
   const {
     frontmatter: { title, date, formattedDate },
+    excerpt,
+    timeToRead,
     body,
-    wordCount: { words },
   } = data.mdx;
   const { slug, next } = pageContext;
 
   return (
     <>
-      <SEO title={title} />
+      <SEO title={title} description={excerpt} />
       <Layout>
         <NavBar />
         <Post
@@ -23,7 +24,7 @@ function PostTemplate({ data, pageContext }) {
           title={title}
           date={date}
           formattedDate={formattedDate}
-          words={words}
+          timeToRead={timeToRead}
           body={body}
           next={next}
         />
@@ -37,15 +38,14 @@ export default PostTemplate;
 export const query = graphql`
   query PostsBySlug($slug: String!) {
     mdx(fields: { slug: { eq: $slug } }) {
-      body
       frontmatter {
         title
         date
         formattedDate: date(formatString: "LLL", locale: "pt-BR")
       }
-      wordCount {
-        words
-      }
+      excerpt
+      timeToRead
+      body
     }
   }
 `;

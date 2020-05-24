@@ -14,9 +14,7 @@ const NextArticle = styled.footer`
   text-align: end;
 `;
 
-function Post({ title, date, formattedDate, body, words, slug, next }) {
-  const estimatedTimeReading = Math.max(1, Math.round(words / 200));
-
+function Post({ title, date, formattedDate, body, timeToRead, slug, next }) {
   return (
     <StyledPost>
       <header>
@@ -24,9 +22,8 @@ function Post({ title, date, formattedDate, body, words, slug, next }) {
           <Link to={slug}>{title}</Link>
         </h2>
         <div>
-          <time dateTime={date}>{formattedDate}</time> &middot;{' '}
-          {estimatedTimeReading}{' '}
-          {estimatedTimeReading === 1 ? 'minuto' : 'minutos'}
+          <time dateTime={date}>{formattedDate}</time> &middot; {timeToRead}{' '}
+          {timeToRead === 1 ? 'minuto' : 'minutos'}
         </div>
       </header>
       {body && (

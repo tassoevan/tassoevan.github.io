@@ -10,13 +10,12 @@ const StyledPostList = styled.div`
 
 function PostList() {
   const data = useStaticQuery(graphql`
-    query {
+    {
       allMdx(
         sort: { fields: frontmatter___date, order: DESC }
         filter: { frontmatter: { published: { eq: true } } }
       ) {
         nodes {
-          body
           frontmatter {
             title
             date
@@ -25,9 +24,8 @@ function PostList() {
           fields {
             slug
           }
-          wordCount {
-            words
-          }
+          timeToRead
+          body
         }
       }
     }
@@ -39,7 +37,7 @@ function PostList() {
         ({
           frontmatter: { title, date, formattedDate },
           fields: { slug },
-          wordCount: { words },
+          timeToRead,
           body,
         }) => (
           <Post
@@ -48,7 +46,7 @@ function PostList() {
             title={title}
             date={date}
             formattedDate={formattedDate}
-            words={words}
+            timeToRead={timeToRead}
             body={body}
           />
         )
