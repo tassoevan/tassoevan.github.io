@@ -1,10 +1,9 @@
 import { useStaticQuery, graphql } from 'gatsby';
 import React from 'react';
+import 'normalize.css';
 
 import Hero from '../components/Hero';
 import SEO from '../components/SEO';
-
-import '../reset.css';
 
 const IndexPage = () => {
   const {
@@ -18,7 +17,6 @@ const IndexPage = () => {
           siteMetadata {
             title
             description
-            author
           }
         }
       }
