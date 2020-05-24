@@ -3,14 +3,21 @@ import 'normalize.css';
 import 'sakura.css';
 
 import { useSiteMetadata } from '../hooks/useSiteMetadata';
+import { Link } from 'gatsby';
+import SEO from '../components/SEO';
 
 const IndexPage = () => {
   const { title, description } = useSiteMetadata();
 
   return (
     <>
-      <h1>{title}</h1>
-      <p>{description}</p>
+      <SEO title='Home' />
+      <header>
+        <Link to='/'>
+          <h1>{title}</h1>
+        </Link>
+        <p>{description}</p>
+      </header>
     </>
   );
 };
