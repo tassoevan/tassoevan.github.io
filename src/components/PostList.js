@@ -29,8 +29,8 @@ function PostList() {
     }
   `);
 
-  return data.allMdx.nodes.map(({ frontmatter, fields, excerpt }) => (
-    <StyledPostList>
+  return data.allMdx.nodes.map(({ id, frontmatter, fields, excerpt }) => (
+    <StyledPostList key={id}>
       <h2>
         <Link to={fields.slug}>{frontmatter.title}</Link>
       </h2>
