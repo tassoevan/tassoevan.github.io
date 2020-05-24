@@ -1,7 +1,9 @@
 module.exports = {
   siteMetadata: {
     title: 'Tasso & As Vozes',
-    description: 'Um lugar calmo e tranquilo onde dialogo com as vozes que habitam a minha cabeça',
+    description:
+      'Um lugar calmo e tranquilo onde dialogo com as vozes que habitam a minha cabeça',
+    lang: 'pt-BR',
     author: '@tassoevan',
   },
   plugins: [
@@ -14,7 +16,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${ __dirname }/posts`,
+        path: `${__dirname}/posts`,
         name: 'posts',
       },
     },
@@ -23,7 +25,7 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'images',
-        path: `${ __dirname }/src/images`,
+        path: `${__dirname}/src/images`,
       },
     },
     'gatsby-transformer-sharp',
@@ -32,7 +34,8 @@ module.exports = {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'Tasso & As Vozes',
-        description: 'Um lugar calmo e tranquilo onde dialogo com as vozes que habitam a minha cabeça',
+        description:
+          'Um lugar calmo e tranquilo onde dialogo com as vozes que habitam a minha cabeça',
         short_name: 'Tasso & As Vozes',
         start_url: '/',
         background_color: '#91d2fa',
