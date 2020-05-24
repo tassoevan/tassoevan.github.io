@@ -8,7 +8,8 @@ const StyledPost = styled.article`
   margin: 0 auto;
 `;
 
-const NextArticle = styled.div`
+const NextArticle = styled.footer`
+  border-top: 1pt dashed currentColor;
   text-align: right;
   text-align: end;
 `;
@@ -16,17 +17,18 @@ const NextArticle = styled.div`
 function Post({ title, date, formattedDate, body, words, slug, next }) {
   return (
     <StyledPost>
-      <h2>
-        <Link to={slug}>{title}</Link>
-      </h2>
-      <p>
-        <time dateTime={date}>{formattedDate}</time> &middot;{' '}
-        {Math.round(words / 200)} minutos
-      </p>
+      <header>
+        <h2>
+          <Link to={slug}>{title}</Link>
+        </h2>
+        <p>
+          <time dateTime={date}>{formattedDate}</time> &middot;{' '}
+          {Math.round(words / 200)} minutos
+        </p>
+      </header>
       {body && <MDXRenderer>{body}</MDXRenderer>}
       {next && (
         <NextArticle>
-          <hr />
           <Link to={next.slug}>{next.title}</Link>
         </NextArticle>
       )}
