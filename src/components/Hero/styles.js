@@ -4,9 +4,12 @@ import egoImage from '../../images/ego.jpg';
 
 export const Container = styled.section`
   background-color: hsl(270deg, 25%, 50%);
-  background-image:
-    linear-gradient(-45deg, hsla(225deg, 25%, 50%, 95%), hsl(270deg, 25%, 50%, 95%)),
-    url(${ egoImage });
+  background-image: linear-gradient(
+      -45deg,
+      hsla(225deg, 25%, 50%, 95%),
+      hsl(270deg, 25%, 50%, 95%)
+    ),
+    url(${egoImage});
   background-position: center center;
   background-size: cover;
   background-attachment: fixed;
@@ -19,8 +22,8 @@ export const Container = styled.section`
   justify-content: center;
 
   h1 {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 3rem;
     font-weight: bold;
     line-height: 1.25;
@@ -31,8 +34,8 @@ export const Container = styled.section`
   }
 
   p {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 1.5rem;
     font-weight: normal;
     line-height: 1.25;
