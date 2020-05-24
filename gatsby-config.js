@@ -1,11 +1,11 @@
 module.exports = {
   siteMetadata: {
     siteUrl: 'https://tassoevan.github.io',
+    lang: 'pt-BR',
     title: 'Tasso & As Vozes',
     description:
       'Um lugar calmo e tranquilo onde dialogo com as vozes que habitam a minha cabeça',
-    lang: 'pt-BR',
-    author: '@tassoevan',
+    twitterHandle: '@tassoevan',
   },
   plugins: [
     {
@@ -68,8 +68,6 @@ module.exports = {
                 ) {
                   edges {
                     node {
-                      excerpt
-                      html
                       fields {
                         slug
                       }
@@ -77,6 +75,8 @@ module.exports = {
                         title
                         date
                       }
+                      excerpt
+                      html
                     }
                   }
                 }
@@ -87,26 +87,22 @@ module.exports = {
         ],
       },
     },
-    'gatsby-plugin-react-helmet',
-    'gatsby-plugin-styled-components',
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'Tasso & As Vozes',
-        description:
-          'Um lugar calmo e tranquilo onde dialogo com as vozes que habitam a minha cabeça',
-        short_name: 'Tasso & As Vozes',
+        short_name: '@tassoevan',
+        lang: 'pt-BR',
         start_url: '/',
-        background_color: '#91d2fa',
-        theme_color: '#91d2fa',
+        background_color: '#ececec',
+        theme_color: '#ececec',
         display: 'minimal-ui',
-        icon: 'src/images/icon.png', // This path is relative to the root of the site.
+        icon: `${__dirname}/src/images/icon.svg`,
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-styled-components',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
   ],
 };

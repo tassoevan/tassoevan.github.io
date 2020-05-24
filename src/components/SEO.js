@@ -37,7 +37,7 @@ function SEO({ title, description, lang = 'en', meta = [] }) {
         },
         {
           name: 'twitter:creator',
-          content: siteMetadata.author,
+          content: siteMetadata.twitterHandle,
         },
         {
           name: 'twitter:title',
