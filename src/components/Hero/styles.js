@@ -1,5 +1,6 @@
-import styled from "styled-components"
-import egoImage from '../../images/ego.jpg'
+import styled from 'styled-components';
+
+import egoImage from '../../images/ego.jpg';
 
 export const Container = styled.section`
   background-color: hsl(270deg, 25%, 50%);
@@ -40,4 +41,4 @@ export const Container = styled.section`
     text-shadow: 0 0 0.25rem hsl(270deg, 25%, 25%);
     text-align: center;
   }
-`
+`;

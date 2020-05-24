@@ -1,10 +1,10 @@
-import React from "react"
+import { useStaticQuery, graphql } from 'gatsby';
+import React from 'react';
 
-import Hero from "../components/Hero"
-import SEO from "../components/SEO"
+import Hero from '../components/Hero';
+import SEO from '../components/SEO';
 
-import "../reset.css"
-import { useStaticQuery, graphql } from "gatsby"
+import '../reset.css';
 
 const IndexPage = () => {
   const {
@@ -23,15 +23,15 @@ const IndexPage = () => {
         }
       }
     `
-  )
+  );
 
   return (
     <Hero>
-      <SEO title="Home" />
+      <SEO title='Home' />
       <h1>{title}</h1>
       <p>{description}</p>
     </Hero>
-  )
-}
+  );
+};
 
-export default IndexPage
+export default IndexPage;
