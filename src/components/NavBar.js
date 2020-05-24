@@ -7,6 +7,7 @@ const StyledNavBar = styled.nav`
   h1 {
     font-size: 1em;
     font-weight: normal;
+    margin: 0;
   }
 `;
 

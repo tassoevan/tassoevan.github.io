@@ -26,7 +26,6 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
-    "sakura.css": "^1.2.0",
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
