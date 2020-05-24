@@ -8,12 +8,704 @@ body{font-family:"Lucida Sans Typewriter","Lucida Console",Monaco,"Bitstream Ver
 /* sc-component-id: Post__StyledPost-sc-22n9ff-0 */
 .gLqRHV{max-width:38em;margin:0 auto;}
 /* sc-component-id: PostList__StyledPostList-sc-1omc6sf-0 */
-.emtJe{max-width:38em;margin:0 auto;}</style><link rel="icon" href="/favicon-32x32.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="manifest" href="/manifest.webmanifest"/><meta name="theme-color" content="#91d2fa"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link as="script" rel="preload" href="/webpack-runtime-747ae4aeabac7a5f887e.js"/><link as="script" rel="preload" href="/framework-dd95e8b3d258d85252e9.js"/><link as="script" rel="preload" href="/app-a775f5fe01c6374a94d4.js"/><link as="script" rel="preload" href="/styles-823ae8103e36ae8a7f9f.js"/><link as="script" rel="preload" href="/commons-e827d239f9a23482f6e0.js"/><link as="script" rel="preload" href="/component---src-pages-index-js-79395609861504fb0a10.js"/><link as="fetch" rel="preload" href="/page-data/index/page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><h1 class="Layout__BodyTitle-ivn37c-0 fVazzd">Tasso &amp; As Vozes</h1><section class="Header__StyledHeader-sc-1s29xin-0 hZJxgU"><h1><a aria-current="page" class="" href="/">Tasso &amp; As Vozes</a></h1><p>Um lugar calmo e tranquilo onde dialogo com as vozes que habitam a minha cabeça</p></section><div class="PostList__StyledPostList-sc-1omc6sf-0 emtJe"><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2020-05-24/notas-sobre-the-great-coffeescript-to-typescript-migration-of-2017/">Notas sobre &quot;The Great CoffeeScript to Typescript Migration of 2017&quot;</a></h2><div><time dateTime="2020-05-23T22:01:01.000Z">23 de maio de 2020 às 22:01</time> ·<!-- --> <!-- -->6<!-- --> <!-- -->minutos</div></header><article><p>Fonte: <a href="https://dropbox.tech/frontend/the-great-coffeescript-to-typescript-migration-of-2017">https://dropbox.tech/frontend/the-great-coffeescript-to-typescript-migration-of-2017</a></p><h2>Pré-história: adoção de CoffeeScript</h2><ul><li>Em 2012, o Dropbox era uma startup com 150 funcionários.</li><li>ES5 e jQuery dominavam o desenvolvimento JavaScript.</li><li>A codebase consistia de cerca de 100 mil linhas de JavaScript empacotada por simples concatenação de arquivos.</li><li>Dois engenheiros migraram tudo para CoffeeScript em uma semana.</li><li>Em 2013, adotaram o sistema de módulos RequireJS (AMD) já que CommonJS era restrita a Node e, portanto, não projetada para uso no browser.</li></ul><h2>Rumores de uma mudança de linguagem</h2><ul><li>Ao final de 2015, ES6 já tinha mais funcionalidades que CoffeeScript.</li><li>Alguns times começaram a adotar ES6 em projetos isolados.</li><li>A codebase era difícil de manter pois as técnicas de codificação defensiva eram insuficientes e prejudicavam a legibilidade do código.</li><li>Por CoffeeScript ser menos estrita que Python no uso de whitespaces, alguns engenheiros verificavam manualmente o código JavaScript gerado; é citado um bug sério no outono de 2013 causado por um espaço em branco mal-posicionado.</li><li>Uma pesquisa interna em novembro de 2015 verificou que 62% dos desenvolvedores gostariam de mudar a linguagem utilizada.</li><li>Problemas com CoffeeScript apontados:<ul><li>Falta de delimitadores</li><li><em>Syntactic sugar</em> muito opinativo</li><li>Falta de suporte da comunidade</li><li>Leitura difícil pois a sintaxe é muito densa</li><li>Sujeita a erros por causa de ambiguidades sintáticas</li></ul></li><li>O ferramental de TypeScript parecia melhor que vanilla ES6 + Flow no final de 2015.</li><li>No primeiro semestre de 2016, um engenheiro integrou Babel e TypeScript.</li><li>Tanto o time quanto a codebase (330 mil linhas) haviam crescido significativamente para uma migração indolor.</li></ul><h2>Um plano de migração otimista</h2><ul><li>Foram estabelecidas cinco <em>milestones</em> a serem cumpridas até julho de 2017:
+.emtJe{max-width:38em;margin:0 auto;}</style><link rel="icon" href="/favicon-32x32.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="manifest" href="/manifest.webmanifest"/><meta name="theme-color" content="#91d2fa"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=42ab339d2b4e0c60236ff892cb3a4d78"/><link as="script" rel="preload" href="/webpack-runtime-08890156da19b62d5c7d.js"/><link as="script" rel="preload" href="/framework-dd95e8b3d258d85252e9.js"/><link as="script" rel="preload" href="/app-a775f5fe01c6374a94d4.js"/><link as="script" rel="preload" href="/styles-823ae8103e36ae8a7f9f.js"/><link as="script" rel="preload" href="/commons-79a61cc901bd4d56755a.js"/><link as="script" rel="preload" href="/component---src-pages-index-js-0a7ed916fa74fe9f9085.js"/><link as="fetch" rel="preload" href="/page-data/index/page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><h1 class="Layout__BodyTitle-ivn37c-0 fVazzd">Tasso &amp; As Vozes</h1><section class="Header__StyledHeader-sc-1s29xin-0 hZJxgU"><h1><a aria-current="page" class="" href="/">Tasso &amp; As Vozes</a></h1><p>Um lugar calmo e tranquilo onde dialogo com as vozes que habitam a minha cabeça</p></section><div class="PostList__StyledPostList-sc-1omc6sf-0 emtJe"><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2020-05-24/notas-sobre-the-great-coffeescript-to-typescript-migration-of-2017/">Notas sobre &quot;The Great CoffeeScript to Typescript Migration of 2017&quot;</a></h2><div><time dateTime="2020-05-23T22:01:01.000Z">23 de maio de 2020 às 22:01</time> ·<!-- --> <!-- -->6<!-- --> <!-- -->minutos</div></header><article><p>Fonte: <a href="https://dropbox.tech/frontend/the-great-coffeescript-to-typescript-migration-of-2017">https://dropbox.tech/frontend/the-great-coffeescript-to-typescript-migration-of-2017</a></p><h2>Pré-história: adoção de CoffeeScript</h2><ul><li>Em 2012, o Dropbox era uma startup com 150 funcionários.</li><li>ES5 e jQuery dominavam o desenvolvimento JavaScript.</li><li>A codebase consistia de cerca de 100 mil linhas de JavaScript empacotada por simples concatenação de arquivos.</li><li>Dois engenheiros migraram tudo para CoffeeScript em uma semana.</li><li>Em 2013, adotaram o sistema de módulos RequireJS (AMD) já que CommonJS era restrita a Node e, portanto, não projetada para uso no browser.</li></ul><h2>Rumores de uma mudança de linguagem</h2><ul><li>Ao final de 2015, ES6 já tinha mais funcionalidades que CoffeeScript.</li><li>Alguns times começaram a adotar ES6 em projetos isolados.</li><li>A codebase era difícil de manter pois as técnicas de codificação defensiva eram insuficientes e prejudicavam a legibilidade do código.</li><li>Por CoffeeScript ser menos estrita que Python no uso de whitespaces, alguns engenheiros verificavam manualmente o código JavaScript gerado; é citado um bug sério no outono de 2013 causado por um espaço em branco mal-posicionado.</li><li>Uma pesquisa interna em novembro de 2015 verificou que 62% dos desenvolvedores gostariam de mudar a linguagem utilizada.</li><li>Problemas com CoffeeScript apontados:<ul><li>Falta de delimitadores</li><li><em>Syntactic sugar</em> muito opinativo</li><li>Falta de suporte da comunidade</li><li>Leitura difícil pois a sintaxe é muito densa</li><li>Sujeita a erros por causa de ambiguidades sintáticas</li></ul></li><li>O ferramental de TypeScript parecia melhor que vanilla ES6 + Flow no final de 2015.</li><li>No primeiro semestre de 2016, um engenheiro integrou Babel e TypeScript.</li><li>Tanto o time quanto a codebase (330 mil linhas) haviam crescido significativamente para uma migração indolor.</li></ul><h2>Um plano de migração otimista</h2><ul><li>Foram estabelecidas cinco <em>milestones</em> a serem cumpridas até julho de 2017:
 M1. Suporte básico a TypeScript com interoperabilidade com CoffeeScript e ferramentas de i18n, lint e testes;
 M2. Documentar boas práticas e guias de migração e migrar as principais bibliotecas e módulos para TypeScript ser a linguagem padrão de desenvolvimento;
 M3. Consolidar a <em>milestone</em> anterior migrando o restante de módulos e bibliotecas;
 M4. Migrar os arquivos mais modificados ao longo do tempo no projeto;
-M5. Remover o compilador de CoffeeScript.</li><li>M1, M2 e M3 foram executadas no segundo semestre de 2016.</li><li>M4 e M5 foram mais problemáticas; esperava-se que o código ficaria a cargo dos times que o desenvolveram originalmente.</li><li>20% do time de produto foi alocado para trabalhar nas &quot;fundações&quot; da codebase.</li></ul><h2>Interoperabilidade de CoffeeScript/TypeScript</h2><ul><li>Para cada arquivo de CoffeeScript (<code>*.coffee</code>), foi criado um arquivo de declarações (<code>*.d.ts</code>) exportando os módulos como <code>any</code>.</li><li>Módulos em TS com <code>export default value;</code> eram importados nos módulos AMD como objetos do tipo <code>{ default: value }</code>; named exports foram migrados com poucos problemas.</li><li>Em módulos cujos exports eram dinamicamente determinados, exportou-se todos os identificadores possíveis mas com valores <code>undefined</code> dinamicamente determinados.</li></ul><h2>Banindo novos arquivos em CoffeeScript</h2><ul><li>Foi criado um teste automático para barrar a adição de novos arquivos.</li><li>Este teste quebrou quando uma migração paralela para <a href="https://bazel.build/">Bazel</a> como sistema de build foi executada, pois a lista de arquivos <code>*.coffee</code> estava vazia.</li><li>Como aprendizado, testes passaram a fazer asserções em suposições (neste caso, de que a lista nunca seria vazia).</li><li>A redução da <em>whitelist</em> de arquivos permitidos gerava pequenos atrasos no code review.</li></ul><h2>Experiência inicial: não perdemos o <em>syntactic sugar</em> do CoffeeScript</h2><ul><li>A perda de <em>optional chaining</em> e <em>nullish coalescing</em> foi compensada com a adição de tipagem.</li></ul><h2>Prioridades concorrentes</h2><ul><li>No final de 2016, foi criado um time para redesign e reescrita do website em React (&quot;Maestro&quot;).</li><li>O time do Maestro não conseguiu cumprir o prazo do primeiro trimestre, entregando ao término do segundo o projeto completo em React e TypeScript.</li><li>A lista de arquivos que deveria ser eliminada na M4 estagnou em 100 arquivos, mas na prática ainda haviam 2000 arquivos em CoffeeScript com manutenção constante.</li></ul><h2>Adiando a M5</h2><ul><li>Interpretou-se erroneamente que os scripts restantes deveriam ser substituídos pelos arquivos compilados, causando problemas com lint e i18n.</li><li>Não ficou claro que o objetivo da M5 era reduzir o custo (já pago) de manter o ferramental de CoffeeScript e TypeScript.</li><li>A migração perdeu seu ETA.</li><li>A estimativa inicial da migração era de 1000 linhas por dia demandando um ano de trabalho de um único engenheiro; na prática, 100 linhas por dia eram convertidas, significando um tempo de 10 anos ou o trabalho de 10 engenheiros em um ano.</li><li>Não havia clareza sobre o que era o trabalho &quot;fundamental&quot; que demandaria 20% do time: se infraestrutura ou pagamento de dívida técnica.</li><li>Uma migração de sistemas em produção para uma nova distribuição do Ubuntu tomou boa parte da mão-de-obra de infraestrutura.</li></ul><h2>Um novo plano com <code>decaffeinate</code></h2><ul><li>Em janeiro de 2017, foi sugerido o uso de <code>decaffeinate</code> para as conversões.</li><li>Uma função de ordenação com i18n não-testada quebrou completamente uma página no browser Safari.</li><li>A longa lista de bugs semelhantes no <code>decaffeinate</code> obrigou se adotar uma conversão mista (manual e automática) que eventualmente ocasiona erros a nível de semântica do código.</li><li>Seis meses depois, <code>decaffeinate</code> parecia suficientemente maduro em comparação à conversão manual.</li><li>O time entrou em acordo: TypeScript apenas com o tipo <code>any</code> era preferível a CoffeeScript não-tipado e habilitaria os times a introduzirem tipos no seu próprio ritmo.</li></ul><h2>Um plano em duas fases</h2><ul><li>A pipeline de migração de código consistia de múltiplas etapas:<ol><li>Conversão para JavaScript ES6;</li><li>Transformações com <code>codemod</code>, especialmente de funções com binding para <em>arrow functions</em>;</li><li>Transformação da API legada de React para JSX;</li><li>Conversão de AMD para módulos ES (especial cuidado com exports);</li><li>Anotação de parâmetros de função com <code>any</code>;</li><li>Adição de declaração de membros de classes;</li><li>Anotação de componentes com tipos específicos de React;</li><li>Adição de comentário explicado como olhar o código CoffeeScript original através do <code>git</code>;</li></ol></li><li>A etapa final de correção dos tipos envolveu escrever scripts para interpretar os erros vindos do <em>type checking</em> e aplicar as correções automaticamente.</li></ul><h2>Mantendo o foco</h2><ul><li>O compromisso de manter uma ferramenta suficientemente boa tornou trivial resolver manualmente problemas como variáveis mortas.</li><li>Agrupar a quantidade de erros do <code>tsc</code> por código de erro gerou uma métrica para a migração e confiança de que estavam na direção correta.</li><li>A taxa de erros por arquivo ficou entre 0,5 e 1.</li></ul><h2>Ganhando confiança nas suas ferramentas</h2><ul><li>Bugs pré-existentes eram capturados rodando testes antes e após as conversões.</li><li>Se um erro ocorria em muitos lugares, uma asserção era adicionada à pipeline de migração em vez de realizar correção manual.</li><li>Um bug notável destes é relacionado a CoffeeScript não ter suporte a <em>variable shadowing</em>.</li><li>O código foi inteiramente portado para o <em>strict mode</em> sem problemas como atribuição em propriedades <em>read-only</em>.</li><li>As primeiras conversões em massa foram feitas nos testes automáticos.</li><li>Uma boa configuração do <a href="https://www.youtube.com/watch?v=muvU1DYrY0w">itest</a> permitia checar rapidamente quais modificações eram a origem dos problemas.</li><li>Foi importante ter rigor na escrita das traduções de código, cobrindo todos os <em>corner cases</em> e explicitando quais casos eram ignorados.</li></ul><h2>A última parte</h2><ul><li>Nas últimas semanas as ferramentas eram capazes de converter entre 100 e 200 arquivos numa única passagem.</li><li>Um dos truques para iterar rapidamente é rodar o <em>typecheck</em> incremental (<code>tsc --noEmit --watch</code>).</li><li>O número de arquivos em CoffeeScript era mantido atualizado num quadro branco.</li><li>Apenas dois bugs entraram em produção.</li><li>Ao time mais resistente à mudança foi prometido que erros ficariam a cargo dos engenheiros envolvidos na migração.</li><li>Ao se admitir como produto um código TypeScript não-idiomático, foram gastos 2 meses de trabalho de três engenheiros (cerca de 19 engenheiros-semana).</li><li>&quot;Nós devemos economizar nosso capital político e organizacional com trabalhos que não podemos automatizar para todos&quot;; assim, a conversão manual foi descartada.</li><li>Atualmente, o time da Dropbox mantém 2kk linhas de TypeScript.</li></ul></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2020-05-23/uma-sugestao-para-simular-um-e-paper/">Uma sugestão para simular um e-paper</a></h2><div><time dateTime="2020-05-23T01:39:51.000Z">23 de maio de 2020 às 01:39</time> ·<!-- --> <!-- -->1<!-- --> <!-- -->minuto</div></header><article><p>É necessário o alinhamento de software e hardware para ficar perfeito, mas utilizar apenas um deles já confere uma boa aproximação do efeito desejado.</p><h2>Software</h2><p>O fundo deve ser um tom de cinza claro como <code>rgb(236, 236, 236)</code> ou mais claro, enquanto a cor do texto deve ser 25% a 30% mais clara que o preto.</p><p>A fonte de corpo de texto deve ter uma aparência suave. Há uma preferência para fontes serifadas porém acredito que isto não deveria ser uma regra geral. A tipografia deve acompanhar o significado que o texto transmite onde é possível ser determinado e definida pelo leitor/usuário quando não é inferível o tom de voz do texto. Particularmente acredito que fontes serifadas são ótimas para textos de estrutura mais linear -- como ficções e artigos com poucos recursos gráficos. Uma fonte mono-espaçada seria aconselhável quando o texto deve ser <em>escaneado</em> pelo leitor, e.g., tabelas de dados e índices.</p><p>O espaçamento de linha ideal está entre 125% e 150% do tamanho da fonte. Em geral, uma margem mínima de 10pt em todas as direções de qualquer bloco de texto é suficiente para demarcar as divisões semânticas do texto.</p><h2>Hardware</h2><p>Uma película protetora anti-reflexiva combinada com a variação de brilho entre 45% para interiores e 75% para iluminação exterior.</p></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2020-05-23/dark-mode-nao-adaptativo-uma-escolha-puramente-estetica/">Dark mode não-adaptativo: uma escolha puramente estética</a></h2><div><time dateTime="2020-05-22T23:55:25.000Z">22 de maio de 2020 às 23:55</time> ·<!-- --> <!-- -->1<!-- --> <!-- -->minuto</div></header><article><p>Advoga-se por aí que todas as interfaces digitais devem ao menos prover um modo escuro, o famigerado <em>dark mode</em>. Não sei ao certo a origem dessa &quot;necessidade&quot; pós-2018, mas não é difícil conjecturar que deva ter surgido no meio do desenvolvimento de software. A justificativa? Descanso visual por uso prolongado de displays.</p><p>Acredito que a necessidade real seja outra; me baseio na escolha que muitos conhecidos fotossensíveis têm por trabalhar em ambientes escuros apesar de usar displays com nível de brilho alto, o que, além de destruir o ciclo circadiano, causa cansaço da musculatura complexa dos olhos.</p><p>O descanso deve ser para outro órgão: o cérebro do programador, que deve interpretar sintaticamente blocos de texto diferenciando palavras-chaves, identificadores, delimitadores, literais. O modo escuro seria um acessório ao realce de sintaxe, uma vez que o texto colorido é melhor diferenciado contra um fundo preto ou cinza escuro.</p><p>Para textos lineares, como os de literatura ou com poucos elementos gráficos e tópicos, tons de sépia e tons simulando o e-ink são muito mais adequados para relaxamento visual. Desta forma, o modo do tema deveria ser adaptativo ao conteúdo, mas ainda prefere-se que ele seja definido pelo contexto, como as cores do sistema ou o modo noturno.</p></article></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script>
+M5. Remover o compilador de CoffeeScript.</li><li>M1, M2 e M3 foram executadas no segundo semestre de 2016.</li><li>M4 e M5 foram mais problemáticas; esperava-se que o código ficaria a cargo dos times que o desenvolveram originalmente.</li><li>20% do time de produto foi alocado para trabalhar nas &quot;fundações&quot; da codebase.</li></ul><h2>Interoperabilidade de CoffeeScript/TypeScript</h2><ul><li>Para cada arquivo de CoffeeScript (<code>*.coffee</code>), foi criado um arquivo de declarações (<code>*.d.ts</code>) exportando os módulos como <code>any</code>.</li><li>Módulos em TS com <code>export default value;</code> eram importados nos módulos AMD como objetos do tipo <code>{ default: value }</code>; named exports foram migrados com poucos problemas.</li><li>Em módulos cujos exports eram dinamicamente determinados, exportou-se todos os identificadores possíveis mas com valores <code>undefined</code> dinamicamente determinados.</li></ul><h2>Banindo novos arquivos em CoffeeScript</h2><ul><li>Foi criado um teste automático para barrar a adição de novos arquivos.</li><li>Este teste quebrou quando uma migração paralela para <a href="https://bazel.build/">Bazel</a> como sistema de build foi executada, pois a lista de arquivos <code>*.coffee</code> estava vazia.</li><li>Como aprendizado, testes passaram a fazer asserções em suposições (neste caso, de que a lista nunca seria vazia).</li><li>A redução da <em>whitelist</em> de arquivos permitidos gerava pequenos atrasos no code review.</li></ul><h2>Experiência inicial: não perdemos o <em>syntactic sugar</em> do CoffeeScript</h2><ul><li>A perda de <em>optional chaining</em> e <em>nullish coalescing</em> foi compensada com a adição de tipagem.</li></ul><h2>Prioridades concorrentes</h2><ul><li>No final de 2016, foi criado um time para redesign e reescrita do website em React (&quot;Maestro&quot;).</li><li>O time do Maestro não conseguiu cumprir o prazo do primeiro trimestre, entregando ao término do segundo o projeto completo em React e TypeScript.</li><li>A lista de arquivos que deveria ser eliminada na M4 estagnou em 100 arquivos, mas na prática ainda haviam 2000 arquivos em CoffeeScript com manutenção constante.</li></ul><h2>Adiando a M5</h2><ul><li>Interpretou-se erroneamente que os scripts restantes deveriam ser substituídos pelos arquivos compilados, causando problemas com lint e i18n.</li><li>Não ficou claro que o objetivo da M5 era reduzir o custo (já pago) de manter o ferramental de CoffeeScript e TypeScript.</li><li>A migração perdeu seu ETA.</li><li>A estimativa inicial da migração era de 1000 linhas por dia demandando um ano de trabalho de um único engenheiro; na prática, 100 linhas por dia eram convertidas, significando um tempo de 10 anos ou o trabalho de 10 engenheiros em um ano.</li><li>Não havia clareza sobre o que era o trabalho &quot;fundamental&quot; que demandaria 20% do time: se infraestrutura ou pagamento de dívida técnica.</li><li>Uma migração de sistemas em produção para uma nova distribuição do Ubuntu tomou boa parte da mão-de-obra de infraestrutura.</li></ul><h2>Um novo plano com <code>decaffeinate</code></h2><ul><li>Em janeiro de 2017, foi sugerido o uso de <code>decaffeinate</code> para as conversões.</li><li>Uma função de ordenação com i18n não-testada quebrou completamente uma página no browser Safari.</li><li>A longa lista de bugs semelhantes no <code>decaffeinate</code> obrigou se adotar uma conversão mista (manual e automática) que eventualmente ocasiona erros a nível de semântica do código.</li><li>Seis meses depois, <code>decaffeinate</code> parecia suficientemente maduro em comparação à conversão manual.</li><li>O time entrou em acordo: TypeScript apenas com o tipo <code>any</code> era preferível a CoffeeScript não-tipado e habilitaria os times a introduzirem tipos no seu próprio ritmo.</li></ul><h2>Um plano em duas fases</h2><ul><li>A pipeline de migração de código consistia de múltiplas etapas:<ol><li>Conversão para JavaScript ES6;</li><li>Transformações com <code>codemod</code>, especialmente de funções com binding para <em>arrow functions</em>;</li><li>Transformação da API legada de React para JSX;</li><li>Conversão de AMD para módulos ES (especial cuidado com exports);</li><li>Anotação de parâmetros de função com <code>any</code>;</li><li>Adição de declaração de membros de classes;</li><li>Anotação de componentes com tipos específicos de React;</li><li>Adição de comentário explicado como olhar o código CoffeeScript original através do <code>git</code>;</li></ol></li><li>A etapa final de correção dos tipos envolveu escrever scripts para interpretar os erros vindos do <em>type checking</em> e aplicar as correções automaticamente.</li></ul><h2>Mantendo o foco</h2><ul><li>O compromisso de manter uma ferramenta suficientemente boa tornou trivial resolver manualmente problemas como variáveis mortas.</li><li>Agrupar a quantidade de erros do <code>tsc</code> por código de erro gerou uma métrica para a migração e confiança de que estavam na direção correta.</li><li>A taxa de erros por arquivo ficou entre 0,5 e 1.</li></ul><h2>Ganhando confiança nas suas ferramentas</h2><ul><li>Bugs pré-existentes eram capturados rodando testes antes e após as conversões.</li><li>Se um erro ocorria em muitos lugares, uma asserção era adicionada à pipeline de migração em vez de realizar correção manual.</li><li>Um bug notável destes é relacionado a CoffeeScript não ter suporte a <em>variable shadowing</em>.</li><li>O código foi inteiramente portado para o <em>strict mode</em> sem problemas como atribuição em propriedades <em>read-only</em>.</li><li>As primeiras conversões em massa foram feitas nos testes automáticos.</li><li>Uma boa configuração do <a href="https://www.youtube.com/watch?v=muvU1DYrY0w">itest</a> permitia checar rapidamente quais modificações eram a origem dos problemas.</li><li>Foi importante ter rigor na escrita das traduções de código, cobrindo todos os <em>corner cases</em> e explicitando quais casos eram ignorados.</li></ul><h2>A última parte</h2><ul><li>Nas últimas semanas as ferramentas eram capazes de converter entre 100 e 200 arquivos numa única passagem.</li><li>Um dos truques para iterar rapidamente é rodar o <em>typecheck</em> incremental (<code>tsc --noEmit --watch</code>).</li><li>O número de arquivos em CoffeeScript era mantido atualizado num quadro branco.</li><li>Apenas dois bugs entraram em produção.</li><li>Ao time mais resistente à mudança foi prometido que erros ficariam a cargo dos engenheiros envolvidos na migração.</li><li>Ao se admitir como produto um código TypeScript não-idiomático, foram gastos 2 meses de trabalho de três engenheiros (cerca de 19 engenheiros-semana).</li><li>&quot;Nós devemos economizar nosso capital político e organizacional com trabalhos que não podemos automatizar para todos&quot;; assim, a conversão manual foi descartada.</li><li>Atualmente, o time da Dropbox mantém 2kk linhas de TypeScript.</li></ul></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2020-05-23/uma-sugestao-para-simular-um-e-paper/">Uma sugestão para simular um e-paper</a></h2><div><time dateTime="2020-05-23T01:39:51.000Z">23 de maio de 2020 às 01:39</time> ·<!-- --> <!-- -->1<!-- --> <!-- -->minuto</div></header><article><p>É necessário o alinhamento de software e hardware para ficar perfeito, mas utilizar apenas um deles já confere uma boa aproximação do efeito desejado.</p><h2>Software</h2><p>O fundo deve ser um tom de cinza claro como <code>rgb(236, 236, 236)</code> ou mais claro, enquanto a cor do texto deve ser 25% a 30% mais clara que o preto.</p><p>A fonte de corpo de texto deve ter uma aparência suave. Há uma preferência para fontes serifadas porém acredito que isto não deveria ser uma regra geral. A tipografia deve acompanhar o significado que o texto transmite onde é possível ser determinado e definida pelo leitor/usuário quando não é inferível o tom de voz do texto. Particularmente acredito que fontes serifadas são ótimas para textos de estrutura mais linear -- como ficções e artigos com poucos recursos gráficos. Uma fonte mono-espaçada seria aconselhável quando o texto deve ser <em>escaneado</em> pelo leitor, e.g., tabelas de dados e índices.</p><p>O espaçamento de linha ideal está entre 125% e 150% do tamanho da fonte. Em geral, uma margem mínima de 10pt em todas as direções de qualquer bloco de texto é suficiente para demarcar as divisões semânticas do texto.</p><h2>Hardware</h2><p>Uma película protetora anti-reflexiva combinada com a variação de brilho entre 45% para interiores e 75% para iluminação exterior.</p></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2020-05-23/dark-mode-nao-adaptativo-uma-escolha-puramente-estetica/">Dark mode não-adaptativo: uma escolha puramente estética</a></h2><div><time dateTime="2020-05-22T23:55:25.000Z">22 de maio de 2020 às 23:55</time> ·<!-- --> <!-- -->1<!-- --> <!-- -->minuto</div></header><article><p>Advoga-se por aí que todas as interfaces digitais devem ao menos prover um modo escuro, o famigerado <em>dark mode</em>. Não sei ao certo a origem dessa &quot;necessidade&quot; pós-2018, mas não é difícil conjecturar que deva ter surgido no meio do desenvolvimento de software. A justificativa? Descanso visual por uso prolongado de displays.</p><p>Acredito que a necessidade real seja outra; me baseio na escolha que muitos conhecidos fotossensíveis têm por trabalhar em ambientes escuros apesar de usar displays com nível de brilho alto, o que, além de destruir o ciclo circadiano, causa cansaço da musculatura complexa dos olhos.</p><p>O descanso deve ser para outro órgão: o cérebro do programador, que deve interpretar sintaticamente blocos de texto diferenciando palavras-chaves, identificadores, delimitadores, literais. O modo escuro seria um acessório ao realce de sintaxe, uma vez que o texto colorido é melhor diferenciado contra um fundo preto ou cinza escuro.</p><p>Para textos lineares, como os de literatura ou com poucos elementos gráficos e tópicos, tons de sépia e tons simulando o e-ink são muito mais adequados para relaxamento visual. Desta forma, o modo do tema deveria ser adaptativo ao conteúdo, mas ainda prefere-se que ele seja definido pelo contexto, como as cores do sistema ou o modo noturno.</p></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2015-08-14/instalando-o-composer-com-o-composer/">Instalando o Composer... com o Composer</a></h2><div><time dateTime="2015-08-14T20:00:00.000Z">14 de agosto de 2015 às 20:00</time> ·<!-- --> <!-- -->1<!-- --> <!-- -->minuto</div></header><article><p>Não apenas o Composer, mas uma série de ferramentas para desenvolvimento em PHP pode ser mantida atualizada utilizando o próprio Composer. Uma vez que se assume que essas ferramentas são utilizadas em todos os projetos, muitas vezes a adição delas como dependência de desenvolvimento (e.g <code>composer require --dev phpunit/phunit</code>) torna-se desnecessária projeto a projeto, podendo ser instalada <strong>globalmente</strong>. Aqui vai a sequência de passos – realizadas numa máquina com Ubuntu – que demonstra como isso é possível:</p><ol><li><p>Faça download do arquivo <a href="https://getcomposer.org/composer.phar">https://getcomposer.org/composer.phar</a>.</p><pre><code class="language-sh">$ wget https://getcomposer.org/composer.phar
+</code></pre></li><li><p>Instale o Composer como dependência global com o próprio Composer.</p><pre><code class="language-sh">$ php composer.phar global require --dev composer/composer
+</code></pre></li><li><p>Adicione o diretório global de binários à variável PATH. No Ubuntu, isso pode ser feito adicionando a seguinte linha ao arquivo <code>~/.bashrc</code></p><pre><code>export PATH=&quot;$HOME/.composer/vendor/bin:$PATH&quot;
+</code></pre></li><li><p>Remova o arquivo PHAR – não é mais necessário.</p><pre><code class="language-sh">$ rm composer.phar
+</code></pre></li></ol><p>Pronto. O comando <code>composer</code> já está disponível, mas sem o comando <code>self-update</code> embutido. Para atualizá-lo (junto com outros binários instalados), basta executar:</p><pre><code class="language-sh">$ composer global update
+</code></pre></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2015-06-06/como-instalar-e-usar-o-composer/">Como instalar e usar o Composer?</a></h2><div><time dateTime="2015-06-06T05:30:00.000Z">6 de junho de 2015 às 05:30</time> ·<!-- --> <!-- -->2<!-- --> <!-- -->minutos</div></header><article><p>Em projetos PHP atuais, é praticamente impossível um desenvolvedor fazer tudo do zero. Sempre existe um framework, uma library (biblioteca de código) ou até uma &quot;funçãozinha&quot; que outros devs escreveram e que nós utilizamos para entregar tudo dentro de prazos.</p><p>Alguns exemplos? <a href="http://laravel.com/">Laravel</a>, <a href="http://framework.zend.com/">Zend Framework</a>, <a href="http://www.yiiframework.com/">Yii</a>, <a href="https://symfony.com/">Symfony</a>, <a href="http://climate.thephpleague.com/">Climate</a> etc.</p><p>Cada vez que utilizamos algo do tipo, estamos gerando uma <em>dependência</em> no projeto. Para que a nossa aplicação funcione, todas as dependências devem <em>ser resolvidas</em>, isto é, o código delas deve estar acessível.</p><h1>O que é?</h1><p>O <a href="https://getcomposer.org/">Composer</a> é um <em>gerenciador de dependências</em> escrito em e escrito para PHP. Através dele, todas as dependências de um projeto são baixadas da Internet automaticamente na forma de <em>pacotes</em> e corretamente disponibilizadas num diretório. Inclusive com direito a autoloader.</p><h1>Como instalar?</h1><p>O Composer é disponibilizado como um arquivo PHAR (PHP archive) simples, mas para evitar múltiplas cópias dele espalhadas por aí, o ideal é instalá-lo globalmente.</p><h2>Debian/Ubuntu/Linux Mint</h2><p>Se a ferramenta de linha de comando do PHP não está instalada,</p><pre><code class="language-sh">$ sudo apt-get install php5-cli
+</code></pre><p>Então instalar é fácil como digitar no terminal isto:</p><pre><code>$ php -r &quot;readfile(&#x27;https://getcomposer.org/installer&#x27;);&quot; | sudo php -- --install-dir=/usr/bin --filename=composer
+</code></pre><p>Para mais detalhes, consulte: <a href="http://getcomposer.org/doc/00-intro.md#installation-nix">http://getcomposer.org/doc/00-intro.md#installation-nix</a></p><h2>Windows</h2><p>Baixe e execute o <a href="https://getcomposer.org/Composer-Setup.exe">instalador oficial</a>.</p><p>Para mais detalhes, consulte: <a href="http://getcomposer.org/doc/00-intro.md#installation-windows">http://getcomposer.org/doc/00-intro.md#installation-windows</a></p><h1>Como descrevar as dependências?</h1><p>Para começar, você precisa descrever quais são as dependências do seu projeto em algum lugar. Isso é feito no arquivo <code>composer.json</code>, que agora também deve fazer parte do seu código. Como a extensão sugere, ele deve ter um conteúdo JSON válido. Vamos começar com um arquivo simples:</p><pre><code class="language-json">{
+  &quot;name&quot;: &quot;minha-empresa/meu-projeto&quot;,
+  &quot;description&quot;: &quot;Meu primeiro projeto com Composer&quot;,
+  &quot;license&quot;: &quot;proprietary&quot;
+}
+</code></pre><p>Os itens <code>name</code> e <code>description</code> são obrigatórios e <code>license</code> é recomendado. Você pode verificar se tudo está ok executando o comando:</p><pre><code class="language-sh">$ composer validate
+./composer.json is valid
+</code></pre><p>Agora podemos adicionar algumas dependências.</p><pre><code class="language-json">{
+  &quot;name&quot;: &quot;minha-empresa/meu-projeto&quot;,
+  &quot;description&quot;: &quot;Meu primeiro projeto com Composer&quot;,
+  &quot;license&quot;: &quot;proprietary&quot;,
+  &quot;require&quot;: {
+    &quot;yiisoft/yii2&quot;: &quot;~2.0.0&quot;
+  }
+}
+</code></pre><p>Dentro da propriedade <code>require</code>, eu defini que meu projeto tem como dependência o framework Yii.</p><p><strong>Por que ele está descrito como <code>yiisoft/yii2</code>?</strong> Porque foi assim que a Yiisoft o registrou no <a href="https://packagist.org/packages/yiisoft/yii2">Packagist</a>, o principal repositório de pacotes do Composer.</p><p><strong>O que significa <code>~2.0.0</code>?</strong> Estamos especificando que queremos qualquer pacote cuja versão seja igual ou superior a 2.0.0 e inferior a 2.1.0. Existem várias <a href="https://getcomposer.org/doc/02-libraries.md#specifying-the-version">formas de descrever as versões</a> que precisamos. As recomendações principais são (1) evitar as versões <code>dev-master</code>, que são baseadas no último código escrito nos pacotes e, portanto, mutáveis; e (2) evitar a tentação de utilizar <code>*</code> para ter sempre a última versão disponível. Existe uma diferença enorme, por exemplo, entre a versão 1.1 e a versão 2.0 do Yii. Atualizar dependências assim significa conviver com o fato de ter que mudar todo seu código quando uma delas for atualizada.</p><h1>Enfim, como utilizar?</h1><p>Com tudo isso feito, estamos a um mero passo de ter o Yii no nosso projeto:</p><pre><code class="language-sh">$ composer install
+</code></pre><p>O Composer vai verificar os repositórios, como o Packagist; verificar se possuem os pacotes necessários; baixá-los; adicioná-los ao diretório <code>vendor</code> do projeto; e criar um arquivo <code>composer.lock</code>, que é uma versão superdetalhada do <code>composer.json</code>, descrevendo até todas as subdepências (i.e., as dependências das dependências do projeto) e versões baixadas.</p><p>Pronto.</p><p>Para atualizar as dependências ou reinstalá-las, utilize:</p><pre><code class="language-sh">$ composer update
+</code></pre></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2014-12-03/git-para-times-de-todos-os-tamanhos/">Git para times de todos os tamanhos</a></h2><div><time dateTime="2014-12-04T06:30:00.000Z">4 de dezembro de 2014 às 06:30</time> ·<!-- --> <!-- -->8<!-- --> <!-- -->minutos</div></header><article><p>Recentemente, o <a href="http://code.tutsplus.com/tutorials/focusing-on-a-team-workflow-with-git--cms-22514" target="_blank" title="Focusing on a Team Workflow With Git">Tuts+ lançou um artigo</a> sugerindo um <em>workflow</em> baseado no conhecido <a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" title="A successful Git branching model">Git-Flow</a> de Vincent Driessen. Gostei das sugestões dadas e resolvi escrever um pouco sobre esse assunto adicionando uma pitada da minha experiência com o uso de git em pequenas equipes.</p><h1>Preciso disso?</h1><p>Uma vez que superamos as primeiras barreiras de aprendizado e dominamos os conceitos que o git nos traz, como submissões (<em>commits</em>), ramos (<em>branches</em>), repositórios etc., já somos capazes de dominar com relativa facilidade a administração dos nossos próprios repositórios. Entretanto, mesmo nessa situação de controle total, em alguns momentos decidir entre se fazer do jeito A ou fazer do jeito B é melhor. Acredito que esse sentimento está presente quando percorremos o log de commits de um repositório e não encontramos em qual o commit uma determinada modificação foi feita. Quando isso ocorre, notamos pela primeira vez que mensagens de commit devem ser bem escritas para nós mesmos, não apenas para escrevermos um <em>change log</em> pomposo que nem precisamos manter em alguns casos. <strong>Mas o que seria uma mensagem de commit bem escrita?</strong></p><p>Se esse pequeno problema já é bem incômodo quando trabalhamos sozinhos, imagina o quão crítico ele se torna onde estamos trabalhando em equipe, seja num projeto com colegas de trabalho ou num projeto open source hospedado no GitHub ou outro serviço popular. O que toda ferramenta de controle de versão se propõe a fazer é garantir que, quando vários colaboradores fazem modificações sobre os mesmos arquivos, os conflitos gerados sejam detectados e resolvidos antes de que as mudanças sejam aceitas, e o git trata desses conflitos de uma forma muito conveniente. Segundo seus usuários, muito superior à forma como as demais ferramentas (SourceSafe, CVS, SVN) trabalham. <strong>O que não significa, todavia, que o git resolva os conflitos sozinho.</strong> Há sempre uma etapa no processo de trabalho em equipe em que o código deve ser revisado e aceito por alguém. Nessa situação, gerenciar vários commits em conflito pode ser algo muito desafiador se não houver uma ordem de trabalho, mesmo em projetos pequenos. Código mal revisado significa adição de bugs no seu software.</p><p>Agora vou citar uma série de regras que são interessantes para o gerenciamento dos repositórios git. São <strong>sugestões</strong>: você pode adicionar, remover ou modificar algumas propostas para que se ajustem ao ritmo de trabalho da sua equipe. E o seu também.</p><h1>Quais são as regras do jogo?</h1><ol><li><a href="#regra-1"><code>master</code> é a versão estável</a></li><li><a href="#regra-2"><code>develop</code> é a versão instável</a></li><li><a href="#regra-3"><code>feature-&lt;funcionalidade&gt;</code> é uma funcionalidade nova</a></li><li><a href="#regra-4"><code>fix-&lt;problema&gt;</code> é a correção de um problema</a></li><li><a href="#regra-5"><code>hotfix-&lt;problema&gt;</code> é a correção de um problema no código em <code>master</code></a></li><li><a href="#regra-6"><code>&lt;funcionalidade&gt;</code> e <code>&lt;problema&gt;</code> são códigos simples</a></li><li><a href="#regra-7">Resolva os conflitos com o branch <code>develop</code> antes de solicitar uma mesclagem</a></li><li><a href="#regra-8">Enviou os commits antes de resolver os conflitos? Mescle <code>develop</code></a></li><li><a href="#regra-9">O revisor de código deve informar as mesclagens em <code>develop</code> e <code>master</code></a></li><li><a href="#regra-10">Adicione tags aos commits de mesclagem em <code>master</code></a></li><li><a href="#regra-11">Use verbos imperativos nas mensagens dos commits</a></li><li><a href="#regra-12">Frase curta + descrição longa</a></li></ol><a name="regra-1"></a><h2>Regra #1 - <code>master</code> é a versão estável</h2><p><a href="https://twitter.com/redhotvengeance">Ian Lollar</a>, o autor do artigo do Tuts+, estabelece essa regra como a principal. Eu concordo totalmente com ele.</p><p>Quando alguém clona um repositório, sempre se espera que o código do repositório já está &quot;pronto para uso&quot; (<em>deployable</em>). Se for código compilável, ele pode ser compilado em poucos comandos para gerar um programa estável; se for o código de um website, ele já pode ser enviado para o servidor.</p><p>Para quem está acostumado com os ambientes de <em>desenvolvimento</em>, de <em>homologação</em> e de <em>produção</em>, o branch <code>master</code> deve conter o código de produção. Quando algum problema sério ocorre em software em produção, nós temos que agir para enviar correções imediatas (<em>hotfixes</em>) sobre esse código. Afinal, como você vai escrever um hotfix em cima do código que está em desenvolvimento e contém modificações que ainda estão incompletas ou não foram aprovadas para produção?</p><a name="regra-2"></a><h2>Regra #2 - <code>develop</code> é a versão instável</h2><p>Entenda-se que a versão instável de um software é aquela que ainda está incompleta ou não foi aprovada para produção. <em>Incompleta</em>, nesse sentido, significa que ainda não contém todas as funcionalidades que estão planejadas para virar a versão estável e <strong>não quer dizer é possui funcionalidades incompletas</strong>. Para entender o que é isso, suponha que você está desenvolvendo uma aplicação divida em vários módulos. Cada módulo criado representa uma funcionalidade nova adicionada ao sistema. Logo, cada módulo pronto deve ser adiciona ao branch <code>develop</code>, mas isso não significa que o módulo todo seja empacotado num único commit. Se algum módulo é constituído de várias telas, cada tela pode ser enviada ao repositório como um commit diferente, <strong>mas não diretamente ao branch <code>develop</code></strong>.</p><p>Mantenha isso em mente quando trabalhar com o branch <code>develop</code>: ele só deve aceitar funcionalidades <strong>completas</strong>.</p><a name="regra-3"></a><h2>Regra #3 - <code>feature-&lt;funcionalidade&gt;</code> é uma funcionalidade nova</h2><p>Em outras palavras, cada coisa nova que você adiciona ao seu software deve ser gradualmente commitada num branch específico. O prefixo <code>feature-</code> no nome do branch indica que ele contém uma funcionalidade (<em>feature</em>). Uma vez que a funcionalidade está completa e nenhum novo commit for adicionado a esse branch, você pode enviar uma solicitação ao revisor de código do projeto pedindo que ele mescle (<em>merge</em>) os commits no branch <code>develop</code>.</p><a name="regra-4"></a><h2>Regra #4 - <code>fix-&lt;problema&gt;</code> é a correção de um problema</h2><p>Quando um problema é conhecido num projeto e ele não é solucionado pela adição de uma funcionalidade nova <!-- -->—<!-- --> logo, um bug <!-- -->—<!-- -->, uma correção deve ser enviada para o código presente no branch <code>develop</code>, mas nunca diretamente. Novamente, assim que o código estiver completo no branch, você solicita uma mesclagem.</p><a name="regra-5"></a><h2>Regra #5 - <code>hotfix-&lt;problema&gt;</code> é a correção de um problema no código em <code>master</code></h2><p>Enquanto os dois tipos de branches anteriormente citados são criados a partir de <code>develop</code>,</p><pre><code class="language-sh">$ git checkout -b `feature-&lt;funcionalidade&gt;` `develop`
+</code></pre><p>este tipo especial de branch precisa ser criado a partir do código de produção, presente em <code>master</code>:</p><pre><code class="language-sh">$ git checkout -b `hotfix-&lt;problema&gt;` `master`
+</code></pre><a name="regra-6"></a><h2>Regra #6 - <code>&lt;funcionalidade&gt;</code> e <code>&lt;problema&gt;</code> são códigos simples</h2><p>Complementando as três regras anteriores, é preciso deixar claro que descrever o nome de uma funcionalidade ou de um problema pode ser uma tarefa complicada. Quando a equipe tem acesso a algum gerenciador de incidentes (<em>issue tracker</em>), por exemplo, os bugs são numerados, de forma que os branches são melhor descritos na forma <code>fix-issue-X</code>, onde X é o número do bug.</p><p>Alguns exemplos adicionais de branches seriam <code>feature-modulo-usuarios</code>, <code>fix-bug-323</code>, <code>feature-pagina-sobre</code>, <code>hotfix-issue-23</code> etc. Tenha em mente que isso deve ser acordado entre todos os membros da equipe, não apenas de ciência do revisor de código.</p><a name="regra-7"></a><h2>Regra #7 - Resolva os conflitos com o branch <code>develop</code> antes de solicitar uma mesclagem</h2><p>Suponha que você e um colega desejam criar duas funcionalidades diferentes, A e B. Você vai ficar com a funcionalidade A e, portanto, criará um branch chamado <code>feature-A</code> no seu repositório local. Seu colega criará um branch <code>feature-B</code> no repositório dele. Vocês seguem trabalhando, mas seu colega termina o trabalho antes e solicita uma mesclagem em seguida para o revisor de código. O revisor verifica que está tudo certo e mescla os commits do branch <code>feature-B</code> no branch <code>develop</code> do repositório principal. Você termina o seu trabalho e solicita uma mesclagem. O revisor de código então descobre um conflito, pois o seu colega alterou algum ponto no projeto que você também alterou no desenvolvimento das funcionaldades. Assim, você precisa adicionar ao seu próprio branch <code>feature-A</code> os commits de <code>feature-B</code> que foram adicionados em <code>develop</code>. A melhor forma de fazer isso é através de <em>rebasing</em>.</p><p>Rebasing é uma técnica do git que consiste em reescrever os commits de um branch, reordenando-os, adicionando novos, removendo alguns e até mesmo reescrevendo o código armazenado em certos commits. No caso apresentado, realizar rebase do branch <code>develop</code> no branch <code>feature-A</code> vai implicar em ter que reescrever algum commit que você adicionou no <code>feature-A</code>.</p><p>O ideal é que o branch <code>develop</code> do seu repositório local esteja sempre atualizado com relação ao <code>develop</code> do repositório principal:</p><pre><code class="language-sh">$ git checkout develop
+$ git pull origin develop
+</code></pre><p>Em seguida, você pode adicionar as mudanças de <code>develop</code> no seu branch:</p><pre><code class="language-sh">$ git checkout feature-A
+$ git rebase develop
+</code></pre><p>E seguir trabalhando na funcionalidade. Quando tudo estiver pronto:</p><pre><code class="language-sh">$ git push origin feature-A
+</code></pre><a name="regra-8"></a><h2>Regra #8 - Enviou os commits antes de resolver os conflitos? Mescle <code>develop</code></h2><p>É possível que você acidentalmente envie para o repositório principal o branch de trabalho sem se certificar de que ele não tem conflitos em relação ao <code>develop</code>. Se esses conflitos existem, o revisor de código te informará disso e caberá a você resolver. Como <strong>você nunca deve reescrever o que já está no repositório principal</strong>, rebasing não poderá ser utilizado aqui. Como Lollar diz, rebasing é uma ação destrutiva. Você precisa criar um commit novo que solucione os conflitos; é exatamente o que o comando <code>git merge</code> te permite fazer:</p><pre><code class="language-sh">$ git checkout feature-A
+$ git merge develop
+</code></pre><p>Uma forma simplificada de resolver os conflitos é através do comando <code>git mergetool</code>. Com ele, cada conflito existente é listado e as devidas ações de correção são pedidas para você, uma a uma.</p><a name="regra-9"></a><h2>Regra #9 - O revisor de código deve informar as mesclagens em <code>develop</code> e <code>master</code></h2><p>E como ele pode dizer que os commits adicionados em <code>develop</code> vieram de <code>feature-A</code>? Desabilitando o recurso de <a href="http://ariya.ofilabs.com/2013/09/fast-forward-git-merge.html" target="_blank" title="Fast-Forward Git Merge"> <em>fast-forwarding</em> </a> na mesclagem.</p><pre><code class="language-sh">$ git checkout develop
+$ git merge --no-ff feature-A
+</code></pre><p>Isto adicionará um commit adicional a <code>develop</code> informando a mesclagem, em vez de copiar os commits de <code>feature-A</code> em <code>develop</code>.</p><p>E qual a vantagem de se fazer isso?</p><a name="regra-10"></a><h2>Regra #10 - Adicione tags aos commits de mesclagem em <code>master</code></h2><p>As tags permitem que você marque pontos importantes no histórico do código presente no <code>master</code>, como mudanças de versão.</p><pre><code class="language-sh">$ git checkout master
+$ git merge --no-ff develop
+$ git tag -a v&lt;versão&gt; -m &#x27;Versão &lt;versão&gt;&#x27;
+</code></pre><p>Uma dica adicional, também sugerida por Lollar, é a utilização do <a href="http://semver.org/" target="_blank" title="Semantic Versioning 2.0.0">versionamento semântico</a> para escrever os números de versões.</p><a name="regra-11"></a><h2>Regra #11 - Use verbos imperativos nas mensagens dos commits</h2><p>&quot;<strong>Adiciona</strong> a tela X&quot; em vez de &quot;Tela X adicionada&quot;. &quot;<strong>Corrige</strong> o bug Y&quot; em vez de &quot;Correção do bug Y&quot;. Alguns verbos comuns:</p><ul><li>adiciona</li><li>remove</li><li>corrige</li><li>transfere</li><li>atualiza</li></ul><p>Pode &quot;colar&quot; alguns verbos de <a href="http://www.youtube.com/watch?v=YtdWHFwmd2o" target="_blank" title="Daft Punk - Technologic"><em>Technologic</em></a> também.</p><a name="regra-12"></a><h2>Regra #12 - Frase curta + descrição longa</h2><p>Outra recomendação é que a mensagem do commit seja uma frase curta (de até 50 caracteres, com a primeira letra maiúscula), uma linha em branco e um parágrafo que dê uma descrição maior sobre o commit. Essa descrição, entretanto, é opcional.</p></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2014-10-16/symfony-process/">Adeus shell_exec()</a></h2><div><time dateTime="2014-10-17T06:00:00.000Z">17 de outubro de 2014 às 06:00</time> ·<!-- --> <!-- -->8<!-- --> <!-- -->minutos</div></header><article><p>Como <a href="http://stackoverflow.com/questions/13600598/convert-pdf-to-jpg-image-with-php">converter um PDF em imagens PNG ou JPEG</a>, <em>usando PHP</em>? Como <a href="http://stackoverflow.com/questions/1571134/how-can-i-convert-an-avi-file-to-flv-format-with-php">converter arquivos de vídeo enviados via upload em formatos para a web</a>, como WebM ou FLV, <em>usando PHP</em>? Como realizar uma tarefa administrativa no servidor, <em>usando PHP</em>?</p><p>Muitas vezes nos fazemos essas perguntas e passamos por algumas decepções ao procurar soluções. A primeira é descobrir que nem sempre podemos resolver usando única e exclusivamente a linguagem e/ou tecnologia que usamos em nossos projetos: PHP não foi construída para executar tarefas longas e que demandam alto processamento, como converter formatos de imagem, áudio e vídeo. Até podemos considerar o uso de extensões (como a <a href="http://php.net/manual/en/book.imagick.php">ImageMagick</a>), mas geralmente o modo rápido de conseguir o que se quer é através de <strong>programas externos</strong>, como <code>avconv</code> e <code>convert</code>.</p><p>A principal dificuldade esperada ao realizar a integração entre scripts PHP e programas externos é a perda de compatibilidade nas diversas plataformas em que PHP é executável. A maioria dos exemplos de uso das funções <code>exec()</code>, <code>shell_exec()</code> e <code>passthru()</code> utiliza programas do ecossistema Unix e, ao menos no Brasil, o número de desenvolvedores PHP que rodam Windows em suas estações de trabalho é grande. Para eles, usar programas externos é adicionar ao seu código algo que só poderá ser testado em servidores de teste ou desenvolvimento <!-- -->—<!-- --> uma realidade que vem mudando, a passos de formiga, com a adoção de ferramentas como <a href="http://www.vagrantup.com/">Vagrant</a> e <a href="http://www.docker.com/">Docker</a>.</p><p>Então é simples usar programas externos? Não. Todo programa é executado como um novo <strong>processo</strong> do sistema, chamado pelo <strong>shell</strong> através de uma <strong>linha de comando</strong>. E neste contexto, existem algumas coisas a se considerar:</p><ol><li>Deve ser garantido que nenhum número abusivo de processos seja executado;</li><li>Deve ser garantido que <a href="http://en.wikipedia.org/wiki/Code_injection#Shell_injection">nenhum dado enviado execute código arbitrário</a>;</li><li>Todo processo possui uma <a href="http://en.wikipedia.org/wiki/Standard_streams#Standard_input_.28stdin.29">stream de entrada de dados</a>, uma <a href="http://en.wikipedia.org/wiki/Standard_streams#Standard_output_.28stdout.29">stream de saída normal</a> e uma <a href="http://en.wikipedia.org/wiki/Standard_streams#Standard_error_.28stderr.29">stream de saída de erros</a>;</li><li>Alguns processos exigem interação do usuário através da stream de entrada;</li><li>Alguns processos são longos;</li><li>Alguns processos escrevem dados em formatos complexos nas streams de saída;</li><li>Processos retornam um <a href="http://en.wikipedia.org/wiki/Exit_status">código de status de fim de execução</a> que indica erros ocorridos durante a execução.</li></ol><p>Vamos ver que opções as funções padrão do PHP nos fornecem para trabalhar com processos:</p><h1><a href="http://php.net/manual/en/function.shell-exec.php"><code>string shell_exec(string $cmd)</code></a> ou <a href="http://php.net/manual/en/language.operators.execution.php"><code>`$cmd`</code></a></h1><p>É a função ideal para processos invocados com uma linha de comando simples e que escrevem apenas uma linha de texto na stream de saída.</p><ol><li>Somente um processo pode ser executado por vez, a menos que se utilizem mecanismos de execução paralela presentes no shell (e.g. <code>start convert doc.pdf images.jpg</code> em Windows).</li><li>Você depende de <code>escapeshellarg($arg)</code> para escapar argumentos vindos da entrada de usuário. Usar ou não usar é por sua conta e risco. Para o operador de execução (<code>` `</code>) é impossível passar dados de usuário, como se a definição da linha de comando do processo fosse constante.</li><li>Tudo o que foi escrito na stream de saída é retornado pela função. Em caso de erro, entretanto, é retornado o valor <code>NULL</code>, mesmo que dados tenham sido escritos.</li><li>Não permite escrever dados na stream de entrada.</li><li>Você não pode definir um tempo máximo para a execução do processo, embora fique limitado pelo limite de tempo de execução do próprio script PHP.</li><li>Você precisa parsear toda a stream de saída obtida através do retorno da função/expressão.</li><li>Você não obtém o código de status. Se ele for zero, a função retorna o conteúdo da stream de saída; caso contrário, <code>NULL</code> é retornado.</li></ol><h1><a href="http://php.net/manual/en/function.exec.php"><code>string exec(string $command[, array &amp;$output[, int &amp;$return_var]])</code></a></h1><p>Esta função adiciona um grau maior de controle sob o que é escrito na stream de saída e sobre os códigos de status.</p><ol><li>Somente um processo pode ser executado por vez, a menos que se utilizem mecanismos de execução paralela presentes no shell.</li><li>Você depende de <code>escapeshellarg($arg)</code> para escapar argumentos vindos da entrada de usuário. Usar ou não usar é por sua conta e risco.</li><li>Você pode ter acesso ao que foi escrito na stream de saída através do array <code>$output</code> ou apenas da última linha escrita através do retorno da função.</li><li>Não permite escrever dados na stream de entrada.</li><li>Você não pode definir um tempo máximo para a execução do processo, embora fique limitado pelo limite de tempo de execução do próprio script PHP.</li><li>Você precisa parsear toda a stream de saída obtida através de <code>$output</code>.</li><li>Você obtém o código de status através de <code>$return_var</code>.</li></ol><h1><a href="http://php.net/manual/en/function.passthru.php"><code>void passthru(string $command[, int &amp;$return_var])</code></a></h1><p>O uso mais comum desta função é quando o script PHP funciona como um simples proxy para um programa externo, como um gerador de imagens ou compilador.</p><ol><li>Somente um processo pode ser executado por vez, a menos que se utilizem mecanismos de execução paralela presentes no shell.</li><li>Você depende de <code>escapeshellarg($arg)</code> para escapar argumentos vindos da entrada de usuário. Usar ou não usar é por sua conta e risco.</li><li>A stream de saída do processo é redirecionada para a stream de saída do script PHP. Se você quiser capturar a saída, vai ter que utilizar mecanismos de <em>output buffering</em> (<code>ob_start()</code>).</li><li>Não permite escrever dados na stream de entrada.</li><li>Você não pode definir um tempo máximo para a execução do processo, embora fique limitado pelo limite de tempo de execução do próprio script PHP.</li><li>Você precisa parsear toda a stream de saída obtida através de <em>output buffering</em>.</li><li>Você obtém o código de status através de <code>$return_var</code>.</li></ol><h1><a href="php.net/manual/en/function.proc-open.php"><code>resource proc_open(string $cmd, array $descriptorspec, array &amp;$pipes[, string $cwd[, array $env[, array $other_options]]])</code></a></h1><p>E aqui temos o maior controle possível de processos (inclusive do diretório de trabalho do processo, via <code>$cwd</code>) através de scripts PHP.</p><ol><li>Esta função é não-bloqueante, de modo que você pode iniciar quantos processos julgar adequado. Vale o bom senso para garantir que uma quantidade não-abusiva de processos sejam rodados paralelamente.</li><li>Você depende de <code>escapeshellarg($arg)</code> para escapar argumentos vindos da entrada de usuário. Usar ou não usar é por sua conta e risco.</li><li>Você tem acesso a <em>stdin</em>, <em>stdout</em> e <em>stderr</em> através do array <code>$pipes</code>, como se fossem ponteiros de arquivo tradicionais.</li><li><em>stdin</em> é uma stream de escrita, onde você pode escrever usando funções simples como <code>fwrite()</code>.</li><li>O controle de <em>timeout</em> dos processos pode ser implementado, já que o processo roda paralelamente ao script.</li><li>A leitura dos dados escritos em <em>stdout</em> e <em>stderr</em> não difere da leitura de um arquivo; assim, as mesmas técnicas empregadas para parsear um arquivo podem ser aplicadas, seja de forma integral (ler toda a stream e interpretar o formato), seja de forma contínua (ler a stream linha a linha e interpretar durante a execução).</li><li>Você pode ter o código de status a partir do retorno de <code>proc_close($process)</code>.</li></ol><h1>Tudo é complicado</h1><p>Pelo que se percebe, a complexidade para se executar certos processos via PHP é semelhante à própria complexidade do processo, i.e., um processo que exige interação com todas as streams, <em>timeout</em> e controle do código de status vai demandar o uso de uma função muito complexa. <a href="http://php.net/manual/en/function.proc-open.php#example-3774">Veja você mesmo</a>:</p><pre><code class="language-php">&lt;?php
+$descriptorspec = array(
+   0 =&gt; array(&quot;pipe&quot;, &quot;r&quot;),  // stdin is a pipe that the child will read from
+   1 =&gt; array(&quot;pipe&quot;, &quot;w&quot;),  // stdout is a pipe that the child will write to
+   2 =&gt; array(&quot;file&quot;, &quot;/tmp/error-output.txt&quot;, &quot;a&quot;) // stderr is a file to write to
+);
+
+$cwd = &#x27;/tmp&#x27;;
+$env = array(&#x27;some_option&#x27; =&gt; &#x27;aeiou&#x27;);
+
+$process = proc_open(&#x27;php&#x27;, $descriptorspec, $pipes, $cwd, $env);
+
+if (is_resource($process)) {
+    // $pipes now looks like this:
+    // 0 =&gt; writeable handle connected to child stdin
+    // 1 =&gt; readable handle connected to child stdout
+    // Any error output will be appended to /tmp/error-output.txt
+
+    fwrite($pipes[0], &#x27;&lt;?php print_r($_ENV); ?&gt;&#x27;);
+    fclose($pipes[0]);
+
+    echo stream_get_contents($pipes[1]);
+    fclose($pipes[1]);
+
+    // It is important that you close any pipes before calling
+    // proc_close in order to avoid a deadlock
+    $return_value = proc_close($process);
+
+    echo &quot;command returned $return_value\n&quot;;
+}
+</code></pre><p>Nesse exemplo, abrimos o processo <code>php</code>, escrevemos na stream de entrada o código <code>&lt;?php print_r($_ENV); ?&gt;</code> e lemos o resultado da execução na stream de saída do processo. Nenhum mecanismo de <em>timeout</em> é implementado, bem como nenhum controle de erros é realizado através da stream de erros e do código de status, e mesmo assim temos um código assustador para programadores novatos.</p><h2>Symfony Process ao resgate</h2><p>Streams, código de status, <em>timeout</em>, diretório de trabalho, argumentos escapados... Muitos são os componentes e detalhes presentes na execução de um processo. Para nossa sorte, o componente <a href="http://symfony.com/doc/current/components/process.html">Symfony Process</a> provê um mecanismo simples para execução e controle de processos (e ao contrário do que muitos pensam <strong>não é necessário estar utilizando o framework Symfony para usufruir deste componente</strong>). Vamos recriar o exemplo supracitado para demonstrar isso.</p><p>Primeiramente, você pode baixar as classes do Symfony Process de modo tradicional, mas isso é desaconselhado; prefira fazer o controle deste e de demais códigos de terceiros através do <a href="https://getcomposer.org">Composer</a>, um gerenciador de dependências para PHP que se tornou praticamente o padrão da indústria. Caso você ainda não esteja utilizando no seu projeto, execute no terminal</p><pre><code class="language-sh">$ composer init
+</code></pre><p>E forneça informações básicas do seu projeto. Assim que o arquivo <code>composer.json</code> estiver disponível, execute</p><pre><code class="language-sh">$ composer require symfony/process
+</code></pre><p>Para adicionar ao seu projeto a última versão do componente Symfony Process. Todo o código fica disponível no diretório <code>vendor/symfony/process</code> e o arquivo <code>composer.lock</code> é criado para registrar qual a versão utilizada.</p><p>Com a library em mãos, vamos recriar o exemplo passo-a-passo. Escreva, num arquivo chamado <code>exemplo.php</code>, as seguintes linhas:</p><pre><code class="language-php">&lt;?php
+require __DIR__.&#x27;/vendor/autoload.php&#x27;;
+
+use Symfony\Component\Process\Process;
+</code></pre><p>A primeira linha vai adicionar o autoloader do Composer, tornando acessíveis todas as classes do Symfony Process. A linha seguinte permite que a classe <code>Symfony\Component\Process\Process</code> possa ser chamada apenas de <code>Process</code> no script. Ainda no mesmo arquivo, escreva:</p><pre><code class="language-php">$process = new Process(&#x27;php&#x27;);
+</code></pre><p>Essa linha não executa o processo <code>php</code> de imediato, apenas prepara uma instância da classe <code>Process</code> que representa um processo antes, durante, e após sua execução.</p><pre><code class="language-php">$process-&gt;setInput(&#x27;&lt;?php print_r($_ENV); ?&gt;&#x27;);
+</code></pre><p>Aqui foi definido qual conteúdo será escrito em <em>stdin</em> que o processo seja executado (esse método lança <code>RuntimeException</code> se é executado depois que o processo é executado).</p><pre><code class="language-php">$process-&gt;run(function ($type, $buffer) {
+    if (Process::ERR === $type) {
+        echo &#x27;ERR &gt; &#x27;.$buffer;
+    } else {
+        echo &#x27;OUT &gt; &#x27;.$buffer;
+    }
+});
+</code></pre><p>Aqui o processo é executado de fato, de forma síncrona (para executar o processo de forma asíncrona, <code>$process-&gt;start()</code> deve ser invocado no lugar de <code>$process-&gt;run()</code>), mas com um adendo: toda saída gerada pelo processo, em <em>stdout</em> e <em>stderr</em>, é passada imediatamente para o callable passado como parâmetro do método <code>run()</code> (neste caso, é uma closure). O callable deve aceitar dois parâmetros: <code>$type</code>, que indica se a saída foi escrita em <em>stdout</em> ou <em>stderr</em>; <code>$buffer</code>, que contém o texto escrito.</p><p>E... Isso é tudo. Você não precisa fechar o processo, muito menos pará-lo. Segue o exemplo completo:</p><pre><code class="language-php">&lt;?php
+require __DIR__.&#x27;/vendor/autoload.php&#x27;;
+
+use Symfony\Component\Process\Process;
+
+$process = new Process(&#x27;php&#x27;);
+$process-&gt;setInput(&#x27;&lt;?php print_r($_ENV); ?&gt;&#x27;);
+$process-&gt;run(function ($type, $buffer) {
+    if (Process::ERR === $type) {
+        echo &#x27;ERR &gt; &#x27;.$buffer;
+    } else {
+        echo &#x27;OUT &gt; &#x27;.$buffer;
+    }
+});
+
+</code></pre><h3>Agora vá!</h3><p>Espero que este artigo tenha instigado o leitor investir um pouco de atenção ao componente Symfony Process. As possibilidades com ele são interessantes, principalmente se o seu desejo for de adicionar poder de fogo à sua aplicação web. Em breve devo demonstrar mais casos de uso, como invocação de <code>convert</code>, <code>avconv</code> e <code>rsync</code>. Até lá!</p></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2014-09-23/webbr/">Contagem regressiva para a Web.br 2014!</a></h2><div><time dateTime="2014-09-23T11:00:00.000Z">23 de setembro de 2014 às 11:00</time> ·<!-- --> <!-- -->1<!-- --> <!-- -->minuto</div></header><article><p>Recentemente desenvolvi um trabalho interessante no projeto
+<a href="http://atlas.sies.org.br/">Atlas Digital da Economia Solidária</a> da <a href="http://alligo.com.br">Alligo</a> para o
+<a href="http://blogecosol.wordpress.com/">Grupo Ecosol (Grupo de Pesquisa em Economia Solidária)</a> como parte do
+<a href="http://sies.ecosol.org.br/">Projeto SIES</a> que envolveu a aplicação de alguns princípios de interoperabilidade, uma vez
+que o front-end da aplicação é alimento por um web service que mantém uma API RESTful. Eis vou palestrar sobre este e
+outros assuntos com o líder do projeto, <a href="http://www.fititnt.org/">Emerson Rocha Luiz</a>, na
+<a href="http://conferenciaweb.w3c.br/">Web.br 2014 Conferência Web W3C Brasil</a> nesta quinta-feira, dia 25. Este ano
+a conferência carrega uma comemoração especial: os <a href="http://www.webat25.org/">25 anos da Web</a> e os <a href="http://www.w3.org/">20 anos do W3C</a>.</p><p>Alguns pontos que procurarei abordar incluem REST, HATEOAS, Web Semântica, JSON-LD e linked data em geral. O
+Emerson vai descrever o que espera-se de atlas temáticos digitais e o que realmente é entregue, bem como o uso de dados
+abertos em aplicações contruídas sobre a Open Web Platform e alguns tópicos especiais de acessibilidade e usabilidade.</p></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2014-07-21/higiene-e-seguranca-em-escritorios-de-ti/">Higiene e segurança em escritórios de TI</a></h2><div><time dateTime="2014-07-21T17:00:00.000Z">21 de julho de 2014 às 17:00</time> ·<!-- --> <!-- -->6<!-- --> <!-- -->minutos</div></header><article><h1>Introdução</h1><p>O presente trabalho foi motivado pela promoção de diversas campanhas, como a <a href="http://prompt.engineyard.com/">prompt</a>, sobre o impacto de atividades na indústria de tecnologia da informação tem sobre a saúde mental dos trabalhadores da área, e um <a href="http://www.headsup.org.au:8080/docs/default-source/resources/beyondblue_workplaceroi_finalreport_may-2014.pdf?sfvrsn=2">relatório recente</a>, financiado pelo governo da Austrália sobre o retorno sobre investimento (ROI) na manutenção de espaços de trabalho que promovem saúde mental.</p><h1>Descrição da empresa</h1><p>Para o presente trabalho foi realizada a análise de uma empresa do setor de Tecnologia da Informação registrada na Junta Comercial do Estado do Rio Grande do Sul em abril de 2007 e com sede em Porto Alegre. Inicialmente, a empresa fornecia serviços em plataforma web através de convênio com seccionais da Ordem dos Advogados do Brasil e contato direto com escritórios de advocacia, mas atualmente está em expansão de escopo para atingir mais clientes que precisam de soluções empresariais em TI, ultrapassando a marca atual de 77 mil clientes em todo território brasileiro.</p><p>A empresa possui um quadro de 135 colaboradores que se dividem nos seguintes setores:</p><p><em>Setor administrativo.</em> Abrange todas as atividades de controle financeiro e gestão de recursos humanos da empresa.</p><p><em>Setor de Identidade Profissional.</em> Composto de poucos profissionais de relacionamento direto com o cliente e designers, é responsável pela criação de produtos de identidade visual para clientes externos e internos, como logotipos e papelaria.</p><p><em>Central de Relacionamento.</em> O maior setor da empresa. Possui a estrutura de uma central de telemarketing e subdivide-se em núcleos de venda, pós-venda, suporte, cobrança, recuperação de contratos etc.</p><p><em>Setor de Tecnologia da Informação.</em> Composto de coordenadorias de Arquitetura, Infraestrutura, Planejamento de Produto e Desenvolvimento, é estruturado como um departamento de TI típico, excetuando-se que não foi adotado o <em>sistema de acordo de banco de horas</em> para distribuição da jornada de trabalho.</p><img src="/posts/images/distribuicao-colaboradores.png" alt="Diagrama de distribuição dos colaboradores entre setores"/><p>O foco da análise apresentada será o Setor de Tecnologia da Informação.</p><h2>Jornada de trabalho</h2><p>A fim de manter um regimento interno equivalente e com o mínimo de particularidades entre a Central de Relacionamento, que deve manter atividade constante no horário de atendimento, e o setor de Tecnologia da Informação, que não precisa de horários fixos mesmo em atividades de operação, foi estabelecido, mediante acordo, que cada colaborador poderia definir uma distribuição do trabalho ao longo das oito horas diárias que fosse o mais adequado. Assim, o período de atividade é de 7h20 às 19h20, respeitando os intervalos obrigatórios previstos em lei.</p><h1>Distribuição de colaboradores no setor avaliado</h1><p>As atividades realizadas pelos colaboradores são dividas com base nas coordenadorias, de modo que existem profissionais nos cargos de:</p><ul><li>webdesigner: 4 colaboradores;</li><li>programador de sistemas de informação: 10 colaboradores;</li><li>administrador de banco de dados: 1 colaborador;</li><li>suporte técnico: 2 colaboradores;</li><li>administradores de sistemas: 3 colaboradores.</li></ul><p>Cabe destacar que existem apenas duas mulheres no setor, ambas programadoras.</p><h1>Processo de produção avaliado</h1><p>Embora quase todos os colaboradores do setor desenvolvam atividades de projeto e planejamento, serão avaliados os riscos para a atividade de <em>operação</em>, desenvolvida majoritariamente pelos webdesigners, programadores e administradores de sistemas. Esta atividade pode ter seu fluxo de trabalho resumido como receber requisições através de um sistema de rastreamento de incidentes (<em>incident ticket system</em>) alimentado pelos profissionais da Central de Relacionamento e atuar em regime de urgência em sistemas que já estão em ambiente de produção, isto é, sistemas informatizados que já estão sendo executados e sendo alimentados com dados de clientes. Incidentes típicos registrados incluem:</p><ul><li>indisponibilidade de servidores;</li><li>dados corrompidos ou incorretos;</li><li>correções na interface visual;</li><li>dúvidas que o núcleo de suporte não pode esclarecer etc.</li></ul><h1>Espaço de trabalho</h1><img src="/posts/images/setor-ti.png" alt="Esquema simplificado do setor"/><h1>Identificação dos riscos ambientais</h1><p>A empresa não paga adicionais de insalubridade (NR-15) e periculosidade (NR-16). Há Comissão Interna de Prevenção de Acidentes (CIPA, NR-5), escolhida conjuntamente ao conselho de colaboradores e mantém com rigor o Programa de Controle Médico de Saúde Ocupacional (PCMSO, NR-7) e o Programa de Prevenção de Riscos Ambientais (PPRA, NR-9). E, embora não disponha de Serviços Especializados de Engenharia de Segurança e em Medicina do Trabalho (SESMT), foi recentemente contratada uma massoterapeuta com especialização em Fisioterapia Ocupacional. Entre as métricas de monitoramento de Recursos Humanos, foram adicionados indicadores de acidentes no trabalho e doenças ocupacionais, pois alguns colaboradores apontaram problemas de saúde relacionados ao sedentarismo, como estresse, hipertensão, obesidade e problemas do trato gastroinstestinal (o único registro de afastamento pela Previdência Social foi relacionado a úlcera gástrica).</p><p>Seguem os riscos identificados no setor.</p><h2>1. Risco físico</h2><ul><li>Causa: calor/frio</li><li>Fonte: sistema de ar condicionado</li><li>Consequência: doenças respiratórias, doença de Raynaud, síndrome de Sjögren (xerostomia e xeroftalmia)</li><li>Medidas de controle coletivas: dimensionamento adequado dos ambientes condicionados, distribuição calculada dos condicionadores, limpeza periódica dos filtros, respeito à ABNT NBR 16401-2 (parâmetros de conforto térmico)</li><li>Medidas de controle individuais: uso de roupas adequadas à estação do ano, distanciamento de regiões de circulação de ar condicionado</li><li>Risco não controlado.</li></ul><h2>2. Risco físico</h2><ul><li>Causa: radiação</li><li>Fonte: monitores dos computadores</li><li>Consequência: xeroftalmia, aceleração da degeneração macular relacionada à idade (ARMD), alteração no ritmo circadiano, queimadura da retina</li><li>Medidas de controle coletivas: aferição periódica da radiação, substituição de equipamento defeituoso</li><li>Medidas de controle individuais: distância mínima de 50cm entre os olhos e a tela, piscar constantemente (dado que o movimento é semi-autônomo)</li><li>Risco controlado com aferição realizada por empresa terceirizada.</li></ul><h2>3. Risco biomecânico</h2><ul><li>Causa: postura inadequada</li><li>Fonte: posto de trabalho sentado</li><li>Consequência: sedentarismo, lordose, cifose, estase sanguínea dos membros inferiores</li><li>Medidas de controle coletivas: adoção de assentos com regulagem de altura do assento, altura do apoio de costas e altura dos apoios para os braços, ginástica laboral, massagem preventiva para lombalgia</li><li>Medidas de controle individuais: postura correta, pausas regulares na jornada de trabalho</li><li>Risco controlado com cadeiras adequadas e massoterapia.</li></ul><h2>4. Risco biomecânico</h2><ul><li>Causa: posição inadequada para os punhos</li><li>Fonte: uso de mouse e teclado</li><li>Consequência: epicondilite lateral, tendinite, lesões por esforço repetitivo (LER) em geral</li><li>Medidas de controle coletivas: disponibilização de equipamentos ergonômicos e apoios para os punhos</li><li>Medidas de controle individuais: pausas regulares na jornada de trabalho, ginástica laboral, automatização de tarefas que exigem grande interação do usuário de computador</li><li>Risco não controlado.</li></ul><h2>5. Risco psicossocial</h2><ul><li>Causa: carga de trabalho excessiva</li><li>Fonte: utilização do sistema de rastreamento de incidentes</li><li>Consequência: estresse, esgotamento (<em>burnout</em>)</li><li>Medidas de controle coletivas: treinamento adequado para utilização do sistema de rastreamento de incidentes, alteração do fluxo de trabalho nas atividades de operação</li><li>Medidas de controle individuais: psicoterapia ocupacional regular</li><li>Risco não controlado.</li></ul><h1>Conclusão</h1><p>Como uma empresa de médio porte, a analisada apresenta, além da conformidade com as Normas Regulamentadoras de Segurança do Trabalho, desejo de aumentar a produtividade garantindo um ambiente de higiene adequada e um ambiente que fornece conforto aos colaboradores. Enquanto a minimização de alguns riscos depende de grande investimento financeiro, boa parte deles exige apenas campanhas internas para conscientização dos colaboradores, que pode ser uma solução de curto-prazo. Para longo prazo, alguns processos burocráticos devem ser revistos.</p><h1>Referências</h1><ol><li>MINISTÉRIO DO TRABALHO E EMPREGOS. Site <a href="http://www.mte.gov.br">www.mte.gov.br</a> – Inspeção do Trabalho – Legislação – Normas Regulamentadoras.</li><li>&quot;Health effects of lighting systems using light-emitting diodes (LEDs)&quot;, ATTIA, D., ANSES. Set/2011.</li></ol></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2014-04-10/a-forma-mais---para-habilitar-conexoes-ao-banco-de-dados-oracle-no-php5-rodando-sobre-o-ubuntu/">A forma mais *@#$!* para habilitar conexões ao banco de dados Oracle no PHP5 rodando sobre o Ubuntu</a></h2><div><time dateTime="2014-04-10T15:29:52.000Z">10 de abril de 2014 às 15:29</time> ·<!-- --> <!-- -->1<!-- --> <!-- -->minuto</div></header><article><p>Este artigo está disponível como <a href="https://gist.github.com/tassoevan/10392954">um gist</a>. Sinta-se livre para contribuir.</p><p>Agradecimentos especiais para:</p><ul><li><a href="https://twitter.com/coolaj86">AJ ONeal</a></li><li><a href="http://hsiaosiyuan.com/wp/">Hsiao Siyuan</a></li></ul><h1>Primeiro passo: Instalação do cliente Oracle</h1><ol><li><p>Faça o download do Instant Client em <a href="http://www.oracle.com/technetwork/indexes/downloads/index.html#database">http://www.oracle.com/technetwork/indexes/downloads/index.html#database</a> (você deve ter um usuário registrado no site da Oracle; o registro é gratuito). Você precisa dos arquivos <code>instantclient-basic-*-*.zip</code> e <code>instantclient-sdk-*-*.zip</code>.</p></li><li><p>Execute os seguintes comandos no seu terminal:</p><pre><code>$ sudo su -
+$ mkdir -p /opt/oracle/instantclient
+$ cd /opt/oracle/instantclient
+</code></pre></li><li><p>Copie os arquivos baixados em <code>/opt/oracle/instantclient</code>.</p></li><li><p>Descompacte os arquivos executando estes comandos:</p><pre><code>$ unzip instantclient-basic-*-*.zip
+$ unzip instantclient-sdk-*-*.zip
+</code></pre></li><li><p>Mova todos o conteúdo de <code>/opt/oracle/instantclient/instantclient</code> para <code>/opt/oracle/instantclient</code>:</p><pre><code>$ mv instantclient*/* ./
+$ rmdir instantclient*/
+</code></pre></li><li><p>Durante a compilação do código da extensão, alguns erros podem surgir quando forem resolvidas as dependências de algumas libraries. Para evitá-los, faça:</p><pre><code>$ ln -s libclntsh.so.* libclntsh.so
+$ ln -s libocci.so.* libocci.so
+$ echo /opt/oracle/instantclient &gt;&gt; /etc/ld.so.conf
+$ ldconfig
+</code></pre></li><li><p>Crie um diretório para seus arquivos de configuração de rede:</p><pre><code>$ mkdir -p network/admin
+</code></pre></li><li><p>Coloque os arquivos <code>sqlnet.ora</code> e <code>tnsnames.ora</code> em <code>/opt/oracle/instantclient/network/admin</code>.</p></li></ol><p>Agora você tem o kit básico para conexões e acesso à SDK para compilar extensões PHP com Oracle.</p><h1>Segundo passo: Instalação da extensão PHP OCI8</h1><ol><li><p>Pegue todos os pacotes essenciais para baixar e compilar a partir de repositórios PEAR:</p><pre><code>$ apt-get install --yes php5 php5-cli php5-dev php-db php-pear
+$ apt-get install --yes build-essential libaio1
+</code></pre></li><li><p>Requisite a instalação do OCI8:</p><pre><code>$ pecl install oci8
+</code></pre><p>Digite <code>instantclient,/opt/oracle/instantclient</code> quando perguntado pelo local de instalação do Instant Client.</p></li><li><p>Salve este texto em <code>/etc/php5/mods-available/oci8.ini</code>:</p><pre><code>extension=oci8.so
+</code></pre></li><li><p>Ative a extensão:</p><pre><code>$ php5enmod oci8
+</code></pre></li></ol><p>Agora você tem todas as funções PHP <code>oci_*</code> disponíveis tanto via php-cli quanto via Apache.</p><h1>Terceiro passo: Instalação da extensão PHP PDO/OCI</h1><p>A biblioteca <code>pdo_oci</code> está desatualizada, então sua instalação é mais &quot;engenhosa&quot;.</p><ol><li><p>Corrija alguns caminhos de arquivo:</p><pre><code>$ cd /usr/include/
+$ ln -s php5 php
+$ cd /opt/oracle/instantclient
+$ mkdir -p include/oracle/11.1/
+$ cd include/oracle/11.1/
+$ ln -s ../../../sdk/include client
+$ cd -
+$ mkdir -p lib/oracle/11.1/client
+$ cd lib/oracle/11.1/client
+$ ln -s ../../../../ lib
+$ cd -
+</code></pre></li><li><p>Baixe a <code>pdo_oci</code> via <code>pecl</code>:</p><pre><code>$ pecl channel-update pear.php.net
+$ mkdir -p /tmp/pear/download/
+$ cd /tmp/pear/download/
+$ pecl download pdo_oci
+</code></pre></li><li><p>Extraia o código-fonte:</p><pre><code>$ tar xvf PDO_OCI*.tgz
+$ cd PDO_OCI*
+</code></pre></li><li><p>Crie um arquivo chamado <code>config.m4.patch</code>:</p><pre><code>*** config.m4   2005-09-24 17:23:24.000000000 -0600
+--- /home/myuser/Desktop/PDO_OCI-1.0/config.m4  2009-07-07 17:32:14.000000000 -0600
+***************
+*** 7,12 ****
+--- 7,14 ----
+    if test -s &quot;$PDO_OCI_DIR/orainst/unix.rgs&quot;; then
+      PDO_OCI_VERSION=`grep &#x27;&quot;ocommon&quot;&#x27; $PDO_OCI_DIR/orainst/unix.rgs | sed &#x27;s/[ ][ ]*/:/g&#x27; | cut -d: -f 6 | cut -c 2-4`
+      test -z &quot;$PDO_OCI_VERSION&quot; &amp;&amp; PDO_OCI_VERSION=7.3
++   elif test -f $PDO_OCI_DIR/lib/libclntsh.$SHLIB_SUFFIX_NAME.11.1; then
++     PDO_OCI_VERSION=11.1
+    elif test -f $PDO_OCI_DIR/lib/libclntsh.$SHLIB_SUFFIX_NAME.10.1; then
+      PDO_OCI_VERSION=10.1
+    elif test -f $PDO_OCI_DIR/lib/libclntsh.$SHLIB_SUFFIX_NAME.9.0; then
+***************
+*** 119,124 ****
+--- 121,129 ----
+      10.2)
+        PHP_ADD_LIBRARY(clntsh, 1, PDO_OCI_SHARED_LIBADD)
+        ;;
++     11.1)
++       PHP_ADD_LIBRARY(clntsh, 1, PDO_OCI_SHARED_LIBADD)
++       ;;
+      *)
+        AC_MSG_ERROR(Unsupported Oracle version! $PDO_OCI_VERSION)
+        ;;
+#EOF
+</code></pre></li><li><p>Aplique o patch:</p><pre><code>$ patch --dry-run -i config.m4.patch &amp;&amp; patch -i config.m4.patch &amp;&amp; phpize
+</code></pre></li><li><p>Substitua todas as referências de <code>function_entry</code> para <code>zend_function_entry</code> em <code>pdo_oci.c</code>.</p></li><li><p>Configure, compile e instale:</p><pre><code>$ ORACLE_HOME=/opt/oracle/instantclient ./configure --with-pdo-oci=instantclient,/opt/oracle/instantclient,11.1
+$ make &amp;&amp; make test &amp;&amp; make install &amp;&amp; mv modules/pdo_oci.so /usr/lib/php5/*+lfs/
+</code></pre></li><li><p>Salve este texto em <code>/etc/php5/mods-available/pdo_oci.ini</code>:</p><pre><code>extension=pdo_oci.so
+</code></pre></li><li><p>Ative a extensão:</p><pre><code>$ php5enmod pdo_oci
+</code></pre></li></ol><p>E agora você pode pegar uma xícara de café.</p></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2013-07-24/interpretando-urls-com-dom/">Interpretando URLs com DOM</a></h2><div><time dateTime="2013-07-24T12:01:48.000Z">24 de julho de 2013 às 12:01</time> ·<!-- --> <!-- -->1<!-- --> <!-- -->minuto</div></header><article><pre><code class="language-js">function parseURL(url) {
+  var a = document.createElement(&#x27;a&#x27;);
+  a.href = url;
+  return {
+    href: a.href,
+    scheme: a.protocol,
+    host: a.host,
+    port: a.port,
+    path: a.pathname,
+    query: a.search.charAt(0) == &#x27;?&#x27; ? a.search.substring(1) : null,
+    hash: a.hash.charAt(0) == &#x27;#&#x27; ? a.hash.substring(1) : null,
+  };
+}
+</code></pre></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2013-07-19/um-metodo-mais-confiavel-para-serializar-closures/">Um método mais confiável para serializar closures</a></h2><div><time dateTime="2013-07-19T00:34:33.000Z">19 de julho de 2013 às 00:34</time> ·<!-- --> <!-- -->1<!-- --> <!-- -->minuto</div></header><article><pre><code class="language-php">&lt;?php
+/**
+* Serializes a closure as string
+* @param \Closure $closure
+* @return string
+*/
+function serializeClosure(\Closure $closure) {
+$ref = new ReflectionFunction($closure);
+$tokens = token_get_all(file_get_contents($ref-&gt;getFileName()));
+
+$tokensCount = count($tokens);
+$start = false;
+$end = $tokensCount;
+
+for ( $i = 0; $i &lt; $tokensCount; ++$i ) {
+  if ( is_array($tokens[$i]) &amp;&amp; $tokens[$i][0] === T_FUNCTION &amp;&amp; $tokens[$i][2] == $ref-&gt;getStartLine() ) {
+    $start = $i;
+    break;
+  }
+}
+
+for ( $i = $start; $i &lt; $tokensCount; ++$i ) {
+  if ( is_array($tokens[$i]) &amp;&amp; $tokens[$i][2] &gt; $ref-&gt;getEndLine() ) {
+    $end = $i - 1;
+    break;
+  }
+}
+
+$tokens = array_slice($tokens, $start, $end);
+
+$replaceToken = function($a) { return is_array($a) ? $a[1] : $a; };
+
+while ( count($tokens) &gt; 0 &amp;&amp; $tokens[0][0] === T_FUNCTION ) {
+
+  if ( !getNesting($parameters, $tokens, &#x27;(&#x27;, &#x27;)&#x27;) ) // does not have parameters
+    break;
+
+  if ( !getNesting($body, $tokens, &#x27;{&#x27;, &#x27;}&#x27;, $parameters[&#x27;end&#x27;]) ) // does not have body
+    break;
+
+  if ( ($use_idx = findToken($tokens, T_USE, $parameters[&#x27;end&#x27;] + 2, $body[&#x27;start&#x27;] - 2)) !== false )
+    getNesting($use, $tokens, &#x27;(&#x27;, &#x27;)&#x27;, $use_idx);
+
+  if ( findToken($tokens, T_STRING, 0, $parameters[&#x27;start&#x27;]) === false ) { // is anonymous function
+    while ( getNesting($tmp, $body[&#x27;tokens&#x27;], T_STATIC, &#x27;;&#x27;) ) {
+      $tmp[&#x27;start&#x27;]--;
+      $tmp[&#x27;end&#x27;]++;
+      array_splice($body[&#x27;tokens&#x27;], $tmp[&#x27;start&#x27;], $tmp[&#x27;end&#x27;]);
+    }
+
+    if ( !isset($use) )
+      $use = array();
+
+    $closure = compact(&#x27;parameters&#x27;, &#x27;use&#x27;, &#x27;body&#x27;);
+
+    $variables = $ref-&gt;getStaticVariables();
+
+    $source = &quot;return function(&quot; . implode(&#x27;&#x27;, array_map($replaceToken, $closure[&#x27;parameters&#x27;][&#x27;tokens&#x27;])) .  &quot;) &quot;;
+    if ( !empty($closure[&#x27;use&#x27;][&#x27;tokens&#x27;]) ) {
+      $useParams = array_map(&#x27;trim&#x27;, explode(&#x27;,&#x27;, implode(&#x27;&#x27;, array_map($replaceToken, $closure[&#x27;use&#x27;][&#x27;tokens&#x27;]))));
+
+      foreach ( $useParams as $param ) {
+        if ( $param[0] == &#x27;$&#x27;)
+          $source = &quot;$param = &quot; . var_export($variables[substr($param, 1)], true) . &quot;;\n$source&quot;;
+      }
+
+      $source .= &quot;use(&quot; . implode(&#x27;, &#x27;, $useParams) .  &quot;) &quot;;
+    }
+
+    $source .= &quot;{&quot; .  implode(&#x27;&#x27;, array_map($replaceToken, $closure[&#x27;body&#x27;][&#x27;tokens&#x27;])) . &quot;};&quot;;
+
+    $test = function($ref) use($source) {
+      $newClosure = eval($source);
+      $newRef = new ReflectionFunction($newClosure);
+
+      return ( array_map(function($a) { return $a-&gt;getName(); }, $newRef-&gt;getParameters()) == array_map(function($a) { return $a-&gt;getName(); }, $newRef-&gt;getParameters()) );
+    };
+
+    if ( $test($ref) )
+      return $source;
+  }
+
+  $function_idx = findToken($tokens, T_FUNCTION, $body[&#x27;end&#x27;] + 2);
+
+  $tokens = $function_idx === false ? array() : array_slice($tokens, $function_idx);
+}
+
+return null;
+}
+
+function findToken(array $tokens, $needle, $start = 0, $end = PHP_INT_MAX)
+{
+$idx = false;
+for ( $i = $start, $end = min($end, count($tokens)); $i &lt; $end; ++$i ) {
+  if ( (is_int($needle) &amp;&amp; is_array($tokens[$i]) &amp;&amp; $tokens[$i][0] === $needle) ||
+    is_string($needle) &amp;&amp; is_string($tokens[$i]) &amp;&amp; $tokens[$i] === $needle ) {
+    $idx = $i;
+    break;
+  }
+}
+
+return $idx;
+}
+
+function getNesting(&amp;$matches, array $tokens, $begin = &#x27;{&#x27;, $end = &#x27;}&#x27;, $offset = 0)
+{
+$level = 0;
+$start = false;
+
+for ( $i = $offset, $count = count($tokens); $i &lt; $count; ++$i ) {
+  if ( is_array($tokens[$i]) ? ($tokens[$i][0] === $begin) : ($tokens[$i] === $begin) ) {
+    ++$level;
+    if ( $start === false )
+      $start = $i + 1;
+  }
+  elseif ( is_array($tokens[$i]) ? ($tokens[$i][0] === $end) : ($tokens[$i] === $end) ) {
+    if ( $start === false )
+      break;
+
+    if ( --$level == 0 ) {
+      $matches = array(
+        &#x27;tokens&#x27; =&gt; array_slice($tokens, $start, $i - $start),
+        &#x27;start&#x27; =&gt; $start,
+        &#x27;end&#x27; =&gt; $i - 1
+      );
+      return true;
+    }
+  }
+}
+
+$matches = null;
+return false;
+}
+</code></pre></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2013-05-06/acesso-facil-a-classe-respect-validation-validator/">Acesso fácil à classe `\Respect\Validation\Validator`</a></h2><div><time dateTime="2013-05-06T00:08:26.000Z">6 de maio de 2013 às 00:08</time> ·<!-- --> <!-- -->1<!-- --> <!-- -->minuto</div></header><article><pre><code class="language-php">&lt;?php
+  // Author&#x27;s recommendation
+  use Respect\Validation\Validator as v;
+
+  $number = 123;
+  v::numeric()-&gt;validate($number); //true
+
+  // The author method can be a little uncomfortable, because
+  // the &#x27;v&#x27; alias will be present in all source code and it
+  // is meaningless according OOP.
+
+  // Here my approach
+  $v = &#x27;Respect\Validation\Validator&#x27;;
+
+  $number = 123;
+  $v::numeric()-&gt;validate($number); //true
+</code></pre></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2013-04-05/inicializacao-basica-de-plugins-jquery/">Inicialização básica de plugins jQuery</a></h2><div><time dateTime="2013-04-05T16:49:03.000Z">5 de abril de 2013 às 16:49</time> ·<!-- --> <!-- -->1<!-- --> <!-- -->minuto</div></header><article><pre><code class="language-js">// Basic jQuery plugins initialization
+var MyNamespace = MyNamespace || {};
+
+MyNamespace.applyPlugins = function (parent) {
+  if (!parent) parent = $(&#x27;body&#x27;);
+
+  $(&#x27;[data-focus=auto]&#x27;, parent).focus();
+
+  var richEdits = $(&#x27;textarea[data-rich=true]&#x27;);
+  if (richEdits.size() &gt; 0) {
+    richEdits.fadeTo(0, 1e-8);
+
+    // head.js used here for instance
+    head.js(&#x27;/js/vendor/ckeditor/ckeditor.js&#x27;).ready(function () {
+      richEdits.fadeTo(0, 1).each(function () {
+        $(this).myRichEditorPlugin();
+      });
+    });
+  }
+
+  // more stuff ...
+};
+
+$(function () {
+  MyNamespace.applyPlugins();
+});
+</code></pre></article></div><div class="Post__StyledPost-sc-22n9ff-0 gLqRHV"><header><h2><a href="/2013-03-21/htaccess-snippets/">.htaccess snippets</a></h2><div><time dateTime="2013-03-21T20:01:16.000Z">21 de março de 2013 às 20:01</time> ·<!-- --> <!-- -->1<!-- --> <!-- -->minuto</div></header><article><pre><code class="language-htaccess"># ------------------------------------------------------------------------------
+# Redirecionar para mobile a partir do agente de usuário
+# ------------------------------------------------------------------------------
+&lt;IfModule mod_rewrite.c&gt;
+   RewriteEngine On
+   RewriteCond %{HTTP_USER_AGENT} &quot;android|blackberry|googlebot-mobile|iemobile|ipad|iphone|ipod|opera mobile|palmos|webos&quot; [NC]
+   RewriteRule ^$ http://m.example.com/ [L,R=302]
+&lt;/IfModule&gt;
+&lt;IfModule mod_rewrite.c&gt;
+   RewriteEngine On
+   RewriteCond %{HTTP_USER_AGENT} &quot;!(android|blackberry|googlebot-mobile|iemobile|ipad|iphone|ipod|opera mobile|palmos|webos)&quot; [NC]
+   RewriteRule ^$ http://www.example.com/ [L,R=302]
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Ativar Google Chrome Frame
+# ------------------------------------------------------------------------------
+&lt;IfModule mod_headers.c&gt;
+  Header set X-UA-Compatible &quot;IE=Edge,chrome=1&quot;
+  &lt;FilesMatch &quot;\.(appcache|crx|css|eot|gif|htc|ico|jpe?g|js|m4a|m4v|manifest|mp4|oex|oga|ogg|ogv|otf|pdf|png|safariextz|svg|svgz|ttf|vcf|webm|webp|woff|xml|xpi)$&quot;&gt;
+      Header unset X-UA-Compatible
+  &lt;/FilesMatch&gt;
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Permissão de acesso às Webfonts
+# ------------------------------------------------------------------------------
+# Nota: qualquer domínio pode ser especificado no lugar de &quot;*&quot;
+&lt;IfModule mod_headers.c&gt;
+  &lt;FilesMatch &quot;\.(eot|font.css|otf|ttc|ttf|woff)$&quot;&gt;
+      Header set Access-Control-Allow-Origin &quot;*&quot;
+  &lt;/FilesMatch&gt;
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# MIME type apropriado para todos os arquivos
+# ------------------------------------------------------------------------------
+AddType application/javascript         js jsonp
+AddType application/json               json
+AddType audio/mp4                      m4a f4a f4b
+AddType audio/ogg                      oga ogg
+AddType video/mp4                      mp4 m4v f4v f4p
+AddType video/ogg                      ogv
+AddType video/webm                     webm
+AddType video/x-flv                    flv
+AddType     image/svg+xml              svg svgz
+AddEncoding gzip                       svgz
+AddType application/vnd.ms-fontobject  eot
+AddType application/x-font-ttf         ttf ttc
+AddType application/x-font-woff        woff
+AddType font/opentype                  otf
+AddType application/octet-stream            safariextz
+AddType application/x-chrome-extension      crx
+AddType application/x-opera-extension       oex
+AddType application/x-shockwave-flash       swf
+AddType application/x-web-app-manifest+json webapp
+AddType application/x-xpinstall             xpi
+AddType application/xml                     rss atom xml rdf
+AddType image/webp                          webp
+AddType image/x-icon                        ico
+AddType text/cache-manifest                 appcache manifest
+AddType text/vtt                            vtt
+AddType text/x-component                    htc
+AddType text/x-vcard                        vcf
+
+# ------------------------------------------------------------------------------
+# Compressão gzip
+# ------------------------------------------------------------------------------
+&lt;IfModule mod_deflate.c&gt;
+  &lt;IfModule mod_setenvif.c&gt;
+      &lt;IfModule mod_headers.c&gt;
+          SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+          RequestHeader append Accept-Encoding &quot;gzip,deflate&quot; env=HAVE_Accept-Encoding
+      &lt;/IfModule&gt;
+  &lt;/IfModule&gt;
+  &lt;IfModule mod_filter.c&gt;
+      AddOutputFilterByType DEFLATE application/atom+xml \
+                                    application/javascript \
+                                    application/json \
+                                    application/rss+xml \
+                                    application/vnd.ms-fontobject \
+                                    application/x-font-ttf \
+                                    application/xhtml+xml \
+                                    application/xml \
+                                    font/opentype \
+                                    image/svg+xml \
+                                    image/x-icon \
+                                    text/css \
+                                    text/html \
+                                    text/plain \
+                                    text/x-component \
+                                    text/xml
+  &lt;/IfModule&gt;
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Expires headers (para um melhor controle de cache)
+# ------------------------------------------------------------------------------
+&lt;IfModule mod_expires.c&gt;
+  ExpiresActive on
+  ExpiresDefault                          &quot;access plus 1 minute&quot;
+
+  ExpiresByType text/cache-manifest       &quot;access plus 0 seconds&quot;
+  ExpiresByType text/html                 &quot;access plus 0 seconds&quot;
+  ExpiresByType application/json          &quot;access plus 0 seconds&quot;
+  ExpiresByType application/xml           &quot;access plus 0 seconds&quot;
+  ExpiresByType text/xml                  &quot;access plus 0 seconds&quot;
+  ExpiresByType application/atom+xml      &quot;access plus 1 hour&quot;
+  ExpiresByType application/rss+xml       &quot;access plus 1 hour&quot;
+  ExpiresByType image/x-icon              &quot;access plus 1 minute&quot;
+  ExpiresByType audio/ogg                 &quot;access plus 1 month&quot;
+  ExpiresByType image/gif                 &quot;access plus 1 month&quot;
+  ExpiresByType image/jpeg                &quot;access plus 1 month&quot;
+  ExpiresByType image/png                 &quot;access plus 1 month&quot;
+  ExpiresByType video/mp4                 &quot;access plus 1 month&quot;
+  ExpiresByType video/ogg                 &quot;access plus 1 month&quot;
+  ExpiresByType video/webm                &quot;access plus 1 month&quot;
+  ExpiresByType text/x-component          &quot;access plus 1 month&quot;
+  ExpiresByType application/vnd.ms-fontobject &quot;access plus 1 month&quot;
+  ExpiresByType application/x-font-ttf    &quot;access plus 1 month&quot;
+  ExpiresByType application/x-font-woff   &quot;access plus 1 month&quot;
+  ExpiresByType font/opentype             &quot;access plus 1 month&quot;
+  ExpiresByType image/svg+xml             &quot;access plus 1 month&quot;
+  ExpiresByType application/javascript    &quot;access plus 1 minute&quot;
+  ExpiresByType text/css                  &quot;access plus 1 minute&quot;
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Remoção de ETag
+# ------------------------------------------------------------------------------
+&lt;IfModule mod_headers.c&gt;
+  Header unset ETag
+&lt;/IfModule&gt;
+FileETag None
+
+# ------------------------------------------------------------------------------
+# Remover o flicker em rollovers CSS no Internet Explorer
+# ------------------------------------------------------------------------------
+BrowserMatch &quot;MSIE&quot; brokenvary=1
+BrowserMatch &quot;Mozilla/4.[0-9]{2}&quot; brokenvary=1
+BrowserMatch &quot;Opera&quot; !brokenvary
+SetEnvIf brokenvary 1 force-no-vary
+
+# ------------------------------------------------------------------------------
+# Requisições AJAX cross-domain
+# ------------------------------------------------------------------------------
+&lt;IfModule mod_headers.c&gt;
+  Header set Access-Control-Allow-Origin &quot;*&quot;
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Imagens CORS habilitadas (@crossorigin)
+# ------------------------------------------------------------------------------
+&lt;IfModule mod_setenvif.c&gt;
+  &lt;IfModule mod_headers.c&gt;
+      &lt;FilesMatch &quot;\.(gif|ico|jpe?g|png|svg|svgz|webp)$&quot;&gt;
+          SetEnvIf Origin &quot;:&quot; IS_CORS
+          Header set Access-Control-Allow-Origin &quot;*&quot; env=IS_CORS
+      &lt;/FilesMatch&gt;
+  &lt;/IfModule&gt;
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Concatenação entre arquivos js e css específicos
+# ------------------------------------------------------------------------------
+# Nota: e.g., em script.combined.js você pode ter
+#       &lt;!--#include file=&quot;libs/jquery-1.5.0.min.js&quot; --&gt;
+#       &lt;!--#include file=&quot;plugins/jquery.idletimer.js&quot; --&gt;
+&lt;FilesMatch &quot;\.combined\.js$&quot;&gt;
+  Options +Includes
+  AddOutputFilterByType INCLUDES application/javascript application/json
+  SetOutputFilter INCLUDES
+&lt;/FilesMatch&gt;
+&lt;FilesMatch &quot;\.combined\.css$&quot;&gt;
+  Options +Includes
+  AddOutputFilterByType INCLUDES text/css
+  SetOutputFilter INCLUDES
+&lt;/FilesMatch&gt;
+
+# ------------------------------------------------------------------------------
+# Impedir provedores de redes mobile (3G) de modificar seu site
+# ------------------------------------------------------------------------------
+&lt;IfModule mod_headers.c&gt;
+  Header set Cache-Control &quot;no-transform&quot;
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Keep-Alive
+# ------------------------------------------------------------------------------
+# Nota: existem algumas desvantagens em habilitar esta opção.
+#       Ative-a se você serve muito conteúdo estático
+&lt;IfModule mod_headers.c&gt;
+  Header set Connection Keep-Alive
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Permitir a criação de cookies em iframes
+# ------------------------------------------------------------------------------
+# Nota: apenas Internet Explorer
+&lt;IfModule mod_headers.c&gt;
+  Header set P3P &quot;policyref=\&quot;/w3c/p3p.xml\&quot;, CP=\&quot;IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\&quot;&quot;
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Iniciar o motor de reescrita de URLs
+# ------------------------------------------------------------------------------
+&lt;IfModule mod_rewrite.c&gt;
+  Options +FollowSymlinks
+  RewriteEngine On
+#   RewriteBase /
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Reescrever &quot;example.com -&gt; www.example.com&quot;
+# ------------------------------------------------------------------------------
+&lt;IfModule mod_rewrite.c&gt;
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP_HOST} !^www\..+$
+  # Exceto para localhost
+  RewriteCond %{HTTP_HOST} !^localhost$
+  # Exceto para endereço IP
+  RewriteCond %{HTTP_HOST} !^(\d{1,3}\.){3}\d{1,3}$ [NC]
+  RewriteRule ^ http://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Reescrever &quot;www.example.com -&gt; example.com&quot;
+# ------------------------------------------------------------------------------
+&lt;IfModule mod_rewrite.c&gt;
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Melhor cache baseado em nome de arquivo
+# ------------------------------------------------------------------------------
+# Nota: link &quot;css/estilos.css&quot; como &quot;css/estilos.123.css&quot;
+&lt;IfModule mod_rewrite.c&gt;
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.+)\.(\d+)\.(js|css|png|jpg|gif)$ $1.$3 [L]
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Impedir alguns alertas SSL
+# ------------------------------------------------------------------------------
+&lt;IfModule mod_rewrite.c&gt;
+  RewriteCond %{SERVER_PORT} !^443
+  RewriteRule ^ https://example.com%{REQUEST_URI} [R=301,L]
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Impedir erros 404 para pastas não existentes em URIs reescritas
+# ------------------------------------------------------------------------------
+Options -MultiViews
+
+# ------------------------------------------------------------------------------
+# Página 404 personalizada
+# ------------------------------------------------------------------------------
+ErrorDocument 404 /404.html
+
+# ------------------------------------------------------------------------------
+# Codificação UTF-8
+# ------------------------------------------------------------------------------
+AddDefaultCharset utf-8
+AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
+
+# ------------------------------------------------------------------------------
+# Remover assinatura do servidor
+# ------------------------------------------------------------------------------
+# Nota: apenas para a httpd.conf
+ServerSignature Off
+ServerTokens Prod
+
+# ------------------------------------------------------------------------------
+# Impedir listagem em diretórios sem documento padrão
+# ------------------------------------------------------------------------------
+&lt;IfModule mod_autoindex.c&gt;
+  Options -Indexes
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Impedir acesso a diretórios ocultos no Linux
+# ------------------------------------------------------------------------------
+# Nota: são diretórios cujo nome inicial com ponto, e.g. &quot;.git&quot;
+&lt;IfModule mod_rewrite.c&gt;
+  RewriteCond %{SCRIPT_FILENAME} -d [OR]
+  RewriteCond %{SCRIPT_FILENAME} -f
+  RewriteRule &quot;(^|/)\.&quot; - [F]
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Impedir acesso a arquivos de becape, código-fonte e configuração
+# ------------------------------------------------------------------------------
+&lt;FilesMatch &quot;(\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|swp)|~)$&quot;&gt;
+  Order allow,deny
+  Deny from all
+  Satisfy All
+&lt;/FilesMatch&gt;
+
+# ------------------------------------------------------------------------------
+# Configurações seguras para o PHP
+# ------------------------------------------------------------------------------
+# Nota: nem todos servidores suportam essas modificações via .htaccess
+php_flag  register_globals       Off
+php_value session.name           SESSIONID
+php_flag  magic_quotes_gpc       Off
+php_flag  expose_php             Off
+php_value error_reporting        -1
+php_flag  log_errors             On
+php_flag  display_errors         Off
+php_flag  display_startup_errors Off
+php_flag  html_errors            Off
+php_flag  ignore_repeated_errors Off
+php_flag  ignore_repeated_source Off
+php_value log_errors_max_len     1024
+php_value error_prepend_string   &quot; &quot;
+php_value error_append_string    &quot; &quot;
+&lt;IfModule mod_php5.c&gt;
+  php_value session.cookie_httponly true
+&lt;/IfModule&gt;
+
+# ------------------------------------------------------------------------------
+# Redirecionar acesso para router PHP
+# ------------------------------------------------------------------------------
+# Nota: &quot;E=app:main&quot; especifica a variável
+#       $_SERVER[&#x27;REDIRECT_app&#x27;] = &#x27;main&#x27;;
+&lt;IfModule mod_rewrite.c&gt;
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^ index.php [QSA,E=app:main,L]
+&lt;/IfModule&gt;
+</code></pre></article></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script>
   
   
   if(true) {
@@ -29,4 +721,4 @@ M5. Remover o compilador de CoffeeScript.</li><li>M1, M2 e M3 foram executadas n
       
       
       
-      }</script><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-a775f5fe01c6374a94d4.js"],"component---src-pages-index-js":["/component---src-pages-index-js-79395609861504fb0a10.js"],"component---src-templates-post-js":["/component---src-templates-post-js-306afd1d1591cab8fe87.js"]};/*]]>*/</script><script src="/component---src-pages-index-js-79395609861504fb0a10.js" async=""></script><script src="/commons-e827d239f9a23482f6e0.js" async=""></script><script src="/styles-823ae8103e36ae8a7f9f.js" async=""></script><script src="/app-a775f5fe01c6374a94d4.js" async=""></script><script src="/framework-dd95e8b3d258d85252e9.js" async=""></script><script src="/webpack-runtime-747ae4aeabac7a5f887e.js" async=""></script></body></html>
+      }</script><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-a775f5fe01c6374a94d4.js"],"component---src-pages-index-js":["/component---src-pages-index-js-0a7ed916fa74fe9f9085.js"],"component---src-templates-post-js":["/component---src-templates-post-js-306afd1d1591cab8fe87.js"]};/*]]>*/</script><script src="/component---src-pages-index-js-0a7ed916fa74fe9f9085.js" async=""></script><script src="/commons-79a61cc901bd4d56755a.js" async=""></script><script src="/styles-823ae8103e36ae8a7f9f.js" async=""></script><script src="/app-a775f5fe01c6374a94d4.js" async=""></script><script src="/framework-dd95e8b3d258d85252e9.js" async=""></script><script src="/webpack-runtime-08890156da19b62d5c7d.js" async=""></script></body></html>
