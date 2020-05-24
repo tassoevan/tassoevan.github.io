@@ -1,5 +1,6 @@
 module.exports = {
   siteMetadata: {
+    siteUrl: 'https://tassoevan.github.io',
     title: 'Tasso & As Vozes',
     description:
       'Um lugar calmo e tranquilo onde dialogo com as vozes que habitam a minha cabeça',
@@ -40,6 +41,7 @@ module.exports = {
           {
             site {
               siteMetadata {
+                siteUrl
                 title
                 description
               }
@@ -53,8 +55,8 @@ module.exports = {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   date: edge.node.frontmatter.date,
-                  url: edge.node.fields.slug,
-                  guid: edge.node.fields.slug,
+                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   custom_elements: [{ 'content:encoded': edge.node.html }],
                 });
               });
