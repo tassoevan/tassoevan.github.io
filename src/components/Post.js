@@ -3,7 +3,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledPost = styled.article`
+const StyledPost = styled.div`
   max-width: 38em;
   margin: 0 auto;
 `;
@@ -15,18 +15,25 @@ const NextArticle = styled.footer`
 `;
 
 function Post({ title, date, formattedDate, body, words, slug, next }) {
+  const estimatedTimeReading = Math.round(words / 200);
+
   return (
     <StyledPost>
       <header>
         <h2>
           <Link to={slug}>{title}</Link>
         </h2>
-        <p>
+        <div>
           <time dateTime={date}>{formattedDate}</time> &middot;{' '}
-          {Math.round(words / 200)} minutos
-        </p>
+          {estimatedTimeReading}{' '}
+          {estimatedTimeReading === 1 ? 'minuto' : 'minutos'}
+        </div>
       </header>
-      {body && <MDXRenderer>{body}</MDXRenderer>}
+      {body && (
+        <article>
+          <MDXRenderer>{body}</MDXRenderer>
+        </article>
+      )}
       {next && (
         <NextArticle>
           <Link to={next.slug}>{next.title}</Link>
