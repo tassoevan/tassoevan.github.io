@@ -1,10 +1,23 @@
 module.exports = {
   siteMetadata: {
-    title: 'Tasso Evangelista',
-    description: 'Front-end Engineer',
-    author: '@gatsbyjs',
+    title: 'Tasso & As Vozes',
+    description: 'Um lugar calmo e tranquilo onde dialogo com as vozes que habitam a minha cabeça',
+    author: '@tassoevan',
   },
   plugins: [
+    {
+      resolve: 'gatsby-plugin-mdx',
+      options: {
+        extensions: ['.mdx', '.md'],
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${ __dirname }/posts`,
+        name: 'posts',
+      },
+    },
     'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-source-filesystem',
@@ -18,9 +31,9 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'Tasso Evangelista',
-        description: 'Front-end Engineer',
-        short_name: 'Tasso Evangelista',
+        name: 'Tasso & As Vozes',
+        description: 'Um lugar calmo e tranquilo onde dialogo com as vozes que habitam a minha cabeça',
+        short_name: 'Tasso & As Vozes',
         start_url: '/',
         background_color: '#91d2fa',
         theme_color: '#91d2fa',

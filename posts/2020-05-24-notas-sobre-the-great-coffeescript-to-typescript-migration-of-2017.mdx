@@ -1,0 +1,139 @@
+---
+title: 'Notas sobre "The Great CoffeeScript to Typescript Migration of 2017"'
+date: 2020-05-24
+published: true
+---
+
+Fonte: https://dropbox.tech/frontend/the-great-coffeescript-to-typescript-migration-of-2017
+
+Pré-história: adoção de CoffeeScript
+------------------------------------
+
+- Em 2012, o Dropbox era uma startup com 150 funcionários.
+- ES5 e jQuery dominavam o desenvolvimento JavaScript.
+- A codebase consistia de cerca de 100 mil linhas de JavaScript empacotada por simples concatenação de arquivos.
+- Dois engenheiros migraram tudo para CoffeeScript em uma semana.
+- Em 2013, adotaram o sistema de módulos RequireJS (AMD) já que CommonJS era restrita a Node e, portanto, não projetada para uso no browser.
+
+Rumores de uma mudança de linguagem
+-----------------------------------
+
+- Ao final de 2015, ES6 já tinha mais funcionalidades que CoffeeScript.
+- Alguns times começaram a adotar ES6 em projetos isolados.
+- A codebase era difícil de manter pois as técnicas de codificação defensiva eram insuficientes e prejudicavam a legibilidade do código.
+- Por CoffeeScript ser menos estrita que Python no uso de whitespaces, alguns engenheiros verificavam manualmente o código JavaScript gerado; é citado um bug sério no outono de 2013 causado por um espaço em branco mal-posicionado.
+- Uma pesquisa interna em novembro de 2015 verificou que 62% dos desenvolvedores gostariam de mudar a linguagem utilizada.
+- Problemas com CoffeeScript apontados:
+  - Falta de delimitadores
+  - _Syntactic sugar_ muito opinativo
+  - Falta de suporte da comunidade
+  - Leitura difícil pois a sintaxe é muito densa
+  - Sujeita a erros por causa de ambiguidades sintáticas
+- O ferramental de TypeScript parecia melhor que vanilla ES6 + Flow no final de 2015.
+- No primeiro semestre de 2016, um engenheiro integrou Babel e TypeScript.
+- Tanto o time quanto a codebase (330 mil linhas) haviam crescido significativamente para uma migração indolor.
+
+Um plano de migração otimista
+-----------------------------
+
+- Foram estabelecidas cinco _milestones_ a serem cumpridas até julho de 2017:
+  M1. Suporte básico a TypeScript com interoperabilidade com CoffeeScript e ferramentas de i18n, lint e testes;
+  M2. Documentar boas práticas e guias de migração e migrar as principais bibliotecas e módulos para TypeScript ser a linguagem padrão de desenvolvimento;
+  M3. Consolidar a _milestone_ anterior migrando o restante de módulos e bibliotecas;
+  M4. Migrar os arquivos mais modificados ao longo do tempo no projeto;
+  M5. Remover o compilador de CoffeeScript.
+- M1, M2 e M3 foram executadas no segundo semestre de 2016.
+- M4 e M5 foram mais problemáticas; esperava-se que o código ficaria a cargo dos times que o desenvolveram originalmente.
+- 20% do time de produto foi alocado para trabalhar nas "fundações" da codebase.
+
+Interoperabilidade de CoffeeScript/TypeScript
+---------------------------------------------
+
+- Para cada arquivo de CoffeeScript (`*.coffee`), foi criado um arquivo de declarações (`*.d.ts`) exportando os módulos como `any`.
+- Módulos em TS com `export default value;` eram importados nos módulos AMD como objetos do tipo `{ default: value }`; named exports foram migrados com poucos problemas.
+- Em módulos cujos exports eram dinamicamente determinados, exportou-se todos os identificadores possíveis mas com valores `undefined` dinamicamente determinados.
+
+Banindo novos arquivos em CoffeeScript
+--------------------------------------
+
+- Foi criado um teste automático para barrar a adição de novos arquivos.
+- Este teste quebrou quando uma migração paralela para [Bazel](https://bazel.build/) como sistema de build foi executada, pois a lista de arquivos `*.coffee` estava vazia.
+- Como aprendizado, testes passaram a fazer asserções em suposições (neste caso, de que a lista nunca seria vazia).
+- A redução da _whitelist_ de arquivos permitidos gerava pequenos atrasos no code review.
+
+
+Experiência inicial: não perdemos o _syntactic sugar_ do CoffeeScript
+----------------------------------------------------------------------
+
+- A perda de _optional chaining_ e _nullish coalescing_ foi compensada com a adição de tipagem.
+
+Prioridades concorrentes
+------------------------
+
+- No final de 2016, foi criado um time para redesign e reescrita do website em React ("Maestro").
+- O time do Maestro não conseguiu cumprir o prazo do primeiro trimestre, entregando ao término do segundo o projeto completo em React e TypeScript.
+- A lista de arquivos que deveria ser eliminada na M4 estagnou em 100 arquivos, mas na prática ainda haviam 2000 arquivos em CoffeeScript com manutenção constante.
+
+Adiando a M5
+------------
+
+- Interpretou-se erroneamente que os scripts restantes deveriam ser substituídos pelos arquivos compilados, causando problemas com lint e i18n.
+- Não ficou claro que o objetivo da M5 era reduzir o custo (já pago) de manter o ferramental de CoffeeScript e TypeScript.
+- A migração perdeu seu ETA.
+- A estimativa inicial da migração era de 1000 linhas por dia demandando um ano de trabalho de um único engenheiro; na prática, 100 linhas por dia eram convertidas, significando um tempo de 10 anos ou o trabalho de 10 engenheiros em um ano.
+- Não havia clareza sobre o que era o trabalho "fundamental" que demandaria 20% do time: se infraestrutura ou pagamento de dívida técnica.
+- Uma migração de sistemas em produção para uma nova distribuição do Ubuntu tomou boa parte da mão-de-obra de infraestrutura.
+
+
+Um novo plano com `decaffeinate`
+--------------------------------
+
+- Em janeiro de 2017, foi sugerido o uso de `decaffeinate` para as conversões.
+- Uma função de ordenação com i18n não-testada quebrou completamente uma página no browser Safari.
+- A longa lista de bugs semelhantes no `decaffeinate` obrigou se adotar uma conversão mista (manual e automática) que eventualmente ocasiona erros a nível de semântica do código.
+- Seis meses depois, `decaffeinate` parecia suficientemente maduro em comparação à conversão manual.
+- O time entrou em acordo: TypeScript apenas com o tipo `any` era preferível a CoffeeScript não-tipado e habilitaria os times a introduzirem tipos no seu próprio ritmo.
+
+Um plano em duas fases
+----------------------
+
+- A pipeline de migração de código consistia de múltiplas etapas:
+  1. Conversão para JavaScript ES6;
+  2. Transformações com `codemod`, especialmente de funções com binding para _arrow functions_;
+  3. Transformação da API legada de React para JSX;
+  4. Conversão de AMD para módulos ES (especial cuidado com exports);
+  5. Anotação de parâmetros de função com `any`;
+  6. Adição de declaração de membros de classes;
+  7. Anotação de componentes com tipos específicos de React;
+  8. Adição de comentário explicado como olhar o código CoffeeScript original através do `git`;
+- A etapa final de correção dos tipos envolveu escrever scripts para interpretar os erros vindos do _type checking_ e aplicar as correções automaticamente.
+
+Mantendo o foco
+---------------
+
+- O compromisso de manter uma ferramenta suficientemente boa tornou trivial resolver manualmente problemas como variáveis mortas.
+- Agrupar a quantidade de erros do `tsc` por código de erro gerou uma métrica para a migração e confiança de que estavam na direção correta.
+- A taxa de erros por arquivo ficou entre 0,5 e 1.
+
+Ganhando confiança nas suas ferramentas
+---------------------------------------
+
+- Bugs pré-existentes eram capturados rodando testes antes e após as conversões.
+- Se um erro ocorria em muitos lugares, uma asserção era adicionada à pipeline de migração em vez de realizar correção manual.
+- Um bug notável destes é relacionado a CoffeeScript não ter suporte a _variable shadowing_.
+- O código foi inteiramente portado para o _strict mode_ sem problemas como atribuição em propriedades _read-only_.
+- As primeiras conversões em massa foram feitas nos testes automáticos.
+- Uma boa configuração do [itest](https://www.youtube.com/watch?v=muvU1DYrY0w) permitia checar rapidamente quais modificações eram a origem dos problemas.
+- Foi importante ter rigor na escrita das traduções de código, cobrindo todos os _corner cases_ e explicitando quais casos eram ignorados.
+
+A última parte
+--------------
+
+- Nas últimas semanas as ferramentas eram capazes de converter entre 100 e 200 arquivos numa única passagem.
+- Um dos truques para iterar rapidamente é rodar o _typecheck_ incremental (`tsc --noEmit --watch`).
+- O número de arquivos em CoffeeScript era mantido atualizado num quadro branco.
+- Apenas dois bugs entraram em produção.
+- Ao time mais resistente à mudança foi prometido que erros ficariam a cargo dos engenheiros envolvidos na migração.
+- Ao se admitir como produto um código TypeScript não-idiomático, foram gastos 2 meses de trabalho de três engenheiros (cerca de 19 engenheiros-semana).
+- "Nós devemos economizar nosso capital político e organizacional com trabalhos que não podemos automatizar para todos"; assim, a conversão manual foi descartada.
+- Atualmente, o time da Dropbox mantém 2kk linhas de TypeScript.
