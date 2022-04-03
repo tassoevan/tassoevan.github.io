@@ -3304,6 +3304,7 @@ __metadata:
     babel-plugin-styled-components: ^2.0.6
     gatsby: ^4.11.1
     gatsby-image: ^3.11.0
+    gatsby-plugin-cname: ^1.0.0
     gatsby-plugin-feed: ^4.11.1
     gatsby-plugin-google-analytics: ^4.11.0
     gatsby-plugin-manifest: ^4.11.1
@@ -8584,6 +8585,15 @@ __metadata:
   peerDependencies:
     "@parcel/core": ^2.3.1
   checksum: 4b1a33bfcfcc1d6089bc786e662b4c2a8bbbf2069dacb86a24ab2184c545d17bbbee8a7dcde31c457053e77783d445d6bb36e447ab4e5863966be1a7b4be57fc
+  languageName: node
+  linkType: hard
+
+"gatsby-plugin-cname@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "gatsby-plugin-cname@npm:1.0.0"
+  peerDependencies:
+    gatsby: ">2.0.0"
+  checksum: 21cd5a4c894a53de750524cb90e202baed3f654e619c46b4c357406241dd796a59849f0970d17d48d2a905c6cba2bfef73399942b699f1bddaadef06dc47270d
   languageName: node
   linkType: hard
 

@@ -3,7 +3,7 @@ import type { GatsbyConfig } from 'gatsby';
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    siteUrl: 'https://tassoevan.github.io',
+    siteUrl: 'https://tassoevan.me',
     lang: 'pt-BR',
     title: 'Tasso & As Vozes',
     description:
@@ -128,6 +128,7 @@ const config: GatsbyConfig = {
     'gatsby-plugin-styled-components',
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
+    'gatsby-plugin-cname',
   ],
 };
 
