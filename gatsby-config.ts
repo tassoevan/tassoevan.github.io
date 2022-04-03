@@ -1,4 +1,7 @@
-module.exports = {
+import { resolve } from 'path';
+import type { GatsbyConfig } from 'gatsby';
+
+const config: GatsbyConfig = {
   siteMetadata: {
     siteUrl: 'https://tassoevan.github.io',
     lang: 'pt-BR',
@@ -17,7 +20,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/posts`,
+        path: resolve(`posts`),
         name: 'posts',
       },
     },
@@ -25,7 +28,7 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'images',
-        path: `${__dirname}/src/images`,
+        path: resolve(`src/images`),
       },
     },
     {
@@ -51,7 +54,27 @@ module.exports = {
         feeds: [
           {
             title: 'Tasso & As Vozes',
-            serialize: ({ query: { site, allMdx } }) => {
+            serialize: ({
+              query: { site, allMdx },
+            }: {
+              query: {
+                site: {
+                  siteMetadata: {
+                    siteUrl: string;
+                  };
+                };
+                allMdx: {
+                  edges: {
+                    node: {
+                      frontmatter: { date: string };
+                      excerpt: string;
+                      fields: { slug: string };
+                      html: string;
+                    };
+                  }[];
+                };
+              };
+            }) => {
               return allMdx.edges.map((edge) => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
@@ -98,7 +121,7 @@ module.exports = {
         background_color: '#ececec',
         theme_color: '#ececec',
         display: 'minimal-ui',
-        icon: `${__dirname}/src/images/icon.svg`,
+        icon: resolve(`src/images/icon.svg`),
       },
     },
     'gatsby-plugin-react-helmet',
@@ -107,3 +130,5 @@ module.exports = {
     'gatsby-plugin-sharp',
   ],
 };
+
+export default config;

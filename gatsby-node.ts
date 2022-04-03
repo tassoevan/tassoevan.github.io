@@ -1,7 +1,12 @@
-const { createFilePath } = require('gatsby-source-filesystem');
-const path = require('path');
+import { createFilePath } from 'gatsby-source-filesystem';
+import { resolve } from 'path';
+import type { GatsbyNode } from 'gatsby';
 
-exports.onCreateNode = ({ node, actions: { createNodeField }, getNode }) => {
+export const onCreateNode: GatsbyNode['onCreateNode'] = ({
+  node,
+  actions: { createNodeField },
+  getNode,
+}) => {
   if (node.internal.type === 'Mdx') {
     const value = createFilePath({ node, getNode });
     createNodeField({
@@ -12,8 +17,18 @@ exports.onCreateNode = ({ node, actions: { createNodeField }, getNode }) => {
   }
 };
 
-exports.createPages = async ({ actions: { createPage }, graphql }) => {
-  const result = await graphql(`
+export const createPages: GatsbyNode['createPages'] = async ({
+  actions: { createPage },
+  graphql,
+}) => {
+  const { data, errors } = await graphql<{
+    allMdx: {
+      nodes: {
+        fields: { slug: string };
+        frontmatter: { title: string };
+      }[];
+    };
+  }>(`
     query {
       allMdx(
         sort: { fields: frontmatter___date, order: DESC }
@@ -31,16 +46,16 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
     }
   `);
 
-  if (result.errors) {
-    throw result.errors;
+  if (errors) {
+    throw errors;
   }
 
-  result.data.allMdx.nodes.forEach((post, index, posts) => {
+  data?.allMdx.nodes.forEach((post, index, posts) => {
     const next = posts[index + 1];
 
     createPage({
       path: post.fields.slug,
-      component: path.resolve('src/templates/post.js'),
+      component: resolve('src/templates/post.tsx'),
       context: {
         slug: post.fields.slug,
         next: next && {

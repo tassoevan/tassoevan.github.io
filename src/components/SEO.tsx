@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { DetailedHTMLProps, MetaHTMLAttributes } from 'react';
 import Helmet from 'react-helmet';
 import { useSiteMetadata } from '../hooks/useSiteMetadata';
 
-function SEO({ title, description, lang = 'en', meta = [] }) {
+function SEO({
+  title,
+  description,
+  lang = 'en',
+  meta = [],
+}: {
+  title?: string;
+  description?: string;
+  lang?: string;
+  meta?: DetailedHTMLProps<
+    MetaHTMLAttributes<HTMLMetaElement>,
+    HTMLMetaElement
+  >[];
+}) {
   const siteMetadata = useSiteMetadata();
 
   return (

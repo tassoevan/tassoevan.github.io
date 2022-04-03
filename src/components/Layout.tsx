@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import styled, {
   createGlobalStyle,
   ThemeProvider,
@@ -19,13 +19,13 @@ const wordWrapMixin = css`
   hyphens: auto;
 `;
 
-const foregroundColor = (props) =>
+const foregroundColor = (props: { theme: { isDark: boolean } }) =>
   props.theme.isDark ? '#ececec' : 'hsl(0deg, 0%, 30%)';
 
-const backgroundColor = (props) =>
+const backgroundColor = (props: { theme: { isDark: boolean } }) =>
   props.theme.isDark ? 'hsl(0deg, 0%, 30%)' : '#ececec';
 
-const alternativeBackgroundColor = (props) =>
+const alternativeBackgroundColor = (props: { theme: { isDark: boolean } }) =>
   props.theme.isDark ? 'hsla(0deg, 0%, 70%, 10%)' : 'hsla(0deg, 0%, 30%, 10%)';
 
 const primaryColor = 'rgb(46, 170, 190)';
@@ -213,7 +213,7 @@ const BodyTitle = styled.h1`
   display: none;
 `;
 
-function Layout({ children }) {
+function Layout({ children }: { children: ReactNode }) {
   const { title } = useSiteMetadata();
   const preferDark = useMediaQuery('(prefers-color-scheme: dark)');
   const [isDark] = useState();

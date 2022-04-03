@@ -14,7 +14,26 @@ const NextArticle = styled.footer`
   text-align: end;
 `;
 
-function Post({ title, date, formattedDate, body, timeToRead, slug, next }) {
+function Post({
+  title,
+  date,
+  formattedDate,
+  body,
+  timeToRead,
+  slug,
+  next,
+}: {
+  title: string;
+  date: string;
+  formattedDate: string;
+  body: string;
+  timeToRead: number;
+  slug: string;
+  next?: {
+    slug: string;
+    title: string;
+  };
+}) {
   return (
     <StyledPost>
       <header>

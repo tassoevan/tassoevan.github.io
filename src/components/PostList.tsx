@@ -9,7 +9,22 @@ const StyledPostList = styled.div`
 `;
 
 function PostList() {
-  const data = useStaticQuery(graphql`
+  const data = useStaticQuery<{
+    allMdx: {
+      nodes: {
+        frontmatter: {
+          title: string;
+          date: string;
+          formattedDate: string;
+        };
+        fields: {
+          slug: string;
+        };
+        body: string;
+        timeToRead: number;
+      }[];
+    };
+  }>(graphql`
     {
       allMdx(
         sort: { fields: frontmatter___date, order: DESC }
