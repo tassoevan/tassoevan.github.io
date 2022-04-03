@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { useSiteMetadata } from '../hooks/useSiteMetadata';
 
@@ -52,12 +51,5 @@ function SEO({ title, description, lang = 'en', meta = [] }) {
     />
   );
 }
-
-SEO.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string,
-};
 
 export default SEO;
