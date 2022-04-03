@@ -50,6 +50,7 @@ module.exports = {
         `,
         feeds: [
           {
+            title: 'Tasso & As Vozes',
             serialize: ({ query: { site, allMdx } }) => {
               return allMdx.edges.map((edge) => {
                 return Object.assign({}, edge.node.frontmatter, {
