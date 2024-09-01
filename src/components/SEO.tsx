@@ -1,5 +1,5 @@
 import React, { DetailedHTMLProps, MetaHTMLAttributes } from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../hooks/useSiteMetadata';
 
 function SEO({

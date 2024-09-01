@@ -1,7 +1,7 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 import Post from './Post';
+import { usePostList } from '../hooks/usePostList';
 
 const StyledPostList = styled.div`
   max-width: 38em;
@@ -9,61 +9,19 @@ const StyledPostList = styled.div`
 `;
 
 function PostList() {
-  const data = useStaticQuery<{
-    allMdx: {
-      nodes: {
-        frontmatter: {
-          title: string;
-          date: string;
-          formattedDate: string;
-        };
-        fields: {
-          slug: string;
-        };
-        body: string;
-        timeToRead: number;
-      }[];
-    };
-  }>(graphql`
-    {
-      allMdx(
-        sort: { frontmatter: { date: DESC } }
-        filter: { frontmatter: { published: { eq: true } } }
-      ) {
-        nodes {
-          frontmatter {
-            title
-            date
-            formattedDate: date(formatString: "LLL", locale: "pt-BR")
-          }
-          fields {
-            slug
-          }
-          timeToRead
-          body
-        }
-      }
-    }
-  `);
+  const posts = usePostList();
 
   return (
     <StyledPostList>
-      {data.allMdx.nodes.map(
-        ({
-          frontmatter: { title, date, formattedDate },
-          fields: { slug },
-          timeToRead,
-        }) => (
-          <Post
-            key={slug}
-            slug={slug}
-            title={title}
-            date={date}
-            formattedDate={formattedDate}
-            timeToRead={timeToRead}
-          />
-        )
-      )}
+      {posts.map(({ title, date, slug, timeToRead }) => (
+        <Post
+          key={slug}
+          slug={slug}
+          title={title}
+          date={date}
+          timeToRead={timeToRead}
+        />
+      ))}
     </StyledPostList>
   );
 }

@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 import styled, {
   createGlobalStyle,
   ThemeProvider,
@@ -7,6 +7,12 @@ import styled, {
 import 'normalize.css';
 import { useSiteMetadata } from '../hooks/useSiteMetadata';
 import { useMediaQuery } from '../hooks/useMediaQuery';
+
+declare module 'styled-components' {
+  export interface DefaultTheme {
+    isDark: boolean;
+  }
+}
 
 const wordWrapMixin = css`
   overflow-wrap: break-word;
@@ -216,10 +222,9 @@ const BodyTitle = styled.h1`
 function Layout({ children }: { children: ReactNode }) {
   const { title } = useSiteMetadata();
   const preferDark = useMediaQuery('(prefers-color-scheme: dark)');
-  const [isDark] = useState();
 
   return (
-    <ThemeProvider theme={{ isDark: isDark ?? preferDark }}>
+    <ThemeProvider theme={{ isDark: preferDark }}>
       <GlobalStyle />
       <BodyTitle>{title}</BodyTitle>
       {children}

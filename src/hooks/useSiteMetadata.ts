@@ -1,20 +1,12 @@
-import { useStaticQuery, graphql } from 'gatsby';
+const siteMetadata = {
+  siteUrl: 'https://tassoevan.me',
+  lang: 'pt-BR',
+  title: 'Tasso & As Vozes',
+  description:
+    'Um lugar calmo e tranquilo onde dialogo com as vozes que habitam a minha cabeça',
+  twitterHandle: '@tassoevan',
+} as const;
 
 export const useSiteMetadata = () => {
-  const data = useStaticQuery(
-    graphql`
-      {
-        site {
-          siteMetadata {
-            title
-            description
-            lang
-            twitterHandle
-          }
-        }
-      }
-    `
-  );
-
-  return data.site.siteMetadata;
+  return siteMetadata;
 };

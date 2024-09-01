@@ -1,7 +1,7 @@
-import { Link } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
 import { useSiteMetadata } from '../hooks/useSiteMetadata';
+import Link from './Link';
 
 const StyledHeader = styled.section`
   text-align: center;
@@ -15,7 +15,7 @@ function Header() {
   return (
     <StyledHeader>
       <h1>
-        <Link to='/'>{title}</Link>
+        <Link href='/'>{title}</Link>
       </h1>
       <p>{description}</p>
     </StyledHeader>

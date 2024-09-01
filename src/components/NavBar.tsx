@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'gatsby';
 import { useSiteMetadata } from '../hooks/useSiteMetadata';
+import Link from './Link';
 
 const StyledNavBar = styled.nav`
   h1 {
@@ -17,7 +17,7 @@ function NavBar() {
   return (
     <StyledNavBar>
       <h1>
-        <Link to='/' title={description}>
+        <Link href='/' title={description}>
           {title}
         </Link>
       </h1>

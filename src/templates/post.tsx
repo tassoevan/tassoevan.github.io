@@ -5,21 +5,45 @@ import Layout from '../components/Layout';
 import NavBar from '../components/NavBar';
 import Post from '../components/Post';
 
-function PostTemplate({
-  data,
-  pageContext,
-  children,
-}: {
-  data: any;
-  pageContext: any;
+export const query = graphql`
+  query PostsBySlusg($slug: String!) {
+    mdx(fields: { slug: { eq: $slug } }) {
+      frontmatter {
+        title
+        date
+      }
+      excerpt
+      timeToRead
+    }
+  }
+`;
+
+interface PostTemplateProps {
+  pageContext: {
+    frontmatter: { title: string; date: string };
+    slug: string;
+    next?: {
+      slug: string;
+      title: string;
+    };
+  };
+  data: {
+    mdx: {
+      excerpt: string;
+      timeToRead: number;
+    };
+  };
   children: ReactNode;
-}) {
+}
+
+function PostTemplate({ pageContext, data, children }: PostTemplateProps) {
   const {
-    frontmatter: { title, date, formattedDate },
-    excerpt,
-    timeToRead,
-  } = data.mdx;
-  const { slug, next } = pageContext;
+    frontmatter: { title, date },
+    slug,
+    next,
+  } = pageContext;
+
+  const { excerpt, timeToRead } = data.mdx;
 
   return (
     <>
@@ -29,9 +53,8 @@ function PostTemplate({
         <Post
           slug={slug}
           title={title}
-          date={date}
-          formattedDate={formattedDate}
-          timeToRead={timeToRead}
+          date={new Date(Date.parse(date))}
+          timeToRead={Math.ceil(timeToRead)}
           next={next}
         >
           {children}
@@ -42,17 +65,3 @@ function PostTemplate({
 }
 
 export default PostTemplate;
-
-export const query = graphql`
-  query PostsBySlug($slug: String!) {
-    mdx(fields: { slug: { eq: $slug } }) {
-      frontmatter {
-        title
-        date
-        formattedDate: date(formatString: "LLL", locale: "pt-BR")
-      }
-      excerpt
-      timeToRead
-    }
-  }
-`;

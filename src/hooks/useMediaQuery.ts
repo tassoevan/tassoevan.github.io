@@ -1,18 +1,13 @@
 import { useEffect, useState } from 'react';
 
-export const useMediaQuery = (query: string) => {
-  const [isMatching, setMatching] = useState(
-    () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia &&
-      matchMedia(query).matches
-  );
+export const useStaticMediaQuery = (_query: string) => {
+  return false;
+};
+
+export const useDynamicMediaQuery = (query: string) => {
+  const [isMatching, setMatching] = useState(() => matchMedia(query).matches);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) {
-      return;
-    }
-
     const mediaQuery = matchMedia(query);
 
     const handleChange = () => {
@@ -28,3 +23,8 @@ export const useMediaQuery = (query: string) => {
 
   return isMatching;
 };
+
+export const useMediaQuery =
+  typeof window !== 'undefined' && !!window.matchMedia
+    ? useDynamicMediaQuery
+    : useStaticMediaQuery;

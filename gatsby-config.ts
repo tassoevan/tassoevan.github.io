@@ -15,6 +15,14 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: ['.mdx', '.md'],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1200,
+            },
+          },
+        ],
       },
     },
     {
@@ -69,7 +77,7 @@ const config: GatsbyConfig = {
                       frontmatter: { date: string };
                       excerpt: string;
                       fields: { slug: string };
-                      html: string;
+                      body: string;
                     };
                   }[];
                 };
@@ -81,7 +89,7 @@ const config: GatsbyConfig = {
                   date: edge.node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ 'content:encoded': edge.node.html }],
+                  custom_elements: [{ 'content:encoded': edge.node.body }],
                 });
               });
             },
@@ -100,7 +108,7 @@ const config: GatsbyConfig = {
                         date
                       }
                       excerpt
-                      html
+                      body
                     }
                   }
                 }

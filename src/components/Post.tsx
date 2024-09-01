@@ -1,6 +1,6 @@
-import { Link } from 'gatsby';
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
+import Link from './Link';
 
 const StyledPost = styled.div`
   max-width: 38em;
@@ -13,18 +13,9 @@ const NextArticle = styled.footer`
   text-align: end;
 `;
 
-function Post({
-  title,
-  date,
-  formattedDate,
-  children,
-  timeToRead,
-  slug,
-  next,
-}: {
+interface PostProps {
   title: string;
-  date: string;
-  formattedDate: string;
+  date: Date;
   children?: ReactNode;
   timeToRead: number;
   slug: string;
@@ -32,22 +23,29 @@ function Post({
     slug: string;
     title: string;
   };
-}) {
+}
+
+function Post({ title, date, children, timeToRead, slug, next }: PostProps) {
   return (
     <StyledPost>
       <header>
         <h2>
-          <Link to={slug}>{title}</Link>
+          <Link href={slug}>{title}</Link>
         </h2>
         <div>
-          <time dateTime={date}>{formattedDate}</time> &middot; {timeToRead}{' '}
-          {timeToRead === 1 ? 'minuto' : 'minutos'}
+          <time dateTime={date.toISOString()}>
+            {new Intl.DateTimeFormat('pt-BR', {
+              dateStyle: 'long',
+              timeStyle: 'short',
+            }).format(date)}
+          </time>{' '}
+          &middot; {timeToRead} {timeToRead === 1 ? 'minuto' : 'minutos'}
         </div>
       </header>
       {children && <article>{children}</article>}
       {next && (
         <NextArticle>
-          <Link to={next.slug}>{next.title}</Link>
+          <Link href={next.slug}>{next.title}</Link>
         </NextArticle>
       )}
     </StyledPost>
