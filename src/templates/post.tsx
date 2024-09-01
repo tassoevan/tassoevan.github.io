@@ -4,6 +4,7 @@ import SEO from '../components/SEO';
 import Layout from '../components/Layout';
 import NavBar from '../components/NavBar';
 import Post from '../components/Post';
+import { siteMetadata } from '../siteMetadata';
 
 export const query = graphql`
   query PostsBySlusg($slug: String!) {
@@ -51,13 +52,13 @@ function PostTemplate({ pageContext, data, children }: PostTemplateProps) {
     next,
   } = pageContext;
 
-  const { excerpt } = data.mdx;
-
   return (
     <>
-      <SEO title={title} description={excerpt} />
-      <Layout>
-        <NavBar />
+      <Layout title={title}>
+        <NavBar
+          title={siteMetadata.title}
+          description={siteMetadata.description}
+        />
         <Post
           slug={slug}
           title={title}
@@ -73,3 +74,13 @@ function PostTemplate({ pageContext, data, children }: PostTemplateProps) {
 }
 
 export default PostTemplate;
+
+export const Head = ({ pageContext, data, children }: PostTemplateProps) => {
+  const {
+    frontmatter: { title },
+  } = pageContext;
+
+  const { excerpt } = data.mdx;
+
+  return <SEO title={title} description={excerpt} />;
+};

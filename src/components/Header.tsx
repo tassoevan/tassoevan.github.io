@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useSiteMetadata } from '../hooks/useSiteMetadata';
 import Link from './Link';
 
 const StyledHeader = styled.section`
@@ -9,9 +8,12 @@ const StyledHeader = styled.section`
   margin: 0 auto;
 `;
 
-function Header() {
-  const { title, description } = useSiteMetadata();
+interface HeaderProps {
+  title: string;
+  description: string;
+}
 
+function Header({ title, description }: HeaderProps) {
   return (
     <StyledHeader>
       <h1>

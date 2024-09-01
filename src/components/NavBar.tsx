@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useSiteMetadata } from '../hooks/useSiteMetadata';
 import Link from './Link';
 
 const StyledNavBar = styled.nav`
@@ -11,9 +10,12 @@ const StyledNavBar = styled.nav`
   }
 `;
 
-function NavBar() {
-  const { title, description } = useSiteMetadata();
+interface NavBarProps {
+  title: string;
+  description: string;
+}
 
+function NavBar({ title, description }: NavBarProps) {
   return (
     <StyledNavBar>
       <h1>

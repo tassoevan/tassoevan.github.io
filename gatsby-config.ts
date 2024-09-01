@@ -132,7 +132,6 @@ const config: GatsbyConfig = {
         icon: resolve(`src/images/icon.svg`),
       },
     },
-    'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',

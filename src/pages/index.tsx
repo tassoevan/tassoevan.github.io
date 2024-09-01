@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import Header from '../components/Header';
 import PostList from '../components/PostList';
 import { graphql, useStaticQuery } from 'gatsby';
+import { siteMetadata } from '../siteMetadata';
 
 function IndexPage() {
   const data = useStaticQuery<{
@@ -56,9 +57,11 @@ function IndexPage() {
 
   return (
     <>
-      <SEO />
-      <Layout>
-        <Header />
+      <Layout title={siteMetadata.title}>
+        <Header
+          title={siteMetadata.title}
+          description={siteMetadata.description}
+        />
         <PostList posts={posts} />
       </Layout>
     </>
@@ -66,3 +69,5 @@ function IndexPage() {
 }
 
 export default IndexPage;
+
+export const Head = () => <SEO />;

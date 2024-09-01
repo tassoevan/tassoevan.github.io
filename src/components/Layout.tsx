@@ -5,7 +5,6 @@ import styled, {
   css,
 } from 'styled-components';
 import 'normalize.css';
-import { useSiteMetadata } from '../hooks/useSiteMetadata';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 
 declare module 'styled-components' {
@@ -219,8 +218,12 @@ const BodyTitle = styled.h1`
   display: none;
 `;
 
-function Layout({ children }: { children: ReactNode }) {
-  const { title } = useSiteMetadata();
+interface LayoutProps {
+  children: ReactNode;
+  title: string;
+}
+
+function Layout({ children, title }: LayoutProps) {
   const preferDark = useMediaQuery('(prefers-color-scheme: dark)');
 
   return (
