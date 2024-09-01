@@ -1,6 +1,5 @@
 import { Link } from 'gatsby';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
 const StyledPost = styled.div`
@@ -18,7 +17,7 @@ function Post({
   title,
   date,
   formattedDate,
-  body,
+  children,
   timeToRead,
   slug,
   next,
@@ -26,7 +25,7 @@ function Post({
   title: string;
   date: string;
   formattedDate: string;
-  body: string;
+  children?: ReactNode;
   timeToRead: number;
   slug: string;
   next?: {
@@ -45,11 +44,7 @@ function Post({
           {timeToRead === 1 ? 'minuto' : 'minutos'}
         </div>
       </header>
-      {body && (
-        <article>
-          <MDXRenderer>{body}</MDXRenderer>
-        </article>
-      )}
+      {children && <article>{children}</article>}
       {next && (
         <NextArticle>
           <Link to={next.slug}>{next.title}</Link>

@@ -1,16 +1,23 @@
 import { graphql } from 'gatsby';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import SEO from '../components/SEO';
 import Layout from '../components/Layout';
 import NavBar from '../components/NavBar';
 import Post from '../components/Post';
 
-function PostTemplate({ data, pageContext }) {
+function PostTemplate({
+  data,
+  pageContext,
+  children,
+}: {
+  data: any;
+  pageContext: any;
+  children: ReactNode;
+}) {
   const {
     frontmatter: { title, date, formattedDate },
     excerpt,
     timeToRead,
-    body,
   } = data.mdx;
   const { slug, next } = pageContext;
 
@@ -25,9 +32,10 @@ function PostTemplate({ data, pageContext }) {
           date={date}
           formattedDate={formattedDate}
           timeToRead={timeToRead}
-          body={body}
           next={next}
-        />
+        >
+          {children}
+        </Post>
       </Layout>
     </>
   );
@@ -45,7 +53,6 @@ export const query = graphql`
       }
       excerpt
       timeToRead
-      body
     }
   }
 `;

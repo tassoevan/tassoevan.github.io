@@ -27,7 +27,7 @@ function PostList() {
   }>(graphql`
     {
       allMdx(
-        sort: { fields: frontmatter___date, order: DESC }
+        sort: { frontmatter: { date: DESC } }
         filter: { frontmatter: { published: { eq: true } } }
       ) {
         nodes {
@@ -53,7 +53,6 @@ function PostList() {
           frontmatter: { title, date, formattedDate },
           fields: { slug },
           timeToRead,
-          body,
         }) => (
           <Post
             key={slug}
@@ -62,7 +61,6 @@ function PostList() {
             date={date}
             formattedDate={formattedDate}
             timeToRead={timeToRead}
-            body={body}
           />
         )
       )}
