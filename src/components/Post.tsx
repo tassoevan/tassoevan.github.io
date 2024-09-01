@@ -15,7 +15,7 @@ const NextArticle = styled.footer`
 
 interface PostProps {
   title: string;
-  date: Date;
+  date: number;
   children?: ReactNode;
   timeToRead: number;
   slug: string;
@@ -33,7 +33,7 @@ function Post({ title, date, children, timeToRead, slug, next }: PostProps) {
           <Link href={slug}>{title}</Link>
         </h2>
         <div>
-          <time dateTime={date.toISOString()}>
+          <time dateTime={new Date(date).toISOString()}>
             {new Intl.DateTimeFormat('pt-BR', {
               dateStyle: 'long',
               timeStyle: 'short',

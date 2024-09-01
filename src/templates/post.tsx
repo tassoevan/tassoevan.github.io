@@ -12,8 +12,12 @@ export const query = graphql`
         title
         date
       }
+      fields {
+        timeToRead {
+          minutes
+        }
+      }
       excerpt
-      timeToRead
     }
   }
 `;
@@ -29,8 +33,12 @@ interface PostTemplateProps {
   };
   data: {
     mdx: {
+      fields: {
+        timeToRead: {
+          minutes: number;
+        };
+      };
       excerpt: string;
-      timeToRead: number;
     };
   };
   children: ReactNode;
@@ -43,7 +51,7 @@ function PostTemplate({ pageContext, data, children }: PostTemplateProps) {
     next,
   } = pageContext;
 
-  const { excerpt, timeToRead } = data.mdx;
+  const { excerpt } = data.mdx;
 
   return (
     <>
@@ -53,8 +61,8 @@ function PostTemplate({ pageContext, data, children }: PostTemplateProps) {
         <Post
           slug={slug}
           title={title}
-          date={new Date(Date.parse(date))}
-          timeToRead={Math.ceil(timeToRead)}
+          date={Date.parse(date)}
+          timeToRead={Math.ceil(data.mdx.fields.timeToRead.minutes)}
           next={next}
         >
           {children}

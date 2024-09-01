@@ -4470,7 +4470,7 @@ __metadata:
     gatsby-source-filesystem: "npm:~5.13.1"
     gatsby-transformer-sharp: "npm:~5.13.1"
     gh-pages: "npm:^3.2.3"
-    normalize.css: "npm:^8.0.1"
+    normalize.css: "npm:~8.0.1"
     prettier: "npm:^2.6.2"
     react: "npm:~18.3.1"
     react-dom: "npm:~18.3.1"
@@ -14849,7 +14849,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"normalize.css@npm:^8.0.1":
+"normalize.css@npm:~8.0.1":
   version: 8.0.1
   resolution: "normalize.css@npm:8.0.1"
   checksum: 10/c3af2145c21d57b94fe9f1abe7bac82ec91f8088810ada6ee3385f29a2d51af441a469b3c680d25b27bfab5291908a3ef3ed7012955036e8967f0b18fe39f38a

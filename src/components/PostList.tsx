@@ -1,16 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import Post from './Post';
-import { usePostList } from '../hooks/usePostList';
 
 const StyledPostList = styled.div`
   max-width: 38em;
   margin: 0 auto;
 `;
 
-function PostList() {
-  const posts = usePostList();
+interface PostListProps {
+  posts: {
+    title: string;
+    date: number;
+    slug: string;
+    timeToRead: number;
+  }[];
+}
 
+function PostList({ posts }: PostListProps) {
   return (
     <StyledPostList>
       {posts.map(({ title, date, slug, timeToRead }) => (
