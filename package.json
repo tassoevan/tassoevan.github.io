@@ -64,7 +64,7 @@
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
-  "packageManager": "yarn@3.2.0",
+  "packageManager": "yarn@4.4.1",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -79,5 +79,9 @@
     "tabWidth": 2,
     "trailingComma": "es5",
     "jsxSingleQuote": true
+  },
+  "volta": {
+    "node": "18.20.4",
+    "yarn": "4.4.1-git.20240825.hash-b2f315f6"
   }
 }
