@@ -1,0 +1,40 @@
+{
+  "name": "@tassoevan/tassoevan.github.io",
+  "version": "3.0.0",
+  "description": "My personal website",
+  "homepage": "https://tassoevan.github.io",
+  "bugs": {
+    "url": "https://github.com/tassoevan/tassoevan.github.io/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tassoevan/tassoevan.github.io.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Tasso Evangelista <tasso@tassoevan.me>",
+  "type": "module",
+  "scripts": {
+    "build": "parcel build && cp src/CNAME dist/",
+    "start": "parcel"
+  },
+  "dependencies": {
+    "@parcel/rsc": "^2.15.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@parcel/packager-react-static": "^2.15.4",
+    "@parcel/transformer-react-static": "^2.15.4",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "parcel": "^2.15.4",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2"
+  },
+  "targets": {
+    "react-static": {
+      "source": "src/pages/*.tsx",
+      "context": "react-server"
+    }
+  }
+}
