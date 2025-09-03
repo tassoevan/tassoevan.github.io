@@ -13,8 +13,8 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Tasso Evangelista - Personal Website',
-  description: 'Personal Website of Tasso Evangelista',
+  title: 'Tasso Evangelista',
+  description: 'Personal Website',
 };
 
 export default function RootLayout({
