@@ -11,6 +11,11 @@ const eslintConfig = [
   eslintConfigPrettier,
   eslintPluginPrettierRecommended,
   {
+    rules: {
+      '@typescript-eslint/consistent-type-imports': 'error',
+    },
+  },
+  {
     ignores: [
       'node_modules/**',
       '.next/**',
