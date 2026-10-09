@@ -12,6 +12,7 @@ function App() {
       </main>
       <footer className='row-start-3 flex flex-wrap items-center justify-center gap-[24px]'>
         <ExternalLink href='https://github.com/tassoevan'>GitHub</ExternalLink>
+        <ExternalLink href='https://codeberg.org/tassoevan'>Codeberg</ExternalLink>
         <ExternalLink href='https://bsky.app/profile/tassoevan.me'>Bluesky</ExternalLink>
         <ExternalLink href='https://mastodon.social/@tassoevan'>Mastodon</ExternalLink>
         <ExternalLink href='https://www.linkedin.com/in/tassoevan'>LinkedIn</ExternalLink>
