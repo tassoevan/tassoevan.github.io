@@ -1,14 +1,15 @@
 # CLAUDE.md
 
 Site estático (Vite + React + TypeScript + Tailwind v4) publicado no GitHub Pages a cada push
-em `main` (`.github/workflows/deploy.yml`). Ele tem duas páginas independentes:
+em `main` (`.github/workflows/deploy.yml`). Ele tem páginas independentes:
 
-| URL     | HTML              | Código     | Idioma | Finalidade                                                  |
-| ------- | ----------------- | ---------- | ------ | ----------------------------------------------------------- |
-| `/`     | `index.html`      | `src/*`    | inglês | Página pessoal do Tasso. **Não mexer.**                     |
-| `/edu/` | `edu/index.html`  | `src/edu/` | pt-BR  | Materiais de Ciências da Natureza (EF e EM) segundo a BNCC. |
+| URL             | HTML                     | Código             | Idioma | Finalidade                                                  |
+| --------------- | ------------------------ | ------------------ | ------ | ----------------------------------------------------------- |
+| `/`             | `index.html`             | `src/*`            | inglês | Página pessoal do Tasso. **Não mexer.**                     |
+| `/edu/`         | `edu/index.html`         | `src/edu/`         | pt-BR  | Materiais de Ciências da Natureza (EF e EM) segundo a BNCC. |
+| `/edu/carrute/` | `edu/carrute/index.html` | `src/edu/carrute/` | pt-BR  | Quiz em equipes para o telão da sala de aula.               |
 
-As duas entradas estão declaradas em `build.rollupOptions.input` no `vite.config.ts`.
+Todas as entradas estão declaradas em `build.rollupOptions.input` no `vite.config.ts`.
 
 ## Comandos
 
@@ -33,6 +34,7 @@ Rode `yarn build`, `yarn lint` e `yarn format:check` antes de concluir qualquer 
 - `/edu` (sem barra) redireciona para `/edu/` por meio do `public/edu.html`. Não o remova. Uma
   nova página em diretório precisa de um redirecionamento equivalente em `public/<nome>.html`.
   O `yarn dev` não usa esse redirecionamento: lá, acesse `/edu/` com a barra.
+  Exemplo: `/edu/carrute` é redirecionado por `public/edu/carrute.html`.
 
 ### 2. Fidelidade à BNCC
 
@@ -65,7 +67,18 @@ Rode `yarn build`, `yarn lint` e `yarn format:check` antes de concluir qualquer 
 - Publique apenas materiais próprios ou com licença que permita a redistribuição, e dê o crédito.
   Para conteúdo de terceiros sem licença clara, use um link, não uma cópia.
 
-### 4. Privacidade e segurança dos estudantes (LGPD e ECA)
+### 4. Quiz (`/edu/carrute/`)
+
+- O quiz é jogado em equipes, no telão: cada equipe levanta cartões com as letras A–D, e quem
+  conduz marca as equipes que acertaram. Não há conexão entre aparelhos nem servidor, e deve
+  continuar assim (veja a seção 5).
+- As perguntas ficam em `QUIZ`, no arquivo `src/edu/carrute/quiz.ts`. O quiz atual é um exemplo
+  provisório (`draft: true`), que exibe um aviso na tela. Ao cadastrar as perguntas do professor,
+  remova o `draft`. Associe habilidades da BNCC (`skills`) só quando o professor confirmar.
+- É inspirado no Kahoot!, mas **não** use o nome, o logotipo, as cores, as formas ou os sons do
+  Kahoot!, que são marcas registradas. Use a paleta do site.
+
+### 5. Privacidade e segurança dos estudantes (LGPD e ECA)
 
 - Nenhum dado pessoal de estudantes: nomes, fotos, vídeos, notas, turmas identificáveis, e-mails
   ou trabalhos sem anonimização.
@@ -73,7 +86,7 @@ Rode `yarn build`, `yarn lint` e `yarn format:check` antes de concluir qualquer 
   Prefira links a iframes de terceiros.
 - Sem formulários ou coleta de dados. O site é estático (GitHub Pages) e não tem backend.
 
-### 5. Acessibilidade e alcance
+### 6. Acessibilidade e alcance
 
 - Muitos estudantes acessam pelo celular, em conexões lentas ou com franquia de dados. Mantenha
   `/edu` leve: não adicione dependências sem pedir, nem imagens pesadas ou fontes externas.

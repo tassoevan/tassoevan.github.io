@@ -15,10 +15,11 @@ export default defineConfig({
   ],
   build: {
     rollupOptions: {
-      // Multi-page: the root (/) and the teacher area (/edu/) are independent entries.
+      // Multi-page: the root (/), the teacher area (/edu/) and its pages are independent entries.
       input: {
         main: resolve(import.meta.dirname, "index.html"),
         edu: resolve(import.meta.dirname, "edu/index.html"),
+        carrute: resolve(import.meta.dirname, "edu/carrute/index.html"),
       },
     },
   },

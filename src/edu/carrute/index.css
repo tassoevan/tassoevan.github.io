@@ -1,0 +1,9 @@
+@import '../index.css';
+
+@theme {
+  /** answer colors, derived from the educampo palette (white text passes WCAG AA) */
+  --color-choice-a: #b5562a;
+  --color-choice-b: #124925;
+  --color-choice-c: #6f6e2c;
+  --color-choice-d: #7a4f66;
+}
