@@ -20,7 +20,7 @@
   --background: var(--color-athena);
   --foreground: var(--color-kuroiblack);
   --primary: var(--color-autumnbark);
-  --secundary: oklch(from var(--color-violetfantasy) calc(l - 0.2) calc(c + 0.1) h);
+  --secundary: oklch(from var(--color-violetfantasy) calc(l - 0.23) calc(c + 0.1) h);
 }
 
 @media (prefers-color-scheme: dark) {
