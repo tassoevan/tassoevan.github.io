@@ -1,4 +1,4 @@
-import ExternalLink from './components/ExternalLink';
+import ProfileLink from './components/ProfileLink';
 
 function App() {
   return (
@@ -11,12 +11,12 @@ function App() {
         </p>
       </main>
       <footer className='row-start-3 flex flex-wrap items-center justify-center gap-[24px]'>
-        <ExternalLink href='https://github.com/tassoevan'>GitHub</ExternalLink>
-        <ExternalLink href='https://codeberg.org/tassoevan'>Codeberg</ExternalLink>
-        <ExternalLink href='https://bsky.app/profile/tassoevan.me'>Bluesky</ExternalLink>
-        <ExternalLink href='https://mastodon.social/@tassoevan'>Mastodon</ExternalLink>
-        <ExternalLink href='https://www.linkedin.com/in/tassoevan'>LinkedIn</ExternalLink>
-        <ExternalLink href='mailto:tasso@tassoevan.me'>Email</ExternalLink>
+        <ProfileLink href='https://github.com/tassoevan'>GitHub</ProfileLink>
+        <ProfileLink href='https://codeberg.org/tassoevan'>Codeberg</ProfileLink>
+        <ProfileLink href='https://bsky.app/profile/tassoevan.me'>Bluesky</ProfileLink>
+        <ProfileLink href='https://mastodon.social/@tassoevan'>Mastodon</ProfileLink>
+        <ProfileLink href='https://www.linkedin.com/in/tassoevan'>LinkedIn</ProfileLink>
+        <ProfileLink href='mailto:tasso@tassoevan.me'>Email</ProfileLink>
       </footer>
     </div>
   );
