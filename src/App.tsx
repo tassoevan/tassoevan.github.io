@@ -11,6 +11,9 @@ function App() {
         </p>
       </main>
       <footer className='row-start-3 flex flex-wrap items-center justify-center gap-[24px]'>
+        <ProfileLink href='/cv/' target={undefined} rel={undefined}>
+          CV
+        </ProfileLink>
         <ProfileLink href='https://github.com/tassoevan'>GitHub</ProfileLink>
         <ProfileLink href='https://codeberg.org/tassoevan'>Codeberg</ProfileLink>
         <ProfileLink href='https://bsky.app/profile/tassoevan.me'>Bluesky</ProfileLink>
