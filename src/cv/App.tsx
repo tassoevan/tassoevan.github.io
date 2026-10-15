@@ -35,6 +35,11 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 function App() {
   return (
     <div className='mx-auto flex max-w-3xl flex-col gap-10 px-4 py-12 font-sans sm:px-8 print:max-w-none print:gap-6 print:py-0'>
+      <nav className='print:hidden'>
+        <ProfileLink href='/' target={undefined} rel={undefined}>
+          <span aria-hidden='true'>←</span> Home
+        </ProfileLink>
+      </nav>
       <header className='flex flex-col gap-2'>
         <h1 className='text-primary text-4xl font-bold'>{NAME}</h1>
         <p className='text-lg'>
