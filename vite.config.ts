@@ -18,6 +18,7 @@ export default defineConfig({
         main: resolve(import.meta.dirname, "index.html"),
         edu: resolve(import.meta.dirname, "edu/index.html"),
         carrute: resolve(import.meta.dirname, "edu/carrute/index.html"),
+        cv: resolve(import.meta.dirname, "cv/index.html"),
       },
     },
   },
