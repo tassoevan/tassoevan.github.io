@@ -1,5 +1,5 @@
 import type { KeyboardEvent, ReactNode } from 'react';
-import type { Character, Kid } from './Flork';
+import type { Character, Kid } from './flork';
 
 const HEART = 'M0,4 C-8,-4 -6,-12 0,-7 C6,-12 8,-4 0,4 Z';
 

@@ -1,8 +1,8 @@
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import type { Arms, Character, Eyes, Item, Kid, Mouth } from './components/Flork';
-import Flork from './components/Flork';
+import type { Arms, Character, Eyes, Item, Kid, Mouth, Pose } from './components/flork';
+import { Indi, Jojo, Lolo, Nana, Tasso } from './components/flork';
 import InstallButton from './components/InstallButton';
 import Scene from './components/Scene';
 import { BREATH, KID_LINES, LINES, MATH_FACTS, NOTES, TAP_HINT_LINES } from './messages';
@@ -166,6 +166,23 @@ function kidLine({ character: kid, accessory }: Guest, action: ActionState) {
       (onPhone ? lines.anyPhone : undefined) ??
       KID_LINES[kid].any,
   );
+}
+
+// Draws one of the girls, turning her `accessory` into what it means for her.
+function Girl({
+  character,
+  accessory,
+  celebrate,
+  ...pose
+}: Pose & Readonly<{ character: Kid; accessory: boolean; celebrate?: boolean }>) {
+  switch (character) {
+    case 'jojo':
+      return <Jojo {...pose} phone={accessory} celebrate={celebrate} />;
+    case 'nana':
+      return <Nana {...pose} dogEars={accessory} />;
+    case 'lolo':
+      return <Lolo {...pose} pacifier={accessory} />;
+  }
 }
 
 function greeting(): Speech {
@@ -504,7 +521,7 @@ export default function App() {
       character,
       node: (
         <g key={`${action?.id}-${kidBoop?.id}`} className={motion}>
-          <Flork
+          <Girl
             character={character}
             arms={arms}
             mouth={mouth}
@@ -548,8 +565,7 @@ export default function App() {
             onBoop={boop}
             indi={
               <g key={action?.id} className={indiMotion}>
-                <Flork
-                  character='indi'
+                <Indi
                   arms={indiArms}
                   mouth={indiMouth}
                   eyes={indiEyes}
@@ -557,7 +573,7 @@ export default function App() {
                     type === 'hug' || type === 'boop-indi' || type === 'cyclops' || type === 'math'
                   }
                   sad={type === 'pout'}
-                  wiggle={type === 'eyebrows'}
+                  browWiggle={type === 'eyebrows'}
                   holding={
                     type === 'tea'
                       ? 'mug'
@@ -573,13 +589,12 @@ export default function App() {
             }
             tasso={
               <g key={action?.id} className={tassoMotion}>
-                <Flork
-                  character='tasso'
+                <Tasso
                   arms={tassoArms}
                   mouth={tassoMouth}
                   eyes={tassoEyes}
                   blush={type === 'eyebrows' || type === 'cyclops'}
-                  shine={type === 'eyebrows'}
+                  glassesShine={type === 'eyebrows'}
                   holding={tassoItem}
                   outfit={hoodieOnIndi ? 'own' : 'hoodie'}
                 />
