@@ -35,7 +35,8 @@ Rode `yarn build`, `yarn lint` e `yarn format:check` antes de concluir qualquer 
   Nunca crie `public/edu/index.html`, porque ele colidiria com a página gerada por `edu/index.html`.
 - `/edu` (sem barra) redireciona para `/edu/` por meio do `public/edu.html`. Não o remova. Uma
   nova página em diretório precisa de um redirecionamento equivalente em `public/<nome>.html`.
-  O `yarn dev` não usa esse redirecionamento: lá, acesse `/edu/` com a barra.
+  No `yarn dev` e no `yarn preview`, o plugin `trailingSlashRedirect` do `vite.config.ts` faz o
+  mesmo para toda entrada em diretório.
   Exemplo: `/edu/carrute` é redirecionado por `public/edu/carrute.html`, e `/cv`, por `public/cv.html`
   (e `/indi`, por `public/indi.html`).
 
