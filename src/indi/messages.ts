@@ -10,6 +10,21 @@ export const NOTES: readonly string[] = [
   'Descansar também é fazer alguma coisa. Pode parar um pouquinho, meu biju.',
   'Obrigado por ser você, inteirinha, nos dias bons e nos difíceis.',
   'Te amo. (Sim, de novo. Vou continuar repetindo.)',
+  'Se hoje o corpo pedir sofá, o sofá é seu. Eu levo o açaí.',
+  'Meu moletom rosa sente sua falta. Mentira, ele prefere você. Eu também.',
+  'Você não é preguiçosa. Você é corajosa num corpo que às vezes dói. É diferente.',
+  'Tarefas de hoje: 1. Existir. 2. Deixar eu cuidar de você. Pronto, tudo feito. ✅',
+  'Se a cabeça estiver com mil abas abertas, tudo bem. Eu fico na aba do "te amo".',
+  'Bijuzinha, eu escolheria você em todos os dias, inclusive nos difíceis. Principalmente neles.',
+  'As meninas têm a melhor mãe do mundo. Eu tenho a melhor namorada. Coincidência? Acho que não.',
+  'Pausa pra respirar fundo. Eu espero. 🤍',
+  'Hoje vale beicinho, dengo, manta e drama. Tudo liberado pelo mor.',
+  'Se der vontade de chorar, chora. Depois a gente pede açaí.',
+  'Seu sorriso é meu lugar preferido. O beicinho também é lindo, mas o sorriso ganha.',
+  'Não precisa responder nada. Só queria lembrar: te amo.',
+  'Meu biju, você é muito mais do que os dias ruins.',
+  'Oferecimento: Moletom Rosa™, Abraço de Urso™ e Seu Mor™. Válido pra sempre.',
+  'Te amo. Mesmo. De verdade. Muito. Hoje e amanhã também.',
 ];
 
 // Speech bubbles. Each reaction picks one line at random.
