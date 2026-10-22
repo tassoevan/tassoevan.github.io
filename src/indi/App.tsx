@@ -471,7 +471,8 @@ export default function App() {
 
   let indiArms: Arms = 'down';
   if (type === 'hug') indiArms = 'hug';
-  else if (type === 'tea' || type === 'acai' || type === 'peteco') indiArms = 'hold';
+  else if (type === 'tea' || type === 'acai') indiArms = 'hold';
+  else if (type === 'peteco') indiArms = 'holdLeft';
 
   let indiMouth: Mouth = 'smile';
   if (type === 'pout') indiMouth = 'pout';

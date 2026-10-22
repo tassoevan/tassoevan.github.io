@@ -6,7 +6,8 @@ import { INK } from './ink';
 import type { Item } from './items';
 import { HeldItem } from './items';
 
-export type Arms = 'down' | 'up' | 'hug' | 'hold' | 'point';
+// `hold` carries something in the right hand, in front of the body; `holdLeft`, in the left.
+export type Arms = 'down' | 'up' | 'hug' | 'hold' | 'holdLeft' | 'point';
 
 // Flork style: head and body are a single bean shape, with stick arms and legs and blob hands.
 // Everyone shares a 120×190 local canvas. `top` is where the dome starts, and the girls are
@@ -80,6 +81,8 @@ function armShapes(
     // Index finger up, as when explaining something.
     case 'point':
       return [leftDown, [`M${r - 1},${y} Q${r + 14},${y - 10} ${r + 8},${y - 36}`, r + 8, y - 36]];
+    case 'holdLeft':
+      return [[`M${l + 1},${y} Q${l - 6},${y + 24} 54,${y + 22}`, 54, y + 22], rightDown];
     case 'hold':
       return [leftDown, [`M${r - 1},${y} Q${r + 6},${y + 24} 66,${y + 22}`, 66, y + 22]];
     default:
@@ -149,7 +152,7 @@ export default function Flork({
   const { t, b, eyeY, eyeXs } = geo;
   const bean = beanPath(geo);
   const armList = armShapes(geo, shape.hugTo, arms);
-  const [, handX, handY] = armList[1];
+  const [, handX, handY] = armList[arms === 'holdLeft' ? 0 : 1];
 
   return (
     <g stroke={INK} strokeWidth={4} strokeLinecap='round' strokeLinejoin='round' fill='none'>

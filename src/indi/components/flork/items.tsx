@@ -87,16 +87,22 @@ function Plush({ x, y }: Readonly<{ x: number; y: number }>) {
 
 // Cartoon toy gun that pops out a flag, for her "peteco! peteco!" joke.
 function FlagGun({ x, y }: Readonly<{ x: number; y: number }>) {
+  // Held items sit a little below the hand, so the grip is placed back up under her fingers.
+  const hx = x;
+  const hy = y - 4;
+
   return (
     <g strokeWidth={1.5}>
       <g className='flag-pop'>
-        <path d={`M${x + 10},${y - 3.5} H${x + 18}`} />
-        <rect x={x + 18} y={y - 10} width={30} height={13} rx={1.5} fill='#fff' />
+        <path d={`M${hx + 14},${hy - 6.5} H${hx + 20}`} />
+        <rect x={hx + 20} y={hy - 13} width={40} height={13} rx={1.5} fill='#fff' />
+        {/* Squeezed to the flag's width, whatever the font. */}
         <text
-          x={x + 33}
-          y={y - 1}
-          textAnchor='middle'
-          fontSize={7}
+          x={hx + 24}
+          y={hy - 3.6}
+          textLength={32}
+          lengthAdjust='spacingAndGlyphs'
+          fontSize={7.5}
           fontWeight={800}
           fill='#d62f3a'
           stroke='none'
@@ -104,9 +110,14 @@ function FlagGun({ x, y }: Readonly<{ x: number; y: number }>) {
           PETECO!
         </text>
       </g>
-      <rect x={x - 6} y={y - 6} width={15} height={5} rx={1} fill='#f2a541' />
-      <rect x={x + 8} y={y - 6.5} width={3} height={6} rx={1} fill='#d62f3a' />
-      <path d={`M${x - 5},${y - 1} H${x - 1} L${x - 2},${y + 7} H${x - 6} Z`} fill='#f2a541' />
+      <rect x={hx - 3} y={hy - 9} width={15} height={5} rx={1} fill='#f2a541' />
+      <rect x={hx + 11} y={hy - 9.5} width={3} height={6} rx={1} fill='#d62f3a' />
+      <path
+        d={`M${hx - 2},${hy - 4} H${hx + 2} L${hx + 1.5},${hy + 5} H${hx - 2.5} Z`}
+        fill='#f2a541'
+      />
+      {/* Her hand closed around the grip. */}
+      <ellipse cx={hx} cy={hy + 0.5} rx={4} ry={3.6} fill={INK} stroke='none' />
     </g>
   );
 }
