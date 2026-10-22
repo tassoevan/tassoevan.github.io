@@ -5,10 +5,11 @@ import type { Arms, Character, Eyes, Item, Kid, Mouth } from './components/Flork
 import Flork from './components/Flork';
 import InstallButton from './components/InstallButton';
 import Scene from './components/Scene';
-import { BREATH, KID_LINES, LINES, NOTES } from './messages';
+import { BREATH, KID_LINES, LINES, NOTES, TAP_HINT_LINES } from './messages';
 import { drawNote } from './noteDeck';
 import type { Sound } from './sounds';
 import { isSoundEnabled, playSound, setSoundEnabled } from './sounds';
+import { hasTapped, rememberTap } from './tapHint';
 
 type Move = 'dance' | 'jump' | 'spin' | 'trip';
 type Silly = Move | 'dusty';
@@ -60,6 +61,9 @@ const ACTION_SOUNDS: Record<Action, Sound> = {
 const SPEECH_DURATION = 4500;
 const GUEST_LINE_DELAY = 1800;
 const COMFORT_NOTE_CHANCE = 0.4;
+// Until she first taps a character, one of them invites her after a quiet moment.
+const TAP_HINT_DELAY = 8000;
+const MAX_TAP_HINTS = 3;
 const BREATH_PHASE_DURATION = 4000;
 
 type Speech = Readonly<{ id: number; who: Character | 'both'; text: string }>;
@@ -156,6 +160,9 @@ export default function App() {
   const [breathIn, setBreathIn] = useState(true);
   const [note, setNote] = useState<string | null>(null);
   const [sound, setSound] = useState(isSoundEnabled);
+  const [tapped, setTapped] = useState(hasTapped);
+  const [hint, setHint] = useState<{ id: number; who: 'tasso' | 'indi' } | null>(null);
+  const [hintCount, setHintCount] = useState(0);
 
   useEffect(() => {
     if (!action) return;
@@ -194,6 +201,18 @@ export default function App() {
     }, GUEST_LINE_DELAY);
     return () => clearTimeout(timeout);
   }, [action]);
+
+  useEffect(() => {
+    if (tapped || hintCount >= MAX_TAP_HINTS || action || speech || note || breathing) return;
+    const timeout = setTimeout(() => {
+      const who = pick(['tasso', 'indi'] as const);
+      const id = Date.now();
+      setHint({ id, who });
+      setHintCount((count) => count + 1);
+      setSpeech({ id, who, text: pick(TAP_HINT_LINES[who]) });
+    }, TAP_HINT_DELAY);
+    return () => clearTimeout(timeout);
+  }, [tapped, hintCount, action, speech, note, breathing]);
 
   useEffect(() => {
     if (!speech || breathing) return;
@@ -266,6 +285,10 @@ export default function App() {
   };
 
   const boop = (character: Character) => {
+    if (!tapped) {
+      setTapped(true);
+      rememberTap();
+    }
     if (character === 'tasso') return play('boop-tasso', 'tasso', LINES.boopTasso);
     if (character === 'indi') return play('boop-indi', 'indi', LINES.boopIndi);
     // Booping a girl keeps the current scene going.
@@ -388,6 +411,7 @@ export default function App() {
       <main className='flex flex-col gap-4'>
         <div className='border-primary relative overflow-hidden rounded-3xl border-4'>
           <Scene
+            hint={hint && speech?.id === hint.id ? hint.who : undefined}
             lean={type === 'hug'}
             hearts={type === 'hug' || type === 'boop-indi'}
             blanket={blanket}

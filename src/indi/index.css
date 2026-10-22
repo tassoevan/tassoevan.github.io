@@ -162,6 +162,16 @@ body {
   animation-name: enter-right;
 }
 
+.tap-hint {
+  fill: none;
+  stroke: #e08a9c;
+  stroke-width: 5;
+  stroke-dasharray: 14 10;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tap-pulse 1.2s ease-in-out infinite;
+}
+
 .scene-dim {
   fill: var(--dim);
 }
@@ -194,6 +204,18 @@ body {
 
 .note-card {
   animation: slide-up 0.35s ease-out;
+}
+
+@keyframes tap-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
 }
 
 @keyframes wag {
@@ -387,6 +409,10 @@ body {
   /* Keep the breathing rhythm visible, but as a fade instead of movement. */
   .breath-guide {
     animation-name: breathe-fade;
+  }
+
+  .tap-hint {
+    animation-name: fade;
   }
 
   .float-heart,

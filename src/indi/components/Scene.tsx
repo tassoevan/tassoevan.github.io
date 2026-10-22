@@ -48,6 +48,8 @@ type SceneProps = Readonly<{
   indi: ReactNode;
   tasso: ReactNode;
   guests: readonly Readonly<{ character: Kid; node: ReactNode }>[];
+  // Character currently inviting a tap, outlined by a pulsing ring.
+  hint?: 'tasso' | 'indi';
   lean: boolean;
   hearts: boolean;
   blanket: boolean;
@@ -59,6 +61,7 @@ export default function Scene({
   indi,
   tasso,
   guests,
+  hint,
   lean,
   hearts,
   blanket,
@@ -100,6 +103,15 @@ export default function Scene({
 
       {blanket && <rect width={400} height={300} className='scene-dim' />}
       {breathing && <circle cx={200} cy={180} r={90} className='breath-guide' />}
+      {hint && (
+        <ellipse
+          className='tap-hint'
+          cx={hint === 'indi' ? 152 : 250}
+          cy={196}
+          rx={hint === 'indi' ? 58 : 62}
+          ry={98}
+        />
+      )}
 
       <g transform='translate(92 108)'>
         <g className={lean ? 'flork-lean lean-right' : 'flork-lean'}>

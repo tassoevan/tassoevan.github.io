@@ -111,3 +111,9 @@ export const KID_LINES = {
   string,
   Partial<Record<string, readonly string[]>> & { any: readonly string[] }
 >;
+
+// Invitations to tap the characters, until she discovers she can.
+export const TAP_HINT_LINES = {
+  tasso: ['Psiu! Toca em mim 👆', 'Ei, bijuzinha… toca aqui 👆'],
+  indi: ['Ei! Toca em mim também 👆', 'Psiu! Aqui, ó 👆'],
+} as const;
