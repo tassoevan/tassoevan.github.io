@@ -436,6 +436,7 @@ export default function App() {
             hint={hint && speech?.id === hint.id ? hint.who : undefined}
             lean={type === 'hug' ? 'hug' : type === 'cyclops' ? 'close' : undefined}
             hearts={type === 'hug' || type === 'boop-indi' || type === 'cyclops'}
+            zoom={type === 'cyclops'}
             blanket={blanket}
             breathing={breathing}
             guests={guests}

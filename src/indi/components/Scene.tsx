@@ -52,6 +52,8 @@ type SceneProps = Readonly<{
   hint?: 'tasso' | 'indi';
   // `close` brings their foreheads together.
   lean?: 'hug' | 'close';
+  // Close-up on their faces.
+  zoom?: boolean;
   hearts: boolean;
   blanket: boolean;
   breathing: boolean;
@@ -64,6 +66,7 @@ export default function Scene({
   guests,
   hint,
   lean,
+  zoom,
   hearts,
   blanket,
   breathing,
@@ -104,77 +107,79 @@ export default function Scene({
       aria-label='A família no sofá'
       className='block h-auto w-full'
     >
-      <rect width={400} height={300} className='fill-wall' />
-      <Frame x={74} />
-      <Frame x={163} />
-      <Frame x={252} />
-      <rect y={262} width={400} height={38} className='fill-floor' />
+      <g className={zoom ? 'scene-zoom' : undefined}>
+        <rect width={400} height={300} className='fill-wall' />
+        <Frame x={74} />
+        <Frame x={163} />
+        <Frame x={252} />
+        <rect y={262} width={400} height={38} className='fill-floor' />
 
-      <g stroke='#111' strokeWidth={3.5} strokeLinejoin='round'>
-        <rect x={42} y={128} width={316} height={104} rx={24} fill='#6e1b2e' />
-        <rect x={60} y={204} width={280} height={42} rx={12} fill='#7d2236' />
-        <rect x={26} y={168} width={50} height={92} rx={18} fill='#7d2236' />
-        <rect x={324} y={168} width={50} height={92} rx={18} fill='#7d2236' />
-      </g>
+        <g stroke='#111' strokeWidth={3.5} strokeLinejoin='round'>
+          <rect x={42} y={128} width={316} height={104} rx={24} fill='#6e1b2e' />
+          <rect x={60} y={204} width={280} height={42} rx={12} fill='#7d2236' />
+          <rect x={26} y={168} width={50} height={92} rx={18} fill='#7d2236' />
+          <rect x={324} y={168} width={50} height={92} rx={18} fill='#7d2236' />
+        </g>
 
-      {blanket && <rect width={400} height={300} className='scene-dim' />}
-      {breathing && <circle cx={200} cy={180} r={90} className='breath-guide' />}
-      {hint && (
-        <ellipse
-          className='tap-hint'
-          cx={hint === 'indi' ? 152 : 250}
-          cy={196}
-          rx={hint === 'indi' ? 58 : 62}
-          ry={98}
-        />
-      )}
+        {blanket && <rect width={400} height={300} className='scene-dim' />}
+        {breathing && <circle cx={200} cy={180} r={90} className='breath-guide' />}
+        {hint && (
+          <ellipse
+            className='tap-hint'
+            cx={hint === 'indi' ? 152 : 250}
+            cy={196}
+            rx={hint === 'indi' ? 58 : 62}
+            ry={98}
+          />
+        )}
 
-      {/* Forehead to forehead, she comes to the front so her cyclops eye shows. */}
-      {lean === 'close' ? [tassoGroup, indiGroup] : [indiGroup, tassoGroup]}
+        {/* Forehead to forehead, she comes to the front so her cyclops eye shows. */}
+        {lean === 'close' ? [tassoGroup, indiGroup] : [indiGroup, tassoGroup]}
 
-      {guests.map(({ character, node }) => {
-        const { transform, side, label } = GUEST_SLOTS[character];
-        return (
-          <g key={character} transform={transform}>
-            <g className={`guest-enter-${side}`}>
-              <g {...characterProps(character, label)}>{node}</g>
+        {guests.map(({ character, node }) => {
+          const { transform, side, label } = GUEST_SLOTS[character];
+          return (
+            <g key={character} transform={transform}>
+              <g className={`guest-enter-${side}`}>
+                <g {...characterProps(character, label)}>{node}</g>
+              </g>
+            </g>
+          );
+        })}
+
+        {blanket && (
+          <g className='blanket'>
+            <path
+              d='M64,232 Q200,212 336,232 L342,264 Q200,280 58,264 Z'
+              fill='#ead9c5'
+              stroke='#111'
+              strokeWidth={3.5}
+              strokeLinejoin='round'
+            />
+            <path
+              d='M110,226 L106,272 M160,221 L158,275 M210,220 L210,276 M260,222 L262,275 M310,227 L314,270'
+              stroke='#c56b7d'
+              strokeWidth={5}
+              opacity={0.7}
+            />
+            <g className='fill-foreground text-[18px] font-bold'>
+              {['z', 'z', 'Z'].map((z, i) => (
+                <text
+                  key={i}
+                  x={300 + i * 14}
+                  y={110 - i * 16}
+                  className='float-zzz'
+                  style={{ animationDelay: `${i * 0.7}s` }}
+                >
+                  {z}
+                </text>
+              ))}
             </g>
           </g>
-        );
-      })}
+        )}
 
-      {blanket && (
-        <g className='blanket'>
-          <path
-            d='M64,232 Q200,212 336,232 L342,264 Q200,280 58,264 Z'
-            fill='#ead9c5'
-            stroke='#111'
-            strokeWidth={3.5}
-            strokeLinejoin='round'
-          />
-          <path
-            d='M110,226 L106,272 M160,221 L158,275 M210,220 L210,276 M260,222 L262,275 M310,227 L314,270'
-            stroke='#c56b7d'
-            strokeWidth={5}
-            opacity={0.7}
-          />
-          <g className='fill-foreground text-[18px] font-bold'>
-            {['z', 'z', 'Z'].map((z, i) => (
-              <text
-                key={i}
-                x={300 + i * 14}
-                y={110 - i * 16}
-                className='float-zzz'
-                style={{ animationDelay: `${i * 0.7}s` }}
-              >
-                {z}
-              </text>
-            ))}
-          </g>
-        </g>
-      )}
-
-      {hearts && <Hearts x={198} y={104} />}
+        {hearts && <Hearts x={198} y={104} />}
+      </g>
     </svg>
   );
 }

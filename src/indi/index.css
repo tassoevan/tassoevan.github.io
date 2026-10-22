@@ -98,6 +98,13 @@ body {
   transform: rotate(-6deg);
 }
 
+/* Camera close-up on the cyclops, framing both faces below the speech bubble. */
+.scene-zoom {
+  transform-box: view-box;
+  transform-origin: 213px 135px;
+  animation: zoom-faces 4.2s ease-in-out;
+}
+
 .brow-wiggle {
   animation: brow-wiggle 0.3s ease-in-out 8 alternate;
 }
@@ -220,6 +227,13 @@ body {
 
 .note-card {
   animation: slide-up 0.35s ease-out;
+}
+
+@keyframes zoom-faces {
+  20%,
+  80% {
+    transform: scale(2.2);
+  }
 }
 
 @keyframes brow-wiggle {
@@ -428,6 +442,7 @@ body {
   .blanket,
   .flork-wag,
   .brow-wiggle,
+  .scene-zoom,
   .guest-enter-left,
   .guest-enter-right,
   .speech-bubble,
