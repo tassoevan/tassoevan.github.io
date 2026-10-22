@@ -124,6 +124,17 @@ body {
   animation: heart-beat 0.8s ease-in-out infinite;
 }
 
+.game-screen {
+  fill: #5b3fd1;
+  animation: game-screen 0.9s steps(1) infinite;
+}
+
+.game-star {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: heart-beat 0.6s ease-in-out infinite;
+}
+
 .flag-pop {
   transform-box: fill-box;
   transform-origin: 0% 50%;
@@ -242,6 +253,12 @@ body {
   animation: float-up 2.4s ease-out infinite;
 }
 
+.float-star {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: float-up 1.4s ease-out 2 both;
+}
+
 .float-zzz {
   animation: float-up 2.8s ease-out infinite;
 }
@@ -283,6 +300,12 @@ body {
 @keyframes heart-beat {
   50% {
     transform: scale(1.2);
+  }
+}
+
+@keyframes game-screen {
+  50% {
+    fill: #7a3fd1;
   }
 }
 
@@ -505,6 +528,8 @@ body {
   .flork-lecture,
   .flork-swoon,
   .heart-eye,
+  .game-screen,
+  .game-star,
   .blanket,
   .flork-wag,
   .brow-wiggle,
@@ -527,6 +552,7 @@ body {
   }
 
   .float-heart,
+  .float-star,
   .float-zzz,
   .flork-steam,
   .dust-puff {

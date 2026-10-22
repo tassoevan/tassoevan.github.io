@@ -21,6 +21,7 @@ export type Sound =
   | 'cyclops'
   | 'peteco'
   | 'math'
+  | 'victory'
   | 'boopTasso'
   | 'boopIndi'
   | 'toggle';
@@ -203,6 +204,13 @@ const SOUNDS: Record<Sound, () => void> = {
       whoosh({ from: 2400, to: 900, at, duration: 0.08, volume: 0.6 });
       tone({ freq: 900, to: 320, at, duration: 0.12, type: 'triangle', volume: 0.4 });
     }),
+  // Short victory fanfare.
+  victory: () => {
+    [G4, C5, E5].forEach((freq, i) =>
+      tone({ freq, at: i * 0.1, duration: 0.14, type: 'triangle', volume: 0.4 }),
+    );
+    tone({ freq: G5, at: 0.3, duration: 0.5, type: 'triangle', volume: 0.45 });
+  },
   // A bright little "eureka" arpeggio.
   math: () =>
     [C5, E5, G5, C6].forEach((freq, i) =>

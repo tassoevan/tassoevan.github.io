@@ -94,6 +94,20 @@ export const KID_LINES = {
       'Quer que eu pegue alguma coisa, mãe?',
     ],
     any: ['Oi, mãe! 💜', '🖤💜🖤', 'Tô de olho em vocês, hein.'],
+    acai: ['Ei, cadê o meu?', 'E o meu açaí, gente?'],
+    tea: ['Fiz do jeito que você gosta, mãe 💜', 'Chá novo saindo, mãe! 💜'],
+    hoodie: ['Depois é minha vez de usar, hein!', 'E eu? Também quero um moletom rosa!'],
+    silly: [
+      'Que vergonha alheia 🙄',
+      'Mãe, ele tá fazendo de novo…',
+      'Finge que eu não tô aqui 🙄',
+    ],
+    // When she shows up playing on her phone.
+    anyPhone: ['Mãe, só mais uma partida!', 'Peraí, tô quase ganhando!'],
+    // Tapping her while she plays wins her the match.
+    victory: ['Ganhei! 🏆', 'Vitória! 🏆', 'Sou muito boa nisso 😎'],
+    comfortPhone: ['Pausei o jogo só pra te abraçar, mãe 💜'],
+    acaiPhone: ['Pede pra mim também, tô no meio da partida!'],
   },
   nana: {
     acai: [

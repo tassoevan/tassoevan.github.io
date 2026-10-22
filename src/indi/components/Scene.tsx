@@ -39,7 +39,7 @@ function Frame({ x }: Readonly<{ x: number }>) {
 
 // The girls stand beside the sofa: the older two on Indi's side, Lolô next to her favorite person.
 const GUEST_SLOTS: Record<Kid, { transform: string; side: 'left' | 'right'; label: string }> = {
-  jojo: { transform: 'translate(2 148) scale(0.76)', side: 'left', label: 'Jojo' },
+  jojo: { transform: 'translate(-2 121) scale(0.92)', side: 'left', label: 'Jojo' },
   nana: { transform: 'translate(4 166) scale(0.66)', side: 'left', label: 'Nana' },
   lolo: { transform: 'translate(322 182) scale(0.58)', side: 'right', label: 'Lolô' },
 };

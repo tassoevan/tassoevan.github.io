@@ -15,14 +15,24 @@ type Move = 'dance' | 'jump' | 'spin' | 'trip';
 type Silly = Move | 'dusty';
 // Indi's are unlocked by tapping her twice in a row; Tasso's math facts, by tapping him twice.
 type Secret = 'eyebrows' | 'cyclops' | 'peteco' | 'math';
-type Action = 'hug' | 'pout' | 'tea' | 'acai' | Silly | Secret | 'boop-tasso' | 'boop-indi';
+type Action =
+  | 'hug'
+  | 'pout'
+  | 'tea'
+  | 'acai'
+  | 'hoodie'
+  | Silly
+  | Secret
+  | 'boop-tasso'
+  | 'boop-indi';
 
 const MOVES: readonly Move[] = ['dance', 'jump', 'spin', 'trip'];
 const SILLIES: readonly Silly[] = [...MOVES, 'dusty'];
 const SECRETS: readonly Exclude<Secret, 'math'>[] = ['eyebrows', 'cyclops', 'peteco'];
 const DOUBLE_TAP_WINDOW = 450;
 
-// A girl dropping by. `accessory` is Nana's dog-ear headband or Lolô's pacifier.
+// A girl dropping by. `accessory` is Jojo's phone (instead of her plush), Nana's dog-ear headband
+// or Lolô's pacifier.
 type Guest = Readonly<{ character: Kid; accessory: boolean }>;
 
 type ActionState = Readonly<{
@@ -38,6 +48,7 @@ const ACTION_DURATIONS: Record<Action, number> = {
   hug: 4500,
   pout: 2800,
   tea: 8000,
+  hoodie: 4500,
   acai: 8000,
   dance: 3000,
   jump: 2400,
@@ -56,6 +67,7 @@ const ACTION_SOUNDS: Record<Action, Sound> = {
   hug: 'hug',
   pout: 'pout',
   tea: 'tea',
+  hoodie: 'hoodie',
   acai: 'acai',
   dance: 'dance',
   jump: 'jump',
@@ -101,7 +113,7 @@ function pick<T>(items: readonly T[], previous?: T): T {
 // Decides at random which of the girls show up, so their visits stay a surprise.
 function castFor(type: Action): readonly Guest[] {
   const roll = Math.random();
-  const jojo: Guest = { character: 'jojo', accessory: false };
+  const jojo: Guest = { character: 'jojo', accessory: Math.random() < 0.5 };
   const nana: Guest = { character: 'nana', accessory: Math.random() < 0.5 };
   const lolo: Guest = { character: 'lolo', accessory: Math.random() < 0.4 };
   const littleOnes = roll < 0.4 ? [nana, lolo] : [pick([nana, lolo])];
@@ -111,27 +123,49 @@ function castFor(type: Action): readonly Guest[] {
       return roll < 0.6 ? [jojo] : [];
     case 'dusty':
       return [nana, lolo];
-    case 'acai':
-      return Math.random() < 0.6 ? littleOnes : [];
+    // Her mother's right hand: sometimes she is the one who made the tea.
+    case 'tea':
+    // She wants a turn with the pink hoodie too.
+    case 'hoodie':
+      return roll < 0.4 ? [jojo] : [];
+    case 'acai': {
+      const visit = Math.random();
+      if (visit < 0.35) return littleOnes;
+      if (visit < 0.5) return [jojo, lolo];
+      return visit < 0.6 ? [jojo] : [];
+    }
     case 'hug':
-      return Math.random() < 0.35 ? pick([[jojo], [nana], [lolo], [nana, lolo]]) : [];
+      return Math.random() < 0.5 ? pick([[jojo], [jojo, lolo], [nana], [lolo], [nana, lolo]]) : [];
+    // The little ones dance along; Jojo, a teenager, rolls her eyes.
     case 'dance':
     case 'jump':
-      return Math.random() < 0.4 ? littleOnes : [];
+    case 'spin':
+    case 'trip': {
+      const visit = Math.random();
+      if (visit < 0.3) return pick([[jojo], [jojo, lolo]]);
+      return (type === 'dance' || type === 'jump') && visit < 0.6 ? littleOnes : [];
+    }
     default:
       return [];
   }
 }
 
-function kidLine(kid: Kid, action: ActionState) {
+function kidLine({ character: kid, accessory }: Guest, action: ActionState) {
   const lines: Partial<Record<string, readonly string[]>> = KID_LINES[kid];
   let context = 'any';
   if (action.comfort) context = 'comfort';
   else if (MOVES.includes(action.type as Move)) context = 'silly';
-  else if (action.type === 'hug' || action.type === 'acai' || action.type === 'dusty') {
+  else if (['hug', 'acai', 'dusty', 'tea', 'hoodie'].includes(action.type)) {
     context = action.type;
   }
-  return pick(lines[context] ?? KID_LINES[kid].any);
+  // Jojo on her phone has lines of her own, like `acaiPhone`, falling back to `anyPhone`.
+  const onPhone = kid === 'jojo' && accessory;
+  return pick(
+    (onPhone ? lines[`${context}Phone`] : undefined) ??
+      lines[context] ??
+      (onPhone ? lines.anyPhone : undefined) ??
+      KID_LINES[kid].any,
+  );
 }
 
 function greeting(): Speech {
@@ -176,7 +210,12 @@ function ActionButton({
 
 export default function App() {
   const [action, setAction] = useState<ActionState | null>(null);
-  const [kidBoop, setKidBoop] = useState<{ id: number; character: Kid } | null>(null);
+  // A girl was just tapped; `victory` is Jojo winning a match on her phone.
+  const [kidBoop, setKidBoop] = useState<{
+    id: number;
+    character: Kid;
+    victory?: boolean;
+  } | null>(null);
   const [speech, setSpeech] = useState<Speech | null>(greeting);
   const [blanket, setBlanket] = useState(false);
   const [hoodieOnIndi, setHoodieOnIndi] = useState(false);
@@ -230,8 +269,9 @@ export default function App() {
   useEffect(() => {
     if (!action || action.guests.length === 0 || action.type === 'pout') return;
     const timeout = setTimeout(() => {
-      const { character } = pick(action.guests);
-      setSpeech({ id: Date.now(), who: character, text: kidLine(character, action) });
+      const guest = pick(action.guests);
+      const { character } = guest;
+      setSpeech({ id: Date.now(), who: character, text: kidLine(guest, action) });
       playSound(character === 'lolo' ? 'bark' : 'boopIndi');
     }, GUEST_LINE_DELAY);
     return () => clearTimeout(timeout);
@@ -272,6 +312,7 @@ export default function App() {
 
   const play = (type: Action, who: Character, lines: readonly string[]) => {
     setBreathing(false);
+    setKidBoop(null);
     setAction({ id: Date.now(), type, guests: castFor(type) });
     playSound(ACTION_SOUNDS[type]);
     say(who, lines);
@@ -285,8 +326,7 @@ export default function App() {
 
   const toggleHoodie = () => {
     setHoodieOnIndi(!hoodieOnIndi);
-    playSound('hoodie');
-    say('tasso', hoodieOnIndi ? LINES.hoodieOff : LINES.hoodieOn);
+    play('hoodie', 'tasso', hoodieOnIndi ? LINES.hoodieOff : LINES.hoodieOn);
   };
 
   const toggleBreathing = () => {
@@ -342,6 +382,13 @@ export default function App() {
       return play('boop-indi', 'indi', LINES.boopIndi);
     }
     // Booping a girl keeps the current scene going.
+    const onPhone = action?.guests.some((guest) => guest.character === 'jojo' && guest.accessory);
+    if (character === 'jojo' && onPhone) {
+      setKidBoop({ id: Date.now(), character, victory: true });
+      say(character, KID_LINES.jojo.victory);
+      playSound('victory');
+      return;
+    }
     setKidBoop({ id: Date.now(), character });
     say(character, KID_LINES[character].any);
     playSound(character === 'lolo' ? 'bark' : 'boopIndi');
@@ -417,11 +464,21 @@ export default function App() {
     if (type === 'hug') {
       arms = 'hug';
       eyes = 'happy';
+    } else if (type === 'tea') {
+      eyes = 'happy';
+    } else if (type === 'hoodie') {
+      mouth = 'flat';
+    } else if (type === 'acai' && character === 'jojo') {
+      // She came asking for hers.
+      mouth = 'open';
     } else if (type === 'acai') {
       arms = 'hold';
       holding = 'acai';
       mouth = 'grin';
       eyes = 'happy';
+    } else if (isMove && character === 'jojo') {
+      eyes = 'roll';
+      mouth = 'flat';
     } else if (isMove) {
       arms = 'up';
       mouth = 'grin';
@@ -435,6 +492,11 @@ export default function App() {
     if (character === 'nana') {
       mouth = indiMouth;
       eyes = indiEyes;
+    }
+    const celebrate = kidBoop?.character === character && kidBoop.victory;
+    if (celebrate) {
+      eyes = 'happy';
+      mouth = 'grin';
     }
     if (kidBoop?.character === character) motion = 'flork-boop';
 
@@ -450,6 +512,7 @@ export default function App() {
             blush={type === 'hug'}
             holding={holding}
             accessory={accessory && holding !== 'acai'}
+            celebrate={celebrate}
           />
         </g>
       ),

@@ -6,7 +6,7 @@ export type Arms = 'down' | 'up' | 'hug' | 'hold' | 'point';
 export type Mouth = 'smile' | 'grin' | 'open' | 'flat' | 'pout' | 'smirk';
 export type Item = 'mug' | 'note' | 'acai' | 'plush' | 'flagGun';
 // `cyclops` is one big eye in the middle, for when she leans in so close that's all he sees.
-export type Eyes = 'open' | 'closed' | 'happy' | 'sly' | 'cyclops' | 'hearts';
+export type Eyes = 'open' | 'closed' | 'happy' | 'sly' | 'cyclops' | 'hearts' | 'roll';
 
 const INK = '#111';
 const BOTTOM = 162;
@@ -22,7 +22,8 @@ const TRAITS = {
   lolo: { width: 90, top: 28, eyeGap: 15, hugTo: 'left' },
 } as const;
 
-const HAIR = { indi: '#3a1d14', jojo: '#a3173f', nana: '#4a2a1c', lolo: '#5c3622' } as const;
+const HAIR = { indi: '#3a1d14', jojo: '#16110f', nana: '#4a2a1c', lolo: '#5c3622' } as const;
+const JOJO_RED = '#b8163f';
 
 function bounds(character: Character) {
   const { width, top } = TRAITS[character];
@@ -82,6 +83,15 @@ function armShapes(character: Character, arms: Arms): [string, number, number][]
 function Eye({ x, y, eyes }: Readonly<{ x: number; y: number; eyes: Eyes }>) {
   if (eyes === 'closed') return <path d={`M${x - 7},${y - 1} Q${x},${y + 7} ${x + 7},${y - 1}`} />;
   if (eyes === 'happy') return <path d={`M${x - 7},${y + 3} Q${x},${y - 6} ${x + 7},${y + 3}`} />;
+  // Eye-roll: whites showing, pupils up.
+  if (eyes === 'roll') {
+    return (
+      <g>
+        <circle cx={x} cy={y} r={6} fill='#fff' strokeWidth={2} />
+        <circle cx={x} cy={y - 3} r={3} fill={INK} stroke='none' />
+      </g>
+    );
+  }
   // Smitten.
   if (eyes === 'hearts') {
     return (
@@ -218,6 +228,98 @@ function FlagGun({ x, y }: Readonly<{ x: number; y: number }>) {
   );
 }
 
+// Goth-cute black bunny with a pink skull on its belly, in the spirit of the characters Jojo loves.
+function BunnyPlush({ x, y }: Readonly<{ x: number; y: number }>) {
+  return (
+    <g strokeWidth={1.8}>
+      <ellipse
+        cx={x - 3}
+        cy={y + 2}
+        rx={2.6}
+        ry={6}
+        fill='#1b1b1b'
+        transform={`rotate(-12 ${x - 3} ${y + 2})`}
+      />
+      <ellipse
+        cx={x + 3}
+        cy={y + 2}
+        rx={2.6}
+        ry={6}
+        fill='#1b1b1b'
+        transform={`rotate(12 ${x + 3} ${y + 2})`}
+      />
+      <ellipse
+        cx={x - 3}
+        cy={y + 3}
+        rx={1}
+        ry={3.5}
+        fill='#8e5bb5'
+        stroke='none'
+        transform={`rotate(-12 ${x - 3} ${y + 3})`}
+      />
+      <ellipse
+        cx={x + 3}
+        cy={y + 3}
+        rx={1}
+        ry={3.5}
+        fill='#8e5bb5'
+        stroke='none'
+        transform={`rotate(12 ${x + 3} ${y + 3})`}
+      />
+      <ellipse cx={x} cy={y + 23} rx={6.5} ry={6.5} fill='#1b1b1b' />
+      <circle cx={x} cy={y + 13} r={7} fill='#1b1b1b' />
+      <circle cx={x - 2.6} cy={y + 12.5} r={1.2} fill='#fff' stroke='none' />
+      <circle cx={x + 2.6} cy={y + 12.5} r={1.2} fill='#fff' stroke='none' />
+      {/* Pink skull: cranium, jaw with teeth and hollow eyes. */}
+      <g fill='#f4a7c8' stroke='none'>
+        <circle cx={x} cy={y + 21.6} r={3.4} />
+        <rect x={x - 2} y={y + 23.6} width={4} height={2.6} rx={0.6} />
+      </g>
+      <circle cx={x - 1.3} cy={y + 21.6} r={1} fill={INK} stroke='none' />
+      <circle cx={x + 1.3} cy={y + 21.6} r={1} fill={INK} stroke='none' />
+      <path
+        d={`M${x - 0.7},${y + 24.2} v1.8 M${x + 0.7},${y + 24.2} v1.8`}
+        stroke={INK}
+        strokeWidth={0.5}
+      />
+    </g>
+  );
+}
+
+// Points of a five-pointed star, for an SVG polygon.
+function starPoints(cx: number, cy: number, outer: number, inner: number) {
+  return Array.from({ length: 10 }, (_, i) => {
+    const angle = (Math.PI / 5) * i - Math.PI / 2;
+    const radius = i % 2 === 0 ? outer : inner;
+    return `${cx + radius * Math.cos(angle)},${cy + radius * Math.sin(angle)}`;
+  }).join(' ');
+}
+
+// A phone running a colorful arena game, for Jojo's favorite pastime. Generic on purpose: no
+// real game's logo or characters.
+function GamePhone({ x, y }: Readonly<{ x: number; y: number }>) {
+  const star = starPoints(x, y + 9, 3.2, 1.3);
+
+  return (
+    <g strokeWidth={1.5}>
+      <rect x={x - 6.5} y={y - 1} width={13} height={22} rx={2.2} fill='#222' />
+      <rect
+        className='game-screen'
+        x={x - 5}
+        y={y + 1}
+        width={10}
+        height={16}
+        rx={1}
+        stroke='none'
+      />
+      <polygon className='game-star' points={star} fill='#ffcf3f' strokeWidth={0.6} />
+      <circle cx={x - 2.8} cy={y + 14} r={1.2} fill='#ef4b5f' stroke='none' />
+      <circle cx={x + 2.8} cy={y + 4} r={1.2} fill='#3fc6ef' stroke='none' />
+      <path d={`M${x - 1.5},${y + 19} h3`} stroke='#666' strokeWidth={0.8} />
+    </g>
+  );
+}
+
 function Plush({ x, y }: Readonly<{ x: number; y: number }>) {
   return (
     <g strokeWidth={2}>
@@ -270,14 +372,14 @@ function Hair({ character }: Readonly<{ character: Character }>) {
   }
 
   if (character === 'jojo') {
-    // Long, loose hair dyed red, parted in the middle.
+    // Black hair parted in the middle; her two red locks are drawn on top, outside the clip.
     return (
       <g fill={HAIR.jojo}>
         <path
           d={`M0,0 H120 V${t + 70} Q${r - 10},${t + 30} 62,${t + 14} H58 Q${l + 10},${t + 30} 0,${t + 70} Z`}
         />
-        <path d={`M0,${t + 30} Q${l + 12},${t + 54} ${l + 10},${t + 112} H0 Z`} />
-        <path d={`M120,${t + 30} Q${r - 12},${t + 54} ${r - 10},${t + 112} H120 Z`} />
+        <path d={`M0,${t + 30} Q${l + 12},${t + 54} ${l + 10},${t + 134} H0 Z`} />
+        <path d={`M120,${t + 30} Q${r - 12},${t + 54} ${r - 10},${t + 134} H120 Z`} />
       </g>
     );
   }
@@ -404,10 +506,13 @@ type FlorkProps = Readonly<{
   holding?: Item;
   outfit?: Outfit;
   sad?: boolean;
-  // Nana's dog-ear headband or Lolô's pacifier, which they wear only sometimes.
+  // Jojo's phone (instead of her plush), Nana's dog-ear headband or Lolô's pacifier, which they
+  // have only sometimes.
   accessory?: boolean;
   // Wiggling eyebrows (Indi) and a flash on the glasses (Tasso).
   wiggle?: boolean;
+  // Stars bursting around her, when Jojo wins a match on her phone.
+  celebrate?: boolean;
   shine?: boolean;
 }>;
 
@@ -422,6 +527,7 @@ export default function Flork({
   sad = false,
   accessory = false,
   wiggle = false,
+  celebrate = false,
   shine = false,
 }: FlorkProps) {
   const clipId = useId();
@@ -465,23 +571,15 @@ export default function Flork({
       )}
 
       {(character === 'jojo' || character === 'nana' || character === 'lolo') && (
-        // Hair falling behind the shoulders: long for Jojo, shoulder length for the little ones.
+        // Hair falling behind the shoulders: very long and wavy for Jojo, shoulder length for the
+        // little ones.
         <path
           d={
             character === 'jojo'
-              ? `M${l - 7},${t + 114} C${l - 12},${t + 60} ${l - 4},${t - 6} 60,${t - 7} C${r + 4},${t - 6} ${r + 12},${t + 60} ${r + 7},${t + 114} Q${r},${t + 120} ${r - 6},${t + 108} L${l + 6},${t + 108} Q${l},${t + 120} ${l - 7},${t + 114} Z`
+              ? `M${l - 7},${t + 140} Q${l - 15},${t + 122} ${l - 9},${t + 104} Q${l - 3},${t + 86} ${l - 11},${t + 68} Q${l - 17},${t + 48} ${l - 8},${t + 28} Q${l - 2},${t + 2} 60,${t - 7} Q${r + 2},${t + 2} ${r + 8},${t + 28} Q${r + 17},${t + 48} ${r + 11},${t + 68} Q${r + 3},${t + 86} ${r + 9},${t + 104} Q${r + 15},${t + 122} ${r + 7},${t + 140} Q${r + 2},${t + 148} ${r - 4},${t + 136} L${l + 4},${t + 136} Q${l - 2},${t + 148} ${l - 7},${t + 140} Z`
               : `M${l - 6},${t + 72} C${l - 10},${t + 30} ${l - 2},${t - 6} 60,${t - 6} C${r + 2},${t - 6} ${r + 10},${t + 30} ${r + 6},${t + 72} Q${r},${t + 76} ${r - 4},${t + 66} L${l + 4},${t + 66} Q${l},${t + 76} ${l - 6},${t + 72} Z`
           }
           fill={HAIR[character]}
-          strokeWidth={3}
-        />
-      )}
-
-      {character === 'jojo' && (
-        // Black cat-ear headband, goth-cute like the characters she loves.
-        <path
-          d={`M${l + 14},${t + 14} L${l + 12},${t - 12} L${l + 34},${t + 2} Z M${r - 14},${t + 14} L${r - 12},${t - 12} L${r - 34},${t + 2} Z`}
-          fill='#1b1b1b'
           strokeWidth={3}
         />
       )}
@@ -519,15 +617,14 @@ export default function Flork({
       <path d={bean} />
 
       {character === 'jojo' && (
-        <g strokeWidth={2}>
-          <path
-            d={`M${l + 14},${t + 14} Q60,${t - 10} ${r - 14},${t + 14}`}
-            stroke='#1b1b1b'
-            strokeWidth={5}
-          />
-          <circle cx={r - 16} cy={t + 26} r={5} fill='#f4a7c8' />
-          <circle cx={r - 18} cy={t + 25} r={1} fill={INK} stroke='none' />
-          <circle cx={r - 14} cy={t + 25} r={1} fill={INK} stroke='none' />
+        // Two red locks from the parting, falling in front on both sides of her face.
+        <g fill={JOJO_RED} strokeWidth={2.5}>
+          {[(x: number) => x, (x: number) => 120 - x].map((side, i) => (
+            <path
+              key={i}
+              d={`M${side(56)},${t + 12} Q${side(l + 8)},${t + 16} ${side(l - 2)},${t + 58} Q${side(l - 8)},${t + 94} ${side(l + 4)},${t + 126} Q${side(l + 22)},${t + 116} ${side(l + 22)},${t + 96} Q${side(l + 18)},${t + 62} ${side(l + 21)},${t + 38} Q${side(l + 30)},${t + 20} ${side(58)},${t + 17} Z`}
+            />
+          ))}
         </g>
       )}
 
@@ -606,6 +703,13 @@ export default function Flork({
         <MouthShape mouth={mouth} y={t + 64} gap={character === 'lolo'} />
       )}
 
+      {character === 'jojo' && (
+        // Her black bunny plush hugged against her chest, or her phone with a game on.
+        <g transform={`translate(52 ${t + 96}) scale(1.5) translate(-52 ${-(t + 96)})`}>
+          {accessory ? <GamePhone x={52} y={t + 96} /> : <BunnyPlush x={52} y={t + 96} />}
+        </g>
+      )}
+
       {armList.map(([d, x, y]) => (
         <g key={d}>
           <path d={d} strokeWidth={3.5} />
@@ -623,6 +727,26 @@ export default function Flork({
           {holding === 'acai' && <Acai x={hand[1]} y={hand[2]} />}
           {holding === 'plush' && <Plush x={hand[1]} y={hand[2]} />}
           {holding === 'flagGun' && <FlagGun x={hand[1]} y={hand[2]} />}
+        </g>
+      )}
+
+      {celebrate && (
+        <g fill='#ffcf3f' strokeWidth={1.2}>
+          {[
+            [16, t + 8, 0],
+            [104, t + 2, 0.15],
+            [6, t + 50, 0.3],
+            [114, t + 44, 0.45],
+            [38, t - 8, 0.6],
+            [86, t - 10, 0.75],
+          ].map(([x, y, delay]) => (
+            <polygon
+              key={`${x}${y}`}
+              className='float-star'
+              style={{ animationDelay: `${delay}s` }}
+              points={starPoints(x, y, 7, 3)}
+            />
+          ))}
         </g>
       )}
     </g>
