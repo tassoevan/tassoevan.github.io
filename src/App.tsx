@@ -1,8 +1,10 @@
 import ProfileLink from './components/ProfileLink';
+import RainyWindow from './components/RainyWindow';
 
 function App() {
   return (
-    <div className='grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20'>
+    <div className='isolate grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20'>
+      <RainyWindow />
       <main className='row-start-2 flex flex-col items-center gap-[32px]'>
         <h1 className='text-primary text-center text-4xl font-bold'>Tasso Evangelista</h1>
         <p className='max-w-prose text-center'>
