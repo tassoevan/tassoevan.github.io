@@ -24,8 +24,9 @@ type ActionState = Readonly<{
   id: number;
   type: Action;
   guests: readonly Guest[];
-  // A hug that follows a pout.
+  // A hug that follows a pout, which sometimes ends with a note.
   comfort?: boolean;
+  withNote?: boolean;
 }>;
 
 const ACTION_DURATIONS: Record<Action, number> = {
@@ -58,6 +59,7 @@ const ACTION_SOUNDS: Record<Action, Sound> = {
 
 const SPEECH_DURATION = 4500;
 const GUEST_LINE_DELAY = 1800;
+const COMFORT_NOTE_CHANCE = 0.4;
 const BREATH_PHASE_DURATION = 4000;
 
 type Speech = Readonly<{ id: number; who: Character | 'both'; text: string }>;
@@ -158,11 +160,26 @@ export default function App() {
   useEffect(() => {
     if (!action) return;
     const timeout = setTimeout(() => {
-      if (action.type !== 'pout') return setAction(null);
-      // He notices the pout and comes over for a comforting hug.
-      setAction({ id: Date.now(), type: 'hug', guests: action.guests, comfort: true });
-      setSpeech({ id: Date.now(), who: 'tasso', text: pick(LINES.comfort) });
-      playSound('hug');
+      if (action.type === 'pout') {
+        // He notices the pout and comes over for a comforting hug.
+        setAction({
+          id: Date.now(),
+          type: 'hug',
+          guests: action.guests,
+          comfort: true,
+          withNote: Math.random() < COMFORT_NOTE_CHANCE,
+        });
+        setSpeech({ id: Date.now(), who: 'tasso', text: pick(LINES.comfort) });
+        playSound('hug');
+        return;
+      }
+      setAction(null);
+      // After some comforting hugs, he hands her a note.
+      if (action.withNote) {
+        setNote(drawNote(NOTES));
+        setSpeech({ id: Date.now(), who: 'tasso', text: pick(LINES.comfortNote) });
+        playSound('note');
+      }
     }, ACTION_DURATIONS[action.type]);
     return () => clearTimeout(timeout);
   }, [action]);

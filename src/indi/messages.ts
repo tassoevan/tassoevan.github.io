@@ -29,6 +29,7 @@ export const LINES = {
     'Pode ficar dengosa à vontade. Eu tô aqui.',
     'Beicinho lindo, mas abraço resolve melhor.',
   ],
+  comfortNote: ['E tem mais uma coisa… 💌', 'Guardei isso pra um dia assim. 💌'],
   acai: ['Açaí pra dois! 💜', 'Hora do açaí, bijuzinha!', 'Pode roubar do meu, eu deixo.'],
   tea: [
     'Chazinho quentinho pro meu biju ☕',
