@@ -9,6 +9,7 @@ em `main` (`.github/workflows/deploy.yml`). Ele tem páginas independentes:
 | `/edu/`         | `edu/index.html`         | `src/edu/`         | pt-BR  | Materiais de Ciências da Natureza (EF e EM) segundo a BNCC. |
 | `/edu/carrute/` | `edu/carrute/index.html` | `src/edu/carrute/` | pt-BR  | Quiz em equipes para o telão da sala de aula.               |
 | `/cv/`          | `cv/index.html`          | `src/cv/`          | inglês | Currículo do Tasso (dados em `src/cv/cv.ts`).               |
+| `/indi/`        | `indi/index.html`        | `src/indi/`        | pt-BR  | Cantinho pessoal para a Indi (`noindex`).                   |
 
 Todas as entradas estão declaradas em `build.rollupOptions.input` no `vite.config.ts`.
 
@@ -35,7 +36,8 @@ Rode `yarn build`, `yarn lint` e `yarn format:check` antes de concluir qualquer 
 - `/edu` (sem barra) redireciona para `/edu/` por meio do `public/edu.html`. Não o remova. Uma
   nova página em diretório precisa de um redirecionamento equivalente em `public/<nome>.html`.
   O `yarn dev` não usa esse redirecionamento: lá, acesse `/edu/` com a barra.
-  Exemplo: `/edu/carrute` é redirecionado por `public/edu/carrute.html`, e `/cv`, por `public/cv.html`.
+  Exemplo: `/edu/carrute` é redirecionado por `public/edu/carrute.html`, e `/cv`, por `public/cv.html`
+  (e `/indi`, por `public/indi.html`).
 
 ### 2. Fidelidade à BNCC
 

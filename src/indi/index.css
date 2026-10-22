@@ -1,0 +1,355 @@
+@import 'tailwindcss';
+
+@theme {
+  /** "cantinho" colors, built around bordô */
+  --color-wine: #6e1b2e;
+  --color-rose: #e08a9c;
+  --color-cream: #f8efe9;
+  --color-cocoa: #24151a;
+}
+
+:root {
+  --background: var(--color-cream);
+  --foreground: var(--color-cocoa);
+  --muted: oklch(from var(--color-cocoa) calc(l + 0.3) c h);
+  --surface: #fffaf7;
+  --primary: var(--color-wine);
+  --wall: #efe4dc;
+  --floor: #c9ab91;
+  --frame: #f6ece2;
+  --frame-edge: #4a2c22;
+  --dim: rgb(36 21 26 / 0.22);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1b1013;
+    --foreground: #f3e6e2;
+    --muted: oklch(from #f3e6e2 calc(l - 0.25) c h);
+    --surface: #2b1a1f;
+    --primary: var(--color-rose);
+    --wall: #4a3a3e;
+    --floor: #3b2a24;
+    --frame: #6b5a54;
+    --frame-edge: #1b1013;
+    --dim: rgb(0 0 0 / 0.3);
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-primary: var(--primary);
+  --color-wall: var(--wall);
+  --color-floor: var(--floor);
+  --color-frame: var(--frame);
+  --color-frame-edge: var(--frame-edge);
+  --font-sans: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+:root {
+  line-height: 1.5;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Scene */
+
+.flork-target,
+.flork-lean,
+.flork-target > g,
+.blanket {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.flork-target:focus-visible {
+  outline: 3px dashed var(--primary);
+  outline-offset: 4px;
+}
+
+.flork-lean {
+  transition: transform 0.6s ease-in-out;
+}
+
+.lean-right {
+  transform: rotate(4deg);
+}
+
+.lean-left {
+  transform: rotate(-4deg);
+}
+
+.flork-blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 5s infinite;
+}
+
+.flork-idle {
+  animation: idle 4s ease-in-out infinite;
+}
+
+.flork-idle-late {
+  animation-delay: -1.7s;
+}
+
+.flork-breathe {
+  animation: breathe 8s ease-in-out infinite;
+}
+
+.flork-dance {
+  animation: dance 0.5s ease-in-out 6;
+}
+
+.flork-jump {
+  animation: jump 0.6s ease-out 4;
+}
+
+.flork-spin {
+  transform-origin: center;
+  animation: spin 1.6s ease-in-out;
+}
+
+.flork-trip {
+  animation: trip 3s ease-in-out;
+}
+
+.flork-boop {
+  animation: boop 0.5s ease-out 2;
+}
+
+.flork-giggle {
+  animation: giggle 0.3s ease-in-out 8;
+}
+
+.flork-steam {
+  stroke: #b9a7a0;
+  stroke-width: 2.5;
+  opacity: 0.6;
+  animation: steam 2s ease-in-out infinite;
+}
+
+.scene-dim {
+  fill: var(--dim);
+}
+
+.blanket {
+  animation: tuck 0.6s ease-out;
+}
+
+.breath-guide {
+  fill: #fff;
+  opacity: 0.35;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: breathe-guide 8s ease-in-out infinite;
+}
+
+.float-heart {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: float-up 2.4s ease-out infinite;
+}
+
+.float-zzz {
+  animation: float-up 2.8s ease-out infinite;
+}
+
+.speech-bubble {
+  animation: pop 0.25s ease-out;
+}
+
+.note-card {
+  animation: slide-up 0.35s ease-out;
+}
+
+@keyframes blink {
+  0%,
+  94%,
+  100% {
+    transform: scaleY(1);
+  }
+  97% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes idle {
+  50% {
+    transform: translateY(-2px) rotate(0.8deg);
+  }
+}
+
+@keyframes breathe {
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes breathe-guide {
+  0%,
+  100% {
+    transform: scale(0.6);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+@keyframes dance {
+  25% {
+    transform: rotate(-9deg) translateX(-4px);
+  }
+  75% {
+    transform: rotate(9deg) translateX(4px);
+  }
+}
+
+@keyframes jump {
+  40% {
+    transform: translateY(-34px) scale(0.97, 1.04);
+  }
+  80% {
+    transform: translateY(0) scale(1.06, 0.92);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes trip {
+  25%,
+  60% {
+    transform: translateX(30px) rotate(78deg);
+  }
+  85% {
+    transform: translateX(0) rotate(-6deg);
+  }
+}
+
+@keyframes boop {
+  40% {
+    transform: scale(1.08, 0.9);
+  }
+}
+
+@keyframes giggle {
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+
+@keyframes steam {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes tuck {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+}
+
+@keyframes float-up {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+}
+
+@keyframes pop {
+  from {
+    scale: 0.6;
+    opacity: 0;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flork-lean {
+    transition: none;
+  }
+
+  .flork-blink,
+  .flork-idle,
+  .flork-breathe,
+  .flork-dance,
+  .flork-jump,
+  .flork-spin,
+  .flork-trip,
+  .flork-boop,
+  .flork-giggle,
+  .blanket,
+  .speech-bubble,
+  .note-card {
+    animation: none;
+  }
+
+  /* Keep the breathing rhythm visible, but as a fade instead of movement. */
+  .breath-guide {
+    animation-name: breathe-fade;
+  }
+
+  .float-heart,
+  .float-zzz,
+  .flork-steam {
+    animation-name: fade;
+  }
+
+  @keyframes breathe-fade {
+    0%,
+    100% {
+      opacity: 0.1;
+    }
+    50% {
+      opacity: 0.45;
+    }
+  }
+
+  @keyframes fade {
+    50% {
+      opacity: 1;
+    }
+    0%,
+    100% {
+      opacity: 0;
+    }
+  }
+}
