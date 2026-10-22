@@ -6,6 +6,7 @@ import Flork from './components/Flork';
 import InstallButton from './components/InstallButton';
 import Scene from './components/Scene';
 import { BREATH, KID_LINES, LINES, NOTES } from './messages';
+import { drawNote } from './noteDeck';
 import type { Sound } from './sounds';
 import { isSoundEnabled, playSound, setSoundEnabled } from './sounds';
 
@@ -237,7 +238,7 @@ export default function App() {
 
   const openNote = () => {
     setBreathing(false);
-    setNote((current) => pick(NOTES, current ?? undefined));
+    setNote(drawNote(NOTES, note ?? undefined));
     say('tasso', LINES.note);
     playSound('note');
   };
