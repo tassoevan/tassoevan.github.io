@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react';
 import { useEffect, useState } from 'react';
 import type { Arms, Character, Eyes, Item, Kid, Mouth } from './components/Flork';
 import Flork from './components/Flork';
+import InstallButton from './components/InstallButton';
 import Scene from './components/Scene';
 import { BREATH, KID_LINES, LINES, NOTES } from './messages';
 import type { Sound } from './sounds';
@@ -466,8 +467,9 @@ export default function App() {
         </div>
       </main>
 
-      <footer className='text-muted mt-auto text-center text-sm'>
-        Toque na gente também. Feito com 🤍 pelo seu mor.
+      <footer className='text-muted mt-auto flex flex-col gap-4 text-center text-sm'>
+        <InstallButton />
+        <p>Toque na gente também. Feito com 🤍 pelo seu mor.</p>
       </footer>
     </div>
   );
