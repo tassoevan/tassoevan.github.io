@@ -140,6 +140,28 @@ body {
   animation: steam 2s ease-in-out infinite;
 }
 
+.flork-wag {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: wag 0.5s ease-in-out infinite alternate;
+}
+
+.dust-puff {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dust 1.4s ease-out 3;
+}
+
+.guest-enter-left,
+.guest-enter-right {
+  animation: enter-left 0.5s ease-out;
+}
+
+.guest-enter-right {
+  animation-name: enter-right;
+}
+
 .scene-dim {
   fill: var(--dim);
 }
@@ -172,6 +194,43 @@ body {
 
 .note-card {
   animation: slide-up 0.35s ease-out;
+}
+
+@keyframes wag {
+  from {
+    transform: rotate(-14deg);
+  }
+  to {
+    transform: rotate(14deg);
+  }
+}
+
+@keyframes dust {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  30% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.7);
+  }
+}
+
+@keyframes enter-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+}
+
+@keyframes enter-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
 }
 
 @keyframes blink {
@@ -317,6 +376,9 @@ body {
   .flork-boop,
   .flork-giggle,
   .blanket,
+  .flork-wag,
+  .guest-enter-left,
+  .guest-enter-right,
   .speech-bubble,
   .note-card {
     animation: none;
@@ -329,7 +391,8 @@ body {
 
   .float-heart,
   .float-zzz,
-  .flork-steam {
+  .flork-steam,
+  .dust-puff {
     animation-name: fade;
   }
 

@@ -51,9 +51,47 @@ export const LINES = {
   jump: ['Boing! Boing!', 'Energia emprestada pra você!'],
   spin: ['Uiii, fiquei tonto…', 'Giro de alegria!'],
   trip: ['Ops…', 'Foi de propósito. Juro.'],
+  dusty: ['Olha esse polvinho: tá pôdi, pôdi!', 'Atchim! Tá pôdi, pôdi!'],
   boopTasso: ['Boop!', 'Oi, bijuzinha!', 'Me chamou, meu biju?', 'Te amo'],
   boopIndi: ['Mor!', 'Morzinho 🤍', 'hihi', 'Te amo'],
 } as const satisfies Record<string, readonly string[]>;
 
 // Guide shown while breathing together: 4 seconds in, 4 seconds out.
 export const BREATH = { in: 'Inspira devagar…', out: 'Solta devagar…' } as const;
+
+// What the girls say when they show up. Each falls back to `any` when there is no line for the
+// moment. Nicknames only: their real names stay off this public page.
+export const KID_LINES = {
+  jojo: {
+    comfort: [
+      'Mãe, tô aqui também 💜',
+      'Braço direito chegando! 🖤',
+      'Quer que eu pegue alguma coisa, mãe?',
+    ],
+    any: ['Oi, mãe! 💜', '🖤💜🖤', 'Tô de olho em vocês, hein.'],
+  },
+  nana: {
+    acai: [
+      'Mãe, mãe! O meu tem leite em pó? E granola? E banana? E…',
+      'Eu quero açaí! E também quero contar uma coisa!',
+    ],
+    hug: ['Abraço de família! Posso contar uma coisa?', 'Eu também! Eu também!'],
+    silly: ['Mãe, olha! Mãe! Tá olhando?', 'Eu danço melhor, quer ver?'],
+    dusty: ['Pôdi, pôdi! kkkkkk', 'Tá pôdi, pôdi!'],
+    any: [
+      'Mãe, mãe, mãe! Sabe o que aconteceu?',
+      'Posso contar uma coisa? São só três. Talvez quatro.',
+      'Aí eu falei… e aí ela falou… e aí…',
+    ],
+  },
+  lolo: {
+    acai: ['Au au! (tradução: quero açaí)'],
+    hug: ['Au au! 🐶💕'],
+    silly: ['Au au au! 🐶'],
+    dusty: ['Au! Pôdi, pôdi! 🐶'],
+    any: ['Au au! 🐶', 'Au? (tradução: brinca comigo?)', 'Au au au! (tradução: oi!)'],
+  },
+} as const satisfies Record<
+  string,
+  Partial<Record<string, readonly string[]>> & { any: readonly string[] }
+>;

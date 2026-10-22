@@ -1,20 +1,27 @@
 import { useId } from 'react';
 
-export type Character = 'tasso' | 'indi';
+export type Kid = 'jojo' | 'nana' | 'lolo';
+export type Character = 'tasso' | 'indi' | Kid;
 export type Arms = 'down' | 'up' | 'hug' | 'hold';
 export type Mouth = 'smile' | 'grin' | 'open' | 'flat' | 'pout';
-export type Item = 'mug' | 'note' | 'acai';
+export type Item = 'mug' | 'note' | 'acai' | 'plush';
 export type Eyes = 'open' | 'closed' | 'happy';
 
 const INK = '#111';
 const BOTTOM = 162;
 
 // Flork style: head and body are a single bean shape, with stick arms and legs and blob hands.
-// Both characters share a 120×190 local canvas; `top` is where the dome starts.
+// Everyone shares a 120×190 local canvas; `top` is where the dome starts, and the girls are
+// scaled down by the scene. `hugTo` is the side where the person they hug stands.
 const TRAITS = {
-  tasso: { width: 100, top: 6, eyeGap: 18 },
-  indi: { width: 86, top: 12, eyeGap: 15 },
+  tasso: { width: 100, top: 6, eyeGap: 18, hugTo: 'left' },
+  indi: { width: 86, top: 12, eyeGap: 15, hugTo: 'right' },
+  jojo: { width: 84, top: 14, eyeGap: 14, hugTo: 'right' },
+  nana: { width: 88, top: 22, eyeGap: 15, hugTo: 'right' },
+  lolo: { width: 90, top: 28, eyeGap: 15, hugTo: 'left' },
 } as const;
+
+const HAIR = { indi: '#3a1d14', jojo: '#a3173f', nana: '#4a2a1c', lolo: '#5c3622' } as const;
 
 function bounds(character: Character) {
   const { width, top } = TRAITS[character];
@@ -56,9 +63,9 @@ function armShapes(character: Character, arms: Arms): [string, number, number][]
         [`M${l + 1},${y} Q${l - 18},${y - 14} ${l - 14},${y - 40}`, l - 14, y - 40],
         [`M${r - 1},${y} Q${r + 18},${y - 14} ${r + 14},${y - 40}`, r + 14, y - 40],
       ];
-    // Reaches toward the partner, who sits about 100 units to the side.
+    // Reaches toward whoever sits beside them.
     case 'hug':
-      return character === 'tasso'
+      return TRAITS[character].hugTo === 'left'
         ? [[`M${l + 1},${y} Q${l - 30},${y + 2} ${l - 66},${y + 8}`, l - 66, y + 8], rightDown]
         : [leftDown, [`M${r - 1},${y} Q${r + 24},${y + 14} ${r + 48},${y + 8}`, r + 48, y + 8]];
     case 'hold':
@@ -79,10 +86,21 @@ function Eye({ x, y, eyes }: Readonly<{ x: number; y: number; eyes: Eyes }>) {
   );
 }
 
-function MouthShape({ mouth, y }: Readonly<{ mouth: Mouth; y: number }>) {
+function MouthShape({ mouth, y, gap }: Readonly<{ mouth: Mouth; y: number; gap?: boolean }>) {
   switch (mouth) {
     case 'grin':
-      return <path d={`M47,${y - 2} Q60,${y + 16} 73,${y - 2} Z`} fill={INK} />;
+      return (
+        <g>
+          <path d={`M47,${y - 2} Q60,${y + 16} 73,${y - 2} Z`} fill={INK} />
+          {/* Missing front teeth. */}
+          {gap && (
+            <g fill='#fff' stroke='none'>
+              <rect x={50} y={y - 1} width={6} height={4} rx={1} />
+              <rect x={64} y={y - 1} width={6} height={4} rx={1} />
+            </g>
+          )}
+        </g>
+      );
     case 'open':
       return <ellipse cx={60} cy={y + 4} rx={5} ry={6} fill={INK} />;
     case 'flat':
@@ -146,6 +164,41 @@ function Acai({ x, y }: Readonly<{ x: number; y: number }>) {
   );
 }
 
+// A sleepy little octopus plush, famous for being "pôdi, pôdi" with dust.
+function Plush({ x, y }: Readonly<{ x: number; y: number }>) {
+  return (
+    <g strokeWidth={2}>
+      <path
+        d={`M${x - 8},${y - 4} q-4,7 -8,6 M${x - 3},${y - 2} q-1,8 -4,10 M${x + 3},${y - 2} q1,8 4,10 M${x + 8},${y - 4} q4,7 8,6`}
+        stroke='#5f9e95'
+        strokeWidth={4}
+      />
+      <ellipse cx={x} cy={y - 12} rx={11} ry={12} fill='#8cc4bb' />
+      <path d={`M${x - 8},${y - 13} h6 M${x + 2},${y - 13} h6`} />
+      <circle cx={x - 5} cy={y - 11.5} r={1.4} fill={INK} stroke='none' />
+      <circle cx={x + 5} cy={y - 11.5} r={1.4} fill={INK} stroke='none' />
+      <g fill='#b8afa6' stroke='none'>
+        {[
+          [-15, -22, 0],
+          [14, -26, 0.25],
+          [-4, -30, 0.5],
+          [18, -12, 0.75],
+          [-18, -8, 1],
+        ].map(([dx, dy, delay]) => (
+          <circle
+            key={`${dx}${dy}`}
+            className='dust-puff'
+            style={{ animationDelay: `${delay}s` }}
+            cx={x + dx}
+            cy={y + dy}
+            r={5}
+          />
+        ))}
+      </g>
+    </g>
+  );
+}
+
 function Hair({ character }: Readonly<{ character: Character }>) {
   const { l, r, t } = bounds(character);
 
@@ -160,6 +213,29 @@ function Hair({ character }: Readonly<{ character: Character }>) {
         />
         <path d={`M45,${t + 60} Q60,${t + 52} 75,${t + 60} Q60,${t + 57} 45,${t + 60} Z`} />
       </g>
+    );
+  }
+
+  if (character === 'jojo') {
+    // Long, loose hair dyed red, parted in the middle.
+    return (
+      <g fill={HAIR.jojo}>
+        <path
+          d={`M0,0 H120 V${t + 70} Q${r - 10},${t + 30} 62,${t + 14} H58 Q${l + 10},${t + 30} 0,${t + 70} Z`}
+        />
+        <path d={`M0,${t + 30} Q${l + 12},${t + 54} ${l + 10},${t + 112} H0 Z`} />
+        <path d={`M120,${t + 30} Q${r - 12},${t + 54} ${r - 10},${t + 112} H120 Z`} />
+      </g>
+    );
+  }
+
+  if (character === 'nana' || character === 'lolo') {
+    // Straight bangs, with the sides falling to the shoulders.
+    return (
+      <path
+        d={`M0,0 H120 V${t + 66} H${r - 10} L${r - 12},${t + 26} Q60,${t + 31} ${l + 12},${t + 26} L${l + 10},${t + 66} H0 Z`}
+        fill={HAIR[character]}
+      />
     );
   }
 
@@ -216,6 +292,47 @@ function Clothes({ character, outfit }: Readonly<{ character: Character; outfit:
     );
   }
 
+  if (character === 'jojo') {
+    // Black and white striped sweater.
+    return (
+      <g>
+        <path d={`M0,${t + 94} Q60,${t + 102} 120,${t + 94} V200 H0 Z`} fill='#ece8e2' />
+        {[0, 1, 2, 3, 4, 5].map((i) => (
+          <rect key={i} x={0} y={t + 104 + i * 12} width={120} height={6} fill='#3b3b3b' />
+        ))}
+      </g>
+    );
+  }
+
+  if (character === 'nana') {
+    // Black T-shirt with a yellow flower print.
+    return (
+      <g>
+        <path d={`M0,${t + 94} Q60,${t + 102} 120,${t + 94} V200 H0 Z`} fill='#1e1e1e' />
+        {[
+          [46, t + 116],
+          [72, t + 124],
+          [56, t + 136],
+        ].map(([x, y]) => (
+          <g key={x}>
+            <circle cx={x} cy={y} r={6} fill='#f2c230' />
+            <circle cx={x} cy={y} r={2.2} fill='#8a5a00' />
+          </g>
+        ))}
+      </g>
+    );
+  }
+
+  if (character === 'lolo') {
+    // Peach T-shirt with a little heart.
+    return (
+      <g>
+        <path d={`M0,${t + 94} Q60,${t + 102} 120,${t + 94} V200 H0 Z`} fill='#f2b39b' />
+        <path d={`M60,${t + 128} c-7,-7 -5,-14 0,-10 c5,-4 7,3 0,10 z`} fill='#d9607a' />
+      </g>
+    );
+  }
+
   // Bordô cardigan over a black top.
   return (
     <g>
@@ -234,6 +351,8 @@ type FlorkProps = Readonly<{
   holding?: Item;
   outfit?: Outfit;
   sad?: boolean;
+  // Nana's dog-ear headband or Lolô's pacifier, which they wear only sometimes.
+  accessory?: boolean;
 }>;
 
 export default function Flork({
@@ -245,10 +364,11 @@ export default function Flork({
   holding,
   outfit = 'own',
   sad = false,
+  accessory = false,
 }: FlorkProps) {
   const clipId = useId();
   const { eyeGap } = TRAITS[character];
-  const { l, t, b } = bounds(character);
+  const { l, r, t, b } = bounds(character);
   const bean = beanPath(character);
   const eyeY = t + 40;
   const eyeXs = [60 - eyeGap, 60 + eyeGap];
@@ -286,6 +406,36 @@ export default function Flork({
         </g>
       )}
 
+      {(character === 'jojo' || character === 'nana' || character === 'lolo') && (
+        // Hair falling behind the shoulders: long for Jojo, shoulder length for the little ones.
+        <path
+          d={
+            character === 'jojo'
+              ? `M${l - 7},${t + 114} C${l - 12},${t + 60} ${l - 4},${t - 6} 60,${t - 7} C${r + 4},${t - 6} ${r + 12},${t + 60} ${r + 7},${t + 114} Q${r},${t + 120} ${r - 6},${t + 108} L${l + 6},${t + 108} Q${l},${t + 120} ${l - 7},${t + 114} Z`
+              : `M${l - 6},${t + 72} C${l - 10},${t + 30} ${l - 2},${t - 6} 60,${t - 6} C${r + 2},${t - 6} ${r + 10},${t + 30} ${r + 6},${t + 72} Q${r},${t + 76} ${r - 4},${t + 66} L${l + 4},${t + 66} Q${l},${t + 76} ${l - 6},${t + 72} Z`
+          }
+          fill={HAIR[character]}
+          strokeWidth={3}
+        />
+      )}
+
+      {character === 'jojo' && (
+        // Black cat-ear headband, goth-cute like the characters she loves.
+        <path
+          d={`M${l + 14},${t + 14} L${l + 12},${t - 12} L${l + 34},${t + 2} Z M${r - 14},${t + 14} L${r - 12},${t - 12} L${r - 34},${t + 2} Z`}
+          fill='#1b1b1b'
+          strokeWidth={3}
+        />
+      )}
+
+      {character === 'lolo' && (
+        // She loves pretending to be a puppy, wagging tail included.
+        <path
+          className='flork-wag'
+          d={`M${r - 6},${b - 30} Q${r + 14},${b - 34} ${r + 12},${b - 54}`}
+        />
+      )}
+
       <path
         d={`M48,${b - 2} L46,${b + 22} L38,${b + 24} M72,${b - 2} L74,${b + 22} L82,${b + 24}`}
       />
@@ -303,12 +453,40 @@ export default function Flork({
             )}
           </g>
         )}
-        <g fill='#f4a7b3' opacity={blush ? 0.9 : character === 'indi' ? 0.45 : 0}>
+        <g fill='#f4a7b3' opacity={blush ? 0.9 : character === 'tasso' ? 0 : 0.45}>
           <circle cx={eyeXs[0] - 7} cy={eyeY + 16} r={7} />
           <circle cx={eyeXs[1] + 7} cy={eyeY + 16} r={7} />
         </g>
       </g>
       <path d={bean} />
+
+      {character === 'jojo' && (
+        <g strokeWidth={2}>
+          <path
+            d={`M${l + 14},${t + 14} Q60,${t - 10} ${r - 14},${t + 14}`}
+            stroke='#1b1b1b'
+            strokeWidth={5}
+          />
+          <circle cx={r - 16} cy={t + 26} r={5} fill='#f4a7c8' />
+          <circle cx={r - 18} cy={t + 25} r={1} fill={INK} stroke='none' />
+          <circle cx={r - 14} cy={t + 25} r={1} fill={INK} stroke='none' />
+        </g>
+      )}
+
+      {character === 'nana' && accessory && (
+        // Headband with long floppy dog ears.
+        <g strokeWidth={3}>
+          <path d={`M${l + 10},${t + 14} Q60,${t - 10} ${r - 10},${t + 14}`} strokeWidth={5} />
+          <path
+            d={`M${l + 12},${t + 8} C${l - 6},${t + 4} ${l - 16},${t + 30} ${l - 14},${t + 56} Q${l - 8},${t + 64} ${l - 2},${t + 52} C${l},${t + 34} ${l + 6},${t + 20} ${l + 16},${t + 14} Z`}
+            fill={INK}
+          />
+          <path
+            d={`M${r - 12},${t + 8} C${r + 6},${t + 4} ${r + 16},${t + 30} ${r + 14},${t + 56} Q${r + 8},${t + 64} ${r + 2},${t + 52} C${r},${t + 34} ${r - 6},${t + 20} ${r - 16},${t + 14} Z`}
+            fill={INK}
+          />
+        </g>
+      )}
 
       <g className={eyes === 'open' ? 'flork-blink' : undefined}>
         <Eye x={eyeXs[0]} y={eyeY} eyes={eyes} />
@@ -338,7 +516,15 @@ export default function Flork({
         </g>
       )}
 
-      <MouthShape mouth={mouth} y={t + 64} />
+      {character === 'lolo' && accessory ? (
+        // Red pacifier, like the one in her photos.
+        <g strokeWidth={2.5}>
+          <ellipse cx={60} cy={t + 66} rx={11} ry={7} fill='#d62f3a' />
+          <circle cx={60} cy={t + 66} r={4} stroke='#fff' />
+        </g>
+      ) : (
+        <MouthShape mouth={mouth} y={t + 64} gap={character === 'lolo'} />
+      )}
 
       {armList.map(([d, x, y]) => (
         <g key={d}>
@@ -355,6 +541,7 @@ export default function Flork({
           {holding === 'mug' && <Mug x={hand[1]} y={hand[2]} />}
           {holding === 'note' && <Envelope x={hand[1]} y={hand[2]} />}
           {holding === 'acai' && <Acai x={hand[1]} y={hand[2]} />}
+          {holding === 'plush' && <Plush x={hand[1]} y={hand[2]} />}
         </g>
       )}
     </g>

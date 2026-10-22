@@ -1,5 +1,5 @@
 import type { KeyboardEvent, ReactNode } from 'react';
-import type { Character } from './Flork';
+import type { Character, Kid } from './Flork';
 
 const HEART = 'M0,4 C-8,-4 -6,-12 0,-7 C6,-12 8,-4 0,4 Z';
 
@@ -37,9 +37,17 @@ function Frame({ x }: Readonly<{ x: number }>) {
   );
 }
 
+// The girls stand beside the sofa: the older two on Indi's side, Lolô next to her favorite person.
+const GUEST_SLOTS: Record<Kid, { transform: string; side: 'left' | 'right'; label: string }> = {
+  jojo: { transform: 'translate(2 148) scale(0.76)', side: 'left', label: 'Jojo' },
+  nana: { transform: 'translate(4 166) scale(0.66)', side: 'left', label: 'Nana' },
+  lolo: { transform: 'translate(322 182) scale(0.58)', side: 'right', label: 'Lolô' },
+};
+
 type SceneProps = Readonly<{
   indi: ReactNode;
   tasso: ReactNode;
+  guests: readonly Readonly<{ character: Kid; node: ReactNode }>[];
   lean: boolean;
   hearts: boolean;
   blanket: boolean;
@@ -50,6 +58,7 @@ type SceneProps = Readonly<{
 export default function Scene({
   indi,
   tasso,
+  guests,
   lean,
   hearts,
   blanket,
@@ -73,7 +82,7 @@ export default function Scene({
     <svg
       viewBox='0 0 400 300'
       role='group'
-      aria-label='Nós dois no sofá'
+      aria-label='A família no sofá'
       className='block h-auto w-full'
     >
       <rect width={400} height={300} className='fill-wall' />
@@ -102,6 +111,17 @@ export default function Scene({
           <g {...characterProps('tasso', 'Mor')}>{tasso}</g>
         </g>
       </g>
+
+      {guests.map(({ character, node }) => {
+        const { transform, side, label } = GUEST_SLOTS[character];
+        return (
+          <g key={character} transform={transform}>
+            <g className={`guest-enter-${side}`}>
+              <g {...characterProps(character, label)}>{node}</g>
+            </g>
+          </g>
+        );
+      })}
 
       {blanket && (
         <g className='blanket'>

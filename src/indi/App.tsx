@@ -1,16 +1,30 @@
 import { clsx } from 'clsx';
+import type { CSSProperties } from 'react';
 import { useEffect, useState } from 'react';
-import type { Arms, Character, Eyes, Mouth } from './components/Flork';
+import type { Arms, Character, Eyes, Item, Kid, Mouth } from './components/Flork';
 import Flork from './components/Flork';
 import Scene from './components/Scene';
-import { BREATH, LINES, NOTES } from './messages';
+import { BREATH, KID_LINES, LINES, NOTES } from './messages';
 import type { Sound } from './sounds';
 import { isSoundEnabled, playSound, setSoundEnabled } from './sounds';
 
-type Silly = 'dance' | 'jump' | 'spin' | 'trip';
+type Move = 'dance' | 'jump' | 'spin' | 'trip';
+type Silly = Move | 'dusty';
 type Action = 'hug' | 'pout' | 'tea' | 'acai' | Silly | 'boop-tasso' | 'boop-indi';
 
-const SILLIES: readonly Silly[] = ['dance', 'jump', 'spin', 'trip'];
+const MOVES: readonly Move[] = ['dance', 'jump', 'spin', 'trip'];
+const SILLIES: readonly Silly[] = [...MOVES, 'dusty'];
+
+// A girl dropping by. `accessory` is Nana's dog-ear headband or Lolô's pacifier.
+type Guest = Readonly<{ character: Kid; accessory: boolean }>;
+
+type ActionState = Readonly<{
+  id: number;
+  type: Action;
+  guests: readonly Guest[];
+  // A hug that follows a pout.
+  comfort?: boolean;
+}>;
 
 const ACTION_DURATIONS: Record<Action, number> = {
   hug: 4500,
@@ -21,6 +35,7 @@ const ACTION_DURATIONS: Record<Action, number> = {
   jump: 2400,
   spin: 2000,
   trip: 3200,
+  dusty: 4200,
   'boop-tasso': 1200,
   'boop-indi': 2400,
 };
@@ -34,11 +49,13 @@ const ACTION_SOUNDS: Record<Action, Sound> = {
   jump: 'jump',
   spin: 'spin',
   trip: 'trip',
+  dusty: 'dusty',
   'boop-tasso': 'boopTasso',
   'boop-indi': 'boopIndi',
 };
 
 const SPEECH_DURATION = 4500;
+const GUEST_LINE_DELAY = 1800;
 const BREATH_PHASE_DURATION = 4000;
 
 type Speech = Readonly<{ id: number; who: Character | 'both'; text: string }>;
@@ -49,13 +66,56 @@ function pick<T>(items: readonly T[], previous?: T): T {
   return candidates[Math.floor(Math.random() * candidates.length)];
 }
 
+// Decides at random which of the girls show up, so their visits stay a surprise.
+function castFor(type: Action): readonly Guest[] {
+  const roll = Math.random();
+  const jojo: Guest = { character: 'jojo', accessory: false };
+  const nana: Guest = { character: 'nana', accessory: Math.random() < 0.5 };
+  const lolo: Guest = { character: 'lolo', accessory: Math.random() < 0.4 };
+  const littleOnes = roll < 0.4 ? [nana, lolo] : [pick([nana, lolo])];
+
+  switch (type) {
+    case 'pout':
+      return roll < 0.6 ? [jojo] : [];
+    case 'dusty':
+      return [nana, lolo];
+    case 'acai':
+      return Math.random() < 0.6 ? littleOnes : [];
+    case 'hug':
+      return Math.random() < 0.35 ? pick([[jojo], [nana], [lolo], [nana, lolo]]) : [];
+    case 'dance':
+    case 'jump':
+      return Math.random() < 0.4 ? littleOnes : [];
+    default:
+      return [];
+  }
+}
+
+function kidLine(kid: Kid, action: ActionState) {
+  const lines: Partial<Record<string, readonly string[]>> = KID_LINES[kid];
+  let context = 'any';
+  if (action.comfort) context = 'comfort';
+  else if (MOVES.includes(action.type as Move)) context = 'silly';
+  else if (action.type === 'hug' || action.type === 'acai' || action.type === 'dusty') {
+    context = action.type;
+  }
+  return pick(lines[context] ?? KID_LINES[kid].any);
+}
+
 function greeting(): Speech {
   const hour = new Date().getHours();
   const lines = hour < 12 ? LINES.morning : hour < 18 ? LINES.afternoon : LINES.night;
   return { id: 0, who: 'tasso', text: pick(lines) };
 }
 
-const SPEECH_POSITIONS = { indi: '38%', tasso: '63%', both: '50%' } as const;
+const SPEECH_POSITIONS: Record<Speech['who'], CSSProperties> = {
+  indi: { left: '38%', translate: '-50%' },
+  tasso: { left: '63%', translate: '-50%' },
+  both: { left: '50%', translate: '-50%' },
+  jojo: { left: '3%' },
+  nana: { left: '3%' },
+  lolo: { right: '3%' },
+};
 
 function ActionButton({
   emoji,
@@ -83,7 +143,8 @@ function ActionButton({
 }
 
 export default function App() {
-  const [action, setAction] = useState<{ id: number; type: Action } | null>(null);
+  const [action, setAction] = useState<ActionState | null>(null);
+  const [kidBoop, setKidBoop] = useState<{ id: number; character: Kid } | null>(null);
   const [speech, setSpeech] = useState<Speech | null>(greeting);
   const [blanket, setBlanket] = useState(false);
   const [hoodieOnIndi, setHoodieOnIndi] = useState(false);
@@ -97,10 +158,21 @@ export default function App() {
     const timeout = setTimeout(() => {
       if (action.type !== 'pout') return setAction(null);
       // He notices the pout and comes over for a comforting hug.
-      setAction({ id: Date.now(), type: 'hug' });
+      setAction({ id: Date.now(), type: 'hug', guests: action.guests, comfort: true });
       setSpeech({ id: Date.now(), who: 'tasso', text: pick(LINES.comfort) });
       playSound('hug');
     }, ACTION_DURATIONS[action.type]);
+    return () => clearTimeout(timeout);
+  }, [action]);
+
+  // A moment after showing up, one of the girls has something to say.
+  useEffect(() => {
+    if (!action || action.guests.length === 0 || action.type === 'pout') return;
+    const timeout = setTimeout(() => {
+      const { character } = pick(action.guests);
+      setSpeech({ id: Date.now(), who: character, text: kidLine(character, action) });
+      playSound(character === 'lolo' ? 'bark' : 'boopIndi');
+    }, GUEST_LINE_DELAY);
     return () => clearTimeout(timeout);
   }, [action]);
 
@@ -126,7 +198,7 @@ export default function App() {
 
   const play = (type: Action, who: Character, lines: readonly string[]) => {
     setBreathing(false);
-    setAction({ id: Date.now(), type });
+    setAction({ id: Date.now(), type, guests: castFor(type) });
     playSound(ACTION_SOUNDS[type]);
     say(who, lines);
   };
@@ -174,10 +246,14 @@ export default function App() {
     play(type, 'tasso', LINES[type]);
   };
 
-  const boop = (character: Character) =>
-    character === 'tasso'
-      ? play('boop-tasso', 'tasso', LINES.boopTasso)
-      : play('boop-indi', 'indi', LINES.boopIndi);
+  const boop = (character: Character) => {
+    if (character === 'tasso') return play('boop-tasso', 'tasso', LINES.boopTasso);
+    if (character === 'indi') return play('boop-indi', 'indi', LINES.boopIndi);
+    // Booping a girl keeps the current scene going.
+    setKidBoop({ id: Date.now(), character });
+    say(character, KID_LINES[character].any);
+    playSound(character === 'lolo' ? 'bark' : 'boopIndi');
+  };
 
   // While breathing, the bubble guides the rhythm instead of showing reactions.
   const bubble: Speech | null = breathing
@@ -186,12 +262,17 @@ export default function App() {
 
   const type = action?.type;
   const isSilly = SILLIES.includes(type as Silly);
+  const isMove = MOVES.includes(type as Move);
   const resting = blanket || breathing;
 
   let tassoArms: Arms = 'down';
   if (type === 'hug') tassoArms = 'hug';
-  else if (isSilly) tassoArms = 'up';
-  else if (type === 'acai' || note) tassoArms = 'hold';
+  else if (isMove) tassoArms = 'up';
+  else if (type === 'acai' || type === 'dusty' || note) tassoArms = 'hold';
+
+  let tassoItem: Item | undefined;
+  if (type === 'acai' || type === 'dusty') tassoItem = type === 'acai' ? 'acai' : 'plush';
+  else if (tassoArms === 'hold') tassoItem = 'note';
 
   let indiArms: Arms = 'down';
   if (type === 'hug') indiArms = 'hug';
@@ -214,13 +295,61 @@ export default function App() {
 
   let tassoMotion = 'flork-idle';
   if (breathing) tassoMotion = 'flork-breathe';
-  else if (isSilly) tassoMotion = `flork-${type}`;
+  else if (isMove) tassoMotion = `flork-${type}`;
   else if (type === 'boop-tasso') tassoMotion = 'flork-boop';
 
   let indiMotion = 'flork-idle flork-idle-late';
   if (breathing) indiMotion = 'flork-breathe';
   else if (isSilly) indiMotion = 'flork-giggle';
   else if (type === 'boop-indi') indiMotion = 'flork-boop';
+
+  const guests = (action?.guests ?? []).map(({ character, accessory }) => {
+    let arms: Arms = 'down';
+    let holding: Item | undefined;
+    let mouth: Mouth = 'smile';
+    let eyes: Eyes = 'open';
+    let motion = 'flork-idle';
+    if (type === 'hug') {
+      arms = 'hug';
+      eyes = 'happy';
+    } else if (type === 'acai') {
+      arms = 'hold';
+      holding = 'acai';
+      mouth = 'grin';
+      eyes = 'happy';
+    } else if (isMove) {
+      arms = 'up';
+      mouth = 'grin';
+      motion = `flork-${type}`;
+    } else if (type === 'dusty') {
+      mouth = 'grin';
+      eyes = 'happy';
+      motion = 'flork-giggle';
+    }
+    // Nana has her mother's mannerisms, so she makes the same faces.
+    if (character === 'nana') {
+      mouth = indiMouth;
+      eyes = indiEyes;
+    }
+    if (kidBoop?.character === character) motion = 'flork-boop';
+
+    return {
+      character,
+      node: (
+        <g key={`${action?.id}-${kidBoop?.id}`} className={motion}>
+          <Flork
+            character={character}
+            arms={arms}
+            mouth={mouth}
+            eyes={eyes}
+            blush={type === 'hug'}
+            holding={holding}
+            accessory={accessory && holding !== 'acai'}
+          />
+        </g>
+      ),
+    };
+  });
 
   return (
     <div className='mx-auto flex min-h-dvh max-w-xl flex-col gap-4 px-4 py-6'>
@@ -244,6 +373,7 @@ export default function App() {
             hearts={type === 'hug' || type === 'boop-indi'}
             blanket={blanket}
             breathing={breathing}
+            guests={guests}
             onBoop={boop}
             indi={
               <g key={action?.id} className={indiMotion}>
@@ -266,7 +396,7 @@ export default function App() {
                   arms={tassoArms}
                   mouth={tassoMouth}
                   eyes={tassoEyes}
-                  holding={type === 'acai' ? 'acai' : tassoArms === 'hold' ? 'note' : undefined}
+                  holding={tassoItem}
                   outfit={hoodieOnIndi ? 'own' : 'hoodie'}
                 />
               </g>
@@ -278,10 +408,10 @@ export default function App() {
               <span
                 key={bubble.id}
                 className={clsx(
-                  'speech-bubble absolute max-w-[62%] -translate-x-1/2 rounded-2xl border-2 border-[#111] bg-white px-3 py-1.5 text-center leading-snug font-semibold text-[#111] shadow-md',
+                  'speech-bubble absolute max-w-[62%] rounded-2xl border-2 border-[#111] bg-white px-3 py-1.5 text-center leading-snug font-semibold text-[#111] shadow-md',
                   bubble.who === 'both' ? 'text-lg' : 'text-sm sm:text-base',
                 )}
-                style={{ left: SPEECH_POSITIONS[bubble.who] }}
+                style={SPEECH_POSITIONS[bubble.who]}
               >
                 {bubble.text}
               </span>

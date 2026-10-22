@@ -15,6 +15,8 @@ export type Sound =
   | 'jump'
   | 'spin'
   | 'trip'
+  | 'dusty'
+  | 'bark'
   | 'boopTasso'
   | 'boopIndi'
   | 'toggle';
@@ -174,6 +176,17 @@ const SOUNDS: Record<Sound, () => void> = {
   trip: () => {
     tone({ freq: 900, to: 200, duration: 0.7, type: 'triangle', volume: 0.4 });
     tone({ freq: 90, to: 50, at: 0.75, duration: 0.25, volume: 0.7 });
+  },
+  // Dust puffs, then a little sneeze.
+  dusty: () => {
+    whoosh({ from: 600, to: 300, duration: 0.35, volume: 0.4 });
+    whoosh({ from: 700, to: 300, at: 0.5, duration: 0.35, volume: 0.4 });
+    tone({ freq: 700, to: 900, at: 1.1, duration: 0.25, type: 'triangle', volume: 0.3 });
+    whoosh({ from: 2500, to: 800, at: 1.35, duration: 0.3, volume: 0.5 });
+  },
+  bark: () => {
+    tone({ freq: 620, to: 420, duration: 0.12, type: 'triangle', volume: 0.5 });
+    tone({ freq: 620, to: 420, at: 0.2, duration: 0.12, type: 'triangle', volume: 0.5 });
   },
   boopTasso: () => tone({ freq: 520, to: 260, duration: 0.18, type: 'triangle', volume: 0.5 }),
   boopIndi: () => tone({ freq: 780, to: 460, duration: 0.18, type: 'triangle', volume: 0.5 }),
