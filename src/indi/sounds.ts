@@ -20,6 +20,7 @@ export type Sound =
   | 'eyebrows'
   | 'cyclops'
   | 'peteco'
+  | 'math'
   | 'boopTasso'
   | 'boopIndi'
   | 'toggle';
@@ -202,6 +203,11 @@ const SOUNDS: Record<Sound, () => void> = {
       whoosh({ from: 2400, to: 900, at, duration: 0.08, volume: 0.6 });
       tone({ freq: 900, to: 320, at, duration: 0.12, type: 'triangle', volume: 0.4 });
     }),
+  // A bright little "eureka" arpeggio.
+  math: () =>
+    [C5, E5, G5, C6].forEach((freq, i) =>
+      tone({ freq, at: i * 0.06, duration: 0.25, volume: 0.3 }),
+    ),
   // A soft heartbeat, twice.
   cyclops: () =>
     [0, 0.18, 0.8, 0.98].forEach((at) =>

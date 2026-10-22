@@ -74,6 +74,7 @@ export const LINES = {
     'Calma! Eu lavo a louça! 🙌',
     'Socorro, ela tá armada… de fofura! 🙌',
   ],
+  mathReply: ['Não entendi nada, mas fala mais 😍', 'Ai, que homem inteligente 😍', 'Continua… 😍'],
   cyclops: ['Oi, ciclopinho 🥰', 'Tão pertinho que virou ciclope 🥰'],
   dusty: ['Olha esse polvinho: tá pôdi, pôdi!', 'Atchim! Tá pôdi, pôdi!'],
   boopTasso: ['Boop!', 'Oi, bijuzinha!', 'Me chamou, meu biju?', 'Te amo'],
@@ -125,3 +126,17 @@ export const TAP_HINT_LINES = {
   tasso: ['Psiu! Toca em mim 👆', 'Ei, bijuzinha… toca aqui 👆'],
   indi: ['Ei! Toca em mim também 👆', 'Psiu! Aqui, ó 👆'],
 } as const;
+
+// Tasso's nerdy math facts. Keep them true: each one here has been checked.
+export const MATH_FACTS: readonly string[] = [
+  'Sabia que 0,999… com noves infinitos é exatamente igual a 1? Não é quase: é igual.',
+  'Num grupo de só 23 pessoas, a chance de duas fazerem aniversário no mesmo dia já passa de 50%.',
+  'Existem infinitos números primos. Euclides provou isso há mais de 2 mil anos.',
+  'Existem tantos números pares quanto números naturais. O infinito é esquisito assim.',
+  'Em teoria, uma folha de 0,1 mm dobrada 42 vezes ficaria mais grossa que a distância daqui até a Lua.',
+  'e elevado a iπ, mais 1, dá 0. Uma fórmula só, com cinco dos números mais importantes da matemática.',
+  'Um baralho bem embaralhado quase certamente está numa ordem que nunca existiu: são 52! ordens possíveis.',
+  'O hexágono do favo de mel divide o plano em partes iguais com o menor perímetro possível. Provaram isso em 1999.',
+  'Diz a lenda que Gauss, ainda criança, somou de 1 a 100 de cabeça: dá 5050.',
+  'De todas as figuras com o mesmo perímetro, o círculo é a que tem a maior área.',
+];

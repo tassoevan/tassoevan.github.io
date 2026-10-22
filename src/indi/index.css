@@ -105,6 +105,20 @@ body {
   animation: zoom-faces 4.2s ease-in-out;
 }
 
+.flork-lecture {
+  animation: lecture 0.8s ease-in-out infinite alternate;
+}
+
+.flork-swoon {
+  animation: swoon 2.4s ease-in-out infinite;
+}
+
+.heart-eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: heart-beat 0.8s ease-in-out infinite;
+}
+
 .flag-pop {
   transform-box: fill-box;
   transform-origin: 0% 50%;
@@ -239,6 +253,31 @@ body {
   20%,
   80% {
     transform: scale(2.2);
+  }
+}
+
+@keyframes lecture {
+  from {
+    transform: rotate(-1.5deg);
+  }
+  to {
+    transform: rotate(1.5deg);
+  }
+}
+
+@keyframes swoon {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes heart-beat {
+  50% {
+    transform: scale(1.2);
   }
 }
 
@@ -458,6 +497,9 @@ body {
   .flork-trip,
   .flork-boop,
   .flork-giggle,
+  .flork-lecture,
+  .flork-swoon,
+  .heart-eye,
   .blanket,
   .flork-wag,
   .brow-wiggle,

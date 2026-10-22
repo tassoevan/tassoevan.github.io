@@ -2,11 +2,11 @@ import { useId } from 'react';
 
 export type Kid = 'jojo' | 'nana' | 'lolo';
 export type Character = 'tasso' | 'indi' | Kid;
-export type Arms = 'down' | 'up' | 'hug' | 'hold';
+export type Arms = 'down' | 'up' | 'hug' | 'hold' | 'point';
 export type Mouth = 'smile' | 'grin' | 'open' | 'flat' | 'pout' | 'smirk';
 export type Item = 'mug' | 'note' | 'acai' | 'plush' | 'flagGun';
 // `cyclops` is one big eye in the middle, for when she leans in so close that's all he sees.
-export type Eyes = 'open' | 'closed' | 'happy' | 'sly' | 'cyclops';
+export type Eyes = 'open' | 'closed' | 'happy' | 'sly' | 'cyclops' | 'hearts';
 
 const INK = '#111';
 const BOTTOM = 162;
@@ -69,6 +69,9 @@ function armShapes(character: Character, arms: Arms): [string, number, number][]
       return TRAITS[character].hugTo === 'left'
         ? [[`M${l + 1},${y} Q${l - 30},${y + 2} ${l - 66},${y + 8}`, l - 66, y + 8], rightDown]
         : [leftDown, [`M${r - 1},${y} Q${r + 24},${y + 14} ${r + 48},${y + 8}`, r + 48, y + 8]];
+    // Index finger up, as when explaining something.
+    case 'point':
+      return [leftDown, [`M${r - 1},${y} Q${r + 14},${y - 10} ${r + 8},${y - 36}`, r + 8, y - 36]];
     case 'hold':
       return [leftDown, [`M${r - 1},${y} Q${r + 6},${y + 24} 66,${y + 22}`, 66, y + 22]];
     default:
@@ -79,6 +82,17 @@ function armShapes(character: Character, arms: Arms): [string, number, number][]
 function Eye({ x, y, eyes }: Readonly<{ x: number; y: number; eyes: Eyes }>) {
   if (eyes === 'closed') return <path d={`M${x - 7},${y - 1} Q${x},${y + 7} ${x + 7},${y - 1}`} />;
   if (eyes === 'happy') return <path d={`M${x - 7},${y + 3} Q${x},${y - 6} ${x + 7},${y + 3}`} />;
+  // Smitten.
+  if (eyes === 'hearts') {
+    return (
+      <path
+        className='heart-eye'
+        d={`M${x},${y + 6} C${x - 10},${y - 1} ${x - 6},${y - 10} ${x},${y - 4} C${x + 6},${y - 10} ${x + 10},${y - 1} ${x},${y + 6} Z`}
+        fill='#d0435b'
+        stroke='none'
+      />
+    );
+  }
   // Half-closed lids, for a knowing look.
   if (eyes === 'sly') {
     return (

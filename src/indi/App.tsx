@@ -5,7 +5,7 @@ import type { Arms, Character, Eyes, Item, Kid, Mouth } from './components/Flork
 import Flork from './components/Flork';
 import InstallButton from './components/InstallButton';
 import Scene from './components/Scene';
-import { BREATH, KID_LINES, LINES, NOTES, TAP_HINT_LINES } from './messages';
+import { BREATH, KID_LINES, LINES, MATH_FACTS, NOTES, TAP_HINT_LINES } from './messages';
 import { drawNote } from './noteDeck';
 import type { Sound } from './sounds';
 import { isSoundEnabled, playSound, setSoundEnabled } from './sounds';
@@ -13,13 +13,13 @@ import { hasTapped, rememberTap } from './tapHint';
 
 type Move = 'dance' | 'jump' | 'spin' | 'trip';
 type Silly = Move | 'dusty';
-// Indi's secret moves, unlocked by tapping her twice in a row.
-type Secret = 'eyebrows' | 'cyclops' | 'peteco';
+// Indi's are unlocked by tapping her twice in a row; Tasso's math facts, by tapping him twice.
+type Secret = 'eyebrows' | 'cyclops' | 'peteco' | 'math';
 type Action = 'hug' | 'pout' | 'tea' | 'acai' | Silly | Secret | 'boop-tasso' | 'boop-indi';
 
 const MOVES: readonly Move[] = ['dance', 'jump', 'spin', 'trip'];
 const SILLIES: readonly Silly[] = [...MOVES, 'dusty'];
-const SECRETS: readonly Secret[] = ['eyebrows', 'cyclops', 'peteco'];
+const SECRETS: readonly Exclude<Secret, 'math'>[] = ['eyebrows', 'cyclops', 'peteco'];
 const DOUBLE_TAP_WINDOW = 450;
 
 // A girl dropping by. `accessory` is Nana's dog-ear headband or Lolô's pacifier.
@@ -45,6 +45,7 @@ const ACTION_DURATIONS: Record<Action, number> = {
   trip: 3200,
   dusty: 4200,
   eyebrows: 3600,
+  math: 10000,
   peteco: 3800,
   cyclops: 4200,
   'boop-tasso': 1200,
@@ -62,6 +63,7 @@ const ACTION_SOUNDS: Record<Action, Sound> = {
   trip: 'trip',
   dusty: 'dusty',
   eyebrows: 'eyebrows',
+  math: 'math',
   peteco: 'peteco',
   cyclops: 'cyclops',
   'boop-tasso': 'boopTasso',
@@ -69,6 +71,10 @@ const ACTION_SOUNDS: Record<Action, Sound> = {
 };
 
 const SPEECH_DURATION = 4500;
+const LONG_BUBBLE = 70;
+const LONG_SPEECH_DURATION = 7000;
+// Anchored to both sides, so the bubble can use the whole width instead of growing taller.
+const LONG_BUBBLE_POSITION: CSSProperties = { left: '4%', right: '4%' };
 const GUEST_LINE_DELAY = 1800;
 const COMFORT_NOTE_CHANCE = 0.4;
 
@@ -77,6 +83,7 @@ const REPLIES: Partial<
   Record<Action, { who: Character; delay: number; lines: readonly string[] }>
 > = {
   peteco: { who: 'tasso', delay: 1600, lines: LINES.petecoReply },
+  math: { who: 'indi', delay: 6500, lines: LINES.mathReply },
 };
 // Until she first taps a character, one of them invites her after a quiet moment.
 const TAP_HINT_DELAY = 8000;
@@ -180,7 +187,7 @@ export default function App() {
   const [tapped, setTapped] = useState(hasTapped);
   const [hint, setHint] = useState<{ id: number; who: 'tasso' | 'indi' } | null>(null);
   const [hintCount, setHintCount] = useState(0);
-  const lastIndiTap = useRef(0);
+  const lastTap = useRef<{ character: Character; time: number } | null>(null);
 
   useEffect(() => {
     if (!action) return;
@@ -244,7 +251,8 @@ export default function App() {
 
   useEffect(() => {
     if (!speech || breathing) return;
-    const timeout = setTimeout(() => setSpeech(null), SPEECH_DURATION);
+    const duration = speech.text.length > LONG_BUBBLE ? LONG_SPEECH_DURATION : SPEECH_DURATION;
+    const timeout = setTimeout(() => setSpeech(null), duration);
     return () => clearTimeout(timeout);
   }, [speech, breathing]);
 
@@ -317,15 +325,20 @@ export default function App() {
       setTapped(true);
       rememberTap();
     }
-    if (character === 'tasso') return play('boop-tasso', 'tasso', LINES.boopTasso);
+    const now = Date.now();
+    const doubleTap =
+      lastTap.current?.character === character && now - lastTap.current.time < DOUBLE_TAP_WINDOW;
+    lastTap.current = doubleTap ? null : { character, time: now };
+
+    if (character === 'tasso') {
+      if (doubleTap) return play('math', 'tasso', MATH_FACTS);
+      return play('boop-tasso', 'tasso', LINES.boopTasso);
+    }
     if (character === 'indi') {
-      const now = Date.now();
-      if (now - lastIndiTap.current < DOUBLE_TAP_WINDOW) {
-        lastIndiTap.current = 0;
-        const secret = pick(SECRETS, action?.type as Secret | undefined);
+      if (doubleTap) {
+        const secret = pick(SECRETS, action?.type as (typeof SECRETS)[number] | undefined);
         return play(secret, secret === 'peteco' ? 'indi' : 'tasso', LINES[secret]);
       }
-      lastIndiTap.current = now;
       return play('boop-indi', 'indi', LINES.boopIndi);
     }
     // Booping a girl keeps the current scene going.
@@ -339,6 +352,9 @@ export default function App() {
     ? { id: breathIn ? -1 : -2, who: 'both', text: breathIn ? BREATH.in : BREATH.out }
     : speech;
 
+  // Long lines, like the math facts, get a wide bubble across the scene.
+  const longBubble = (bubble?.text.length ?? 0) > LONG_BUBBLE;
+
   const type = action?.type;
   const isSilly = SILLIES.includes(type as Silly);
   const isMove = MOVES.includes(type as Move);
@@ -347,6 +363,7 @@ export default function App() {
   let tassoArms: Arms = 'down';
   if (type === 'hug') tassoArms = 'hug';
   else if (isMove || type === 'peteco') tassoArms = 'up';
+  else if (type === 'math') tassoArms = 'point';
   else if (type === 'acai' || type === 'dusty' || note) tassoArms = 'hold';
 
   let tassoItem: Item | undefined;
@@ -361,11 +378,12 @@ export default function App() {
   if (type === 'pout') indiMouth = 'pout';
   else if (type === 'eyebrows') indiMouth = 'smirk';
   else if (type === 'peteco') indiMouth = 'grin';
+  else if (type === 'math') indiMouth = 'open';
   else if (isSilly || type === 'boop-indi' || type === 'acai') indiMouth = 'grin';
 
   let tassoMouth: Mouth = 'smile';
   if (type === 'pout') tassoMouth = 'flat';
-  else if (type === 'eyebrows' || type === 'peteco') tassoMouth = 'open';
+  else if (type === 'eyebrows' || type === 'peteco' || type === 'math') tassoMouth = 'open';
   else if (type === 'trip') tassoMouth = 'open';
   else if (isSilly || type === 'boop-tasso') tassoMouth = 'grin';
 
@@ -376,16 +394,19 @@ export default function App() {
   if (type === 'hug' || type === 'boop-indi' || type === 'acai' || isSilly) indiEyes = 'happy';
   else if (type === 'eyebrows' || type === 'peteco') indiEyes = 'sly';
   else if (type === 'cyclops') indiEyes = 'cyclops';
+  else if (type === 'math') indiEyes = 'hearts';
 
   let tassoMotion = 'flork-idle';
   if (breathing) tassoMotion = 'flork-breathe';
   else if (isMove) tassoMotion = `flork-${type}`;
   else if (type === 'boop-tasso') tassoMotion = 'flork-boop';
+  else if (type === 'math') tassoMotion = 'flork-lecture';
 
   let indiMotion = 'flork-idle flork-idle-late';
   if (breathing) indiMotion = 'flork-breathe';
   else if (isSilly) indiMotion = 'flork-giggle';
   else if (type === 'boop-indi') indiMotion = 'flork-boop';
+  else if (type === 'math') indiMotion = 'flork-swoon';
 
   const guests = (action?.guests ?? []).map(({ character, accessory }) => {
     let arms: Arms = 'down';
@@ -469,7 +490,9 @@ export default function App() {
                   arms={indiArms}
                   mouth={indiMouth}
                   eyes={indiEyes}
-                  blush={type === 'hug' || type === 'boop-indi' || type === 'cyclops'}
+                  blush={
+                    type === 'hug' || type === 'boop-indi' || type === 'cyclops' || type === 'math'
+                  }
                   sad={type === 'pout'}
                   wiggle={type === 'eyebrows'}
                   holding={
@@ -506,10 +529,11 @@ export default function App() {
               <span
                 key={bubble.id}
                 className={clsx(
-                  'speech-bubble absolute max-w-[62%] rounded-2xl border-2 border-[#111] bg-white px-3 py-1.5 text-center leading-snug font-semibold text-[#111] shadow-md',
+                  'speech-bubble absolute rounded-2xl border-2 border-[#111] bg-white px-3 py-1.5 text-center leading-snug font-semibold text-[#111] shadow-md',
                   bubble.who === 'both' ? 'text-lg' : 'text-sm sm:text-base',
+                  !longBubble && 'max-w-[62%]',
                 )}
-                style={SPEECH_POSITIONS[bubble.who]}
+                style={longBubble ? LONG_BUBBLE_POSITION : SPEECH_POSITIONS[bubble.who]}
               >
                 {bubble.text}
               </span>
