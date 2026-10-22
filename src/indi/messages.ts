@@ -68,6 +68,12 @@ export const LINES = {
   spin: ['Uiii, fiquei tonto…', 'Giro de alegria!'],
   trip: ['Ops…', 'Foi de propósito. Juro.'],
   eyebrows: ['Hmm… conheço essa sobrancelha 😳', 'Recado recebido! 😳', 'Ih… lá vem ela. 😳'],
+  peteco: ['Peteco! Peteco! 🔫', 'Mãos ao alto! Peteco! Peteco! 🔫'],
+  petecoReply: [
+    'Tô rendido! 🙌',
+    'Calma! Eu lavo a louça! 🙌',
+    'Socorro, ela tá armada… de fofura! 🙌',
+  ],
   cyclops: ['Oi, ciclopinho 🥰', 'Tão pertinho que virou ciclope 🥰'],
   dusty: ['Olha esse polvinho: tá pôdi, pôdi!', 'Atchim! Tá pôdi, pôdi!'],
   boopTasso: ['Boop!', 'Oi, bijuzinha!', 'Me chamou, meu biju?', 'Te amo'],

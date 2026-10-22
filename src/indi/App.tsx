@@ -14,12 +14,12 @@ import { hasTapped, rememberTap } from './tapHint';
 type Move = 'dance' | 'jump' | 'spin' | 'trip';
 type Silly = Move | 'dusty';
 // Indi's secret moves, unlocked by tapping her twice in a row.
-type Secret = 'eyebrows' | 'cyclops';
+type Secret = 'eyebrows' | 'cyclops' | 'peteco';
 type Action = 'hug' | 'pout' | 'tea' | 'acai' | Silly | Secret | 'boop-tasso' | 'boop-indi';
 
 const MOVES: readonly Move[] = ['dance', 'jump', 'spin', 'trip'];
 const SILLIES: readonly Silly[] = [...MOVES, 'dusty'];
-const SECRETS: readonly Secret[] = ['eyebrows', 'cyclops'];
+const SECRETS: readonly Secret[] = ['eyebrows', 'cyclops', 'peteco'];
 const DOUBLE_TAP_WINDOW = 450;
 
 // A girl dropping by. `accessory` is Nana's dog-ear headband or Lolô's pacifier.
@@ -45,6 +45,7 @@ const ACTION_DURATIONS: Record<Action, number> = {
   trip: 3200,
   dusty: 4200,
   eyebrows: 3600,
+  peteco: 3800,
   cyclops: 4200,
   'boop-tasso': 1200,
   'boop-indi': 2400,
@@ -61,6 +62,7 @@ const ACTION_SOUNDS: Record<Action, Sound> = {
   trip: 'trip',
   dusty: 'dusty',
   eyebrows: 'eyebrows',
+  peteco: 'peteco',
   cyclops: 'cyclops',
   'boop-tasso': 'boopTasso',
   'boop-indi': 'boopIndi',
@@ -69,6 +71,13 @@ const ACTION_SOUNDS: Record<Action, Sound> = {
 const SPEECH_DURATION = 4500;
 const GUEST_LINE_DELAY = 1800;
 const COMFORT_NOTE_CHANCE = 0.4;
+
+// Some moves get an answer from the other one, a moment later.
+const REPLIES: Partial<
+  Record<Action, { who: Character; delay: number; lines: readonly string[] }>
+> = {
+  peteco: { who: 'tasso', delay: 1600, lines: LINES.petecoReply },
+};
 // Until she first taps a character, one of them invites her after a quiet moment.
 const TAP_HINT_DELAY = 8000;
 const MAX_TAP_HINTS = 3;
@@ -200,6 +209,16 @@ export default function App() {
     return () => clearTimeout(timeout);
   }, [action]);
 
+  useEffect(() => {
+    const reply = action && REPLIES[action.type];
+    if (!reply) return;
+    const timeout = setTimeout(
+      () => setSpeech({ id: Date.now(), who: reply.who, text: pick(reply.lines) }),
+      reply.delay,
+    );
+    return () => clearTimeout(timeout);
+  }, [action]);
+
   // A moment after showing up, one of the girls has something to say.
   useEffect(() => {
     if (!action || action.guests.length === 0 || action.type === 'pout') return;
@@ -304,7 +323,7 @@ export default function App() {
       if (now - lastIndiTap.current < DOUBLE_TAP_WINDOW) {
         lastIndiTap.current = 0;
         const secret = pick(SECRETS, action?.type as Secret | undefined);
-        return play(secret, 'tasso', LINES[secret]);
+        return play(secret, secret === 'peteco' ? 'indi' : 'tasso', LINES[secret]);
       }
       lastIndiTap.current = now;
       return play('boop-indi', 'indi', LINES.boopIndi);
@@ -327,7 +346,7 @@ export default function App() {
 
   let tassoArms: Arms = 'down';
   if (type === 'hug') tassoArms = 'hug';
-  else if (isMove) tassoArms = 'up';
+  else if (isMove || type === 'peteco') tassoArms = 'up';
   else if (type === 'acai' || type === 'dusty' || note) tassoArms = 'hold';
 
   let tassoItem: Item | undefined;
@@ -336,16 +355,17 @@ export default function App() {
 
   let indiArms: Arms = 'down';
   if (type === 'hug') indiArms = 'hug';
-  else if (type === 'tea' || type === 'acai') indiArms = 'hold';
+  else if (type === 'tea' || type === 'acai' || type === 'peteco') indiArms = 'hold';
 
   let indiMouth: Mouth = 'smile';
   if (type === 'pout') indiMouth = 'pout';
   else if (type === 'eyebrows') indiMouth = 'smirk';
+  else if (type === 'peteco') indiMouth = 'grin';
   else if (isSilly || type === 'boop-indi' || type === 'acai') indiMouth = 'grin';
 
   let tassoMouth: Mouth = 'smile';
   if (type === 'pout') tassoMouth = 'flat';
-  else if (type === 'eyebrows') tassoMouth = 'open';
+  else if (type === 'eyebrows' || type === 'peteco') tassoMouth = 'open';
   else if (type === 'trip') tassoMouth = 'open';
   else if (isSilly || type === 'boop-tasso') tassoMouth = 'grin';
 
@@ -354,7 +374,7 @@ export default function App() {
 
   let indiEyes: Eyes = resting ? 'closed' : 'open';
   if (type === 'hug' || type === 'boop-indi' || type === 'acai' || isSilly) indiEyes = 'happy';
-  else if (type === 'eyebrows') indiEyes = 'sly';
+  else if (type === 'eyebrows' || type === 'peteco') indiEyes = 'sly';
   else if (type === 'cyclops') indiEyes = 'cyclops';
 
   let tassoMotion = 'flork-idle';
@@ -437,6 +457,7 @@ export default function App() {
             lean={type === 'hug' ? 'hug' : type === 'cyclops' ? 'close' : undefined}
             hearts={type === 'hug' || type === 'boop-indi' || type === 'cyclops'}
             zoom={type === 'cyclops'}
+            indiInFront={type === 'peteco'}
             blanket={blanket}
             breathing={breathing}
             guests={guests}
@@ -451,7 +472,15 @@ export default function App() {
                   blush={type === 'hug' || type === 'boop-indi' || type === 'cyclops'}
                   sad={type === 'pout'}
                   wiggle={type === 'eyebrows'}
-                  holding={type === 'tea' ? 'mug' : type === 'acai' ? 'acai' : undefined}
+                  holding={
+                    type === 'tea'
+                      ? 'mug'
+                      : type === 'acai'
+                        ? 'acai'
+                        : type === 'peteco'
+                          ? 'flagGun'
+                          : undefined
+                  }
                   outfit={hoodieOnIndi ? 'hoodie' : 'own'}
                 />
               </g>

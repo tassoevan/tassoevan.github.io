@@ -19,6 +19,7 @@ export type Sound =
   | 'bark'
   | 'eyebrows'
   | 'cyclops'
+  | 'peteco'
   | 'boopTasso'
   | 'boopIndi'
   | 'toggle';
@@ -195,6 +196,12 @@ const SOUNDS: Record<Sound, () => void> = {
     tone({ freq: 500, to: 820, duration: 0.14, type: 'triangle', volume: 0.4 });
     tone({ freq: 500, to: 820, at: 0.28, duration: 0.14, type: 'triangle', volume: 0.4 });
   },
+  // Two cork pops, in time with the flag.
+  peteco: () =>
+    [0, 0.9].forEach((at) => {
+      whoosh({ from: 2400, to: 900, at, duration: 0.08, volume: 0.6 });
+      tone({ freq: 900, to: 320, at, duration: 0.12, type: 'triangle', volume: 0.4 });
+    }),
   // A soft heartbeat, twice.
   cyclops: () =>
     [0, 0.18, 0.8, 0.98].forEach((at) =>

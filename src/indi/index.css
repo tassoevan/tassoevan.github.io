@@ -105,6 +105,12 @@ body {
   animation: zoom-faces 4.2s ease-in-out;
 }
 
+.flag-pop {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: flag-pop 0.9s ease-out 2;
+}
+
 .brow-wiggle {
   animation: brow-wiggle 0.3s ease-in-out 8 alternate;
 }
@@ -233,6 +239,19 @@ body {
   20%,
   80% {
     transform: scale(2.2);
+  }
+}
+
+@keyframes flag-pop {
+  0% {
+    transform: scaleX(0);
+  }
+  25% {
+    transform: scaleX(1.15);
+  }
+  40%,
+  100% {
+    transform: scaleX(1);
   }
 }
 
@@ -443,6 +462,7 @@ body {
   .flork-wag,
   .brow-wiggle,
   .scene-zoom,
+  .flag-pop,
   .guest-enter-left,
   .guest-enter-right,
   .speech-bubble,

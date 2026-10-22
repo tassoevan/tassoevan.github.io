@@ -54,6 +54,8 @@ type SceneProps = Readonly<{
   lean?: 'hug' | 'close';
   // Close-up on their faces.
   zoom?: boolean;
+  // Draws Indi over Tasso, when what she does should not hide behind him.
+  indiInFront?: boolean;
   hearts: boolean;
   blanket: boolean;
   breathing: boolean;
@@ -67,6 +69,7 @@ export default function Scene({
   hint,
   lean,
   zoom,
+  indiInFront,
   hearts,
   blanket,
   breathing,
@@ -134,7 +137,7 @@ export default function Scene({
         )}
 
         {/* Forehead to forehead, she comes to the front so her cyclops eye shows. */}
-        {lean === 'close' ? [tassoGroup, indiGroup] : [indiGroup, tassoGroup]}
+        {lean === 'close' || indiInFront ? [tassoGroup, indiGroup] : [indiGroup, tassoGroup]}
 
         {guests.map(({ character, node }) => {
           const { transform, side, label } = GUEST_SLOTS[character];

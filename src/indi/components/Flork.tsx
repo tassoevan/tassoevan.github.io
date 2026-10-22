@@ -4,7 +4,7 @@ export type Kid = 'jojo' | 'nana' | 'lolo';
 export type Character = 'tasso' | 'indi' | Kid;
 export type Arms = 'down' | 'up' | 'hug' | 'hold';
 export type Mouth = 'smile' | 'grin' | 'open' | 'flat' | 'pout' | 'smirk';
-export type Item = 'mug' | 'note' | 'acai' | 'plush';
+export type Item = 'mug' | 'note' | 'acai' | 'plush' | 'flagGun';
 // `cyclops` is one big eye in the middle, for when she leans in so close that's all he sees.
 export type Eyes = 'open' | 'closed' | 'happy' | 'sly' | 'cyclops';
 
@@ -178,6 +178,32 @@ function Acai({ x, y }: Readonly<{ x: number; y: number }>) {
 }
 
 // A sleepy little octopus plush, famous for being "pôdi, pôdi" with dust.
+// Cartoon toy gun that pops out a flag, for her "peteco! peteco!" joke.
+function FlagGun({ x, y }: Readonly<{ x: number; y: number }>) {
+  return (
+    <g strokeWidth={1.5}>
+      <g className='flag-pop'>
+        <path d={`M${x + 10},${y - 3.5} H${x + 18}`} />
+        <rect x={x + 18} y={y - 10} width={30} height={13} rx={1.5} fill='#fff' />
+        <text
+          x={x + 33}
+          y={y - 1}
+          textAnchor='middle'
+          fontSize={7}
+          fontWeight={800}
+          fill='#d62f3a'
+          stroke='none'
+        >
+          PETECO!
+        </text>
+      </g>
+      <rect x={x - 6} y={y - 6} width={15} height={5} rx={1} fill='#f2a541' />
+      <rect x={x + 8} y={y - 6.5} width={3} height={6} rx={1} fill='#d62f3a' />
+      <path d={`M${x - 5},${y - 1} H${x - 1} L${x - 2},${y + 7} H${x - 6} Z`} fill='#f2a541' />
+    </g>
+  );
+}
+
 function Plush({ x, y }: Readonly<{ x: number; y: number }>) {
   return (
     <g strokeWidth={2}>
@@ -582,6 +608,7 @@ export default function Flork({
           {holding === 'note' && <Envelope x={hand[1]} y={hand[2]} />}
           {holding === 'acai' && <Acai x={hand[1]} y={hand[2]} />}
           {holding === 'plush' && <Plush x={hand[1]} y={hand[2]} />}
+          {holding === 'flagGun' && <FlagGun x={hand[1]} y={hand[2]} />}
         </g>
       )}
     </g>
