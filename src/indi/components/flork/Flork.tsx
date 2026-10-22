@@ -94,6 +94,8 @@ export type Pose = Readonly<{
   eyes?: Eyes;
   blush?: boolean;
   holding?: Item;
+  // Roller skates on both feet, in this color.
+  skates?: string;
 }>;
 
 // Each character fills these layers, listed in drawing order.
@@ -132,6 +134,7 @@ export default function Flork({
   eyes = 'open',
   blush = false,
   holding,
+  skates,
   behind,
   inside,
   overHead,
@@ -161,6 +164,18 @@ export default function Flork({
       <path
         d={`M48,${b - 2} L46,${b + 22} L38,${b + 24} M72,${b - 2} L74,${b + 22} L82,${b + 24}`}
       />
+
+      {skates && (
+        <g strokeWidth={2}>
+          {[36, 70].map((x) => (
+            <g key={x}>
+              <rect x={x - 1} y={b + 17} width={15} height={9} rx={3} fill={skates} />
+              <circle cx={x + 2.5} cy={b + 28.5} r={2.4} fill='#fff' />
+              <circle cx={x + 10.5} cy={b + 28.5} r={2.4} fill='#fff' />
+            </g>
+          ))}
+        </g>
+      )}
 
       <path d={bean} fill='#fbfdff' stroke='none' />
       <g clipPath={`url(#${clipId})`} stroke='none'>

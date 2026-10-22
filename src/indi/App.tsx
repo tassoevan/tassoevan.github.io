@@ -12,7 +12,7 @@ import { isSoundEnabled, playSound, setSoundEnabled } from './sounds';
 import { hasTapped, rememberTap } from './tapHint';
 
 type Move = 'dance' | 'jump' | 'spin' | 'trip';
-type Silly = Move | 'dusty';
+type Silly = Move | 'dusty' | 'sibling' | 'cartwheel' | 'piggyback' | 'roller';
 // Indi's are unlocked by tapping her twice in a row; Tasso's math facts, by tapping him twice.
 type Secret = 'eyebrows' | 'cyclops' | 'peteco' | 'math';
 type Action =
@@ -27,7 +27,14 @@ type Action =
   | 'boop-indi';
 
 const MOVES: readonly Move[] = ['dance', 'jump', 'spin', 'trip'];
-const SILLIES: readonly Silly[] = [...MOVES, 'dusty'];
+const SILLIES: readonly Silly[] = [
+  ...MOVES,
+  'dusty',
+  'sibling',
+  'cartwheel',
+  'piggyback',
+  'roller',
+];
 const SECRETS: readonly Exclude<Secret, 'math'>[] = ['eyebrows', 'cyclops', 'peteco'];
 const DOUBLE_TAP_WINDOW = 450;
 
@@ -55,6 +62,10 @@ const ACTION_DURATIONS: Record<Action, number> = {
   spin: 2000,
   trip: 3200,
   dusty: 4200,
+  sibling: 6000,
+  cartwheel: 5000,
+  piggyback: 4500,
+  roller: 4500,
   eyebrows: 3600,
   math: 10000,
   peteco: 3800,
@@ -74,6 +85,10 @@ const ACTION_SOUNDS: Record<Action, Sound> = {
   spin: 'spin',
   trip: 'trip',
   dusty: 'dusty',
+  sibling: 'sibling',
+  cartwheel: 'cartwheel',
+  piggyback: 'piggyback',
+  roller: 'roller',
   eyebrows: 'eyebrows',
   math: 'math',
   peteco: 'peteco',
@@ -87,7 +102,13 @@ const LONG_BUBBLE = 70;
 const LONG_SPEECH_DURATION = 7000;
 // Anchored to both sides, so the bubble can use the whole width instead of growing taller.
 const LONG_BUBBLE_POSITION: CSSProperties = { left: '4%', right: '4%' };
+// Keeps the space above Tasso's head clear, for Lolô riding on his shoulders.
+const SIDE_BUBBLE_POSITION: CSSProperties = { left: '3%', maxWidth: '55%' };
 const GUEST_LINE_DELAY = 1800;
+// Nana's match the yellow flowers on her T-shirt; Lolô's are pink.
+const SKATE_COLORS: Record<Kid, string> = { jojo: '#8e5bb5', nana: '#f2c230', lolo: '#e85d9a' };
+// Out-of-step jumps when the three girls bounce together.
+const JUMP_DELAYS: Record<Kid, string> = { jojo: '0s', nana: '0.2s', lolo: '0.4s' };
 const COMFORT_NOTE_CHANCE = 0.4;
 
 // Some moves get an answer from the other one, a moment later.
@@ -96,6 +117,9 @@ const REPLIES: Partial<
 > = {
   peteco: { who: 'tasso', delay: 1600, lines: LINES.petecoReply },
   math: { who: 'indi', delay: 6500, lines: LINES.mathReply },
+  sibling: { who: 'tasso', delay: 3800, lines: LINES.siblingReply },
+  cartwheel: { who: 'tasso', delay: 3600, lines: LINES.cartwheelReply },
+  piggyback: { who: 'lolo', delay: 1800, lines: LINES.piggybackReply },
 };
 // Until she first taps a character, one of them invites her after a quiet moment.
 const TAP_HINT_DELAY = 8000;
@@ -122,6 +146,13 @@ function castFor(type: Action): readonly Guest[] {
     case 'pout':
       return roll < 0.6 ? [jojo] : [];
     case 'dusty':
+      return [nana, lolo];
+    // All three, jumping and asking for a baby brother.
+    case 'sibling':
+      return [jojo, nana, lolo];
+    case 'cartwheel':
+      return [lolo];
+    case 'roller':
       return [nana, lolo];
     // Her mother's right hand: sometimes she is the one who made the tea.
     case 'tea':
@@ -155,7 +186,11 @@ function kidLine({ character: kid, accessory }: Guest, action: ActionState) {
   let context = 'any';
   if (action.comfort) context = 'comfort';
   else if (MOVES.includes(action.type as Move)) context = 'silly';
-  else if (['hug', 'acai', 'dusty', 'tea', 'hoodie'].includes(action.type)) {
+  else if (
+    ['hug', 'acai', 'dusty', 'tea', 'hoodie', 'sibling', 'cartwheel', 'roller'].includes(
+      action.type,
+    )
+  ) {
     context = action.type;
   }
   // Jojo on her phone has lines of her own, like `acaiPhone`, falling back to `anyPhone`.
@@ -374,7 +409,7 @@ export default function App() {
 
   const silly = () => {
     const type = pick(SILLIES, action?.type as Silly | undefined);
-    play(type, 'tasso', LINES[type]);
+    play(type, type === 'sibling' ? 'nana' : 'tasso', LINES[type]);
   };
 
   const boop = (character: Character) => {
@@ -426,7 +461,7 @@ export default function App() {
 
   let tassoArms: Arms = 'down';
   if (type === 'hug') tassoArms = 'hug';
-  else if (isMove || type === 'peteco') tassoArms = 'up';
+  else if (isMove || ['peteco', 'cartwheel', 'piggyback'].includes(type ?? '')) tassoArms = 'up';
   else if (type === 'math') tassoArms = 'point';
   else if (type === 'acai' || type === 'dusty' || note) tassoArms = 'hold';
 
@@ -447,12 +482,12 @@ export default function App() {
 
   let tassoMouth: Mouth = 'smile';
   if (type === 'pout') tassoMouth = 'flat';
-  else if (type === 'eyebrows' || type === 'peteco' || type === 'math') tassoMouth = 'open';
+  else if (['eyebrows', 'peteco', 'math', 'sibling'].includes(type ?? '')) tassoMouth = 'open';
   else if (type === 'trip') tassoMouth = 'open';
   else if (isSilly || type === 'boop-tasso') tassoMouth = 'grin';
 
   let tassoEyes: Eyes = resting ? 'closed' : 'open';
-  if (type === 'hug' || type === 'boop-tasso' || type === 'cyclops') tassoEyes = 'happy';
+  if (['hug', 'boop-tasso', 'cyclops', 'piggyback'].includes(type ?? '')) tassoEyes = 'happy';
 
   let indiEyes: Eyes = resting ? 'closed' : 'open';
   if (type === 'hug' || type === 'boop-indi' || type === 'acai' || isSilly) indiEyes = 'happy';
@@ -465,6 +500,7 @@ export default function App() {
   else if (isMove) tassoMotion = `flork-${type}`;
   else if (type === 'boop-tasso') tassoMotion = 'flork-boop';
   else if (type === 'math') tassoMotion = 'flork-lecture';
+  else if (type === 'piggyback') tassoMotion = 'flork-gallop';
 
   let indiMotion = 'flork-idle flork-idle-late';
   if (breathing) indiMotion = 'flork-breathe';
@@ -504,6 +540,22 @@ export default function App() {
       mouth = 'grin';
       eyes = 'happy';
       motion = 'flork-giggle';
+    } else if (type === 'roller') {
+      // Skating across the scene in opposite directions, arms out for balance.
+      arms = 'up';
+      mouth = 'grin';
+      eyes = 'happy';
+      motion = character === 'nana' ? 'flork-skate-right' : 'flork-skate-left';
+    } else if (type === 'cartwheel') {
+      arms = 'up';
+      mouth = 'grin';
+      eyes = 'happy';
+      motion = 'flork-cartwheel';
+    } else if (type === 'sibling') {
+      arms = 'up';
+      mouth = 'grin';
+      eyes = 'happy';
+      motion = 'flork-jump';
     }
     // Nana has her mother's mannerisms, so she makes the same faces.
     if (character === 'nana') {
@@ -519,8 +571,14 @@ export default function App() {
 
     return {
       character,
+      // With all three girls around, Nana jumps in the foreground.
+      front: type === 'sibling' && character === 'nana',
       node: (
-        <g key={`${action?.id}-${kidBoop?.id}`} className={motion}>
+        <g
+          key={`${action?.id}-${kidBoop?.id}`}
+          className={motion}
+          style={type === 'sibling' ? { animationDelay: JUMP_DELAYS[character] } : undefined}
+        >
           <Girl
             character={character}
             arms={arms}
@@ -529,6 +587,7 @@ export default function App() {
             blush={type === 'hug'}
             holding={holding}
             accessory={accessory && holding !== 'acai'}
+            skates={type === 'roller' ? SKATE_COLORS[character] : undefined}
             celebrate={celebrate}
           />
         </g>
@@ -589,11 +648,17 @@ export default function App() {
             }
             tasso={
               <g key={action?.id} className={tassoMotion}>
+                {type === 'piggyback' && (
+                  // Lolô riding on his shoulders, legs hidden behind his head.
+                  <g transform='translate(25 -52) scale(0.58)'>
+                    <Lolo arms='up' eyes='happy' mouth='grin' />
+                  </g>
+                )}
                 <Tasso
                   arms={tassoArms}
                   mouth={tassoMouth}
                   eyes={tassoEyes}
-                  blush={type === 'eyebrows' || type === 'cyclops'}
+                  blush={type === 'eyebrows' || type === 'cyclops' || type === 'sibling'}
                   glassesShine={type === 'eyebrows'}
                   holding={tassoItem}
                   outfit={hoodieOnIndi ? 'own' : 'hoodie'}
@@ -611,7 +676,13 @@ export default function App() {
                   bubble.who === 'both' ? 'text-lg' : 'text-sm sm:text-base',
                   !longBubble && 'max-w-[62%]',
                 )}
-                style={longBubble ? LONG_BUBBLE_POSITION : SPEECH_POSITIONS[bubble.who]}
+                style={
+                  longBubble
+                    ? LONG_BUBBLE_POSITION
+                    : type === 'piggyback'
+                      ? SIDE_BUBBLE_POSITION
+                      : SPEECH_POSITIONS[bubble.who]
+                }
               >
                 {bubble.text}
               </span>

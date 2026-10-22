@@ -44,10 +44,14 @@ const GUEST_SLOTS: Record<Kid, { transform: string; side: 'left' | 'right'; labe
   lolo: { transform: 'translate(322 182) scale(0.58)', side: 'right', label: 'Lolô' },
 };
 
+// In front of the sofa, between the two of them, coming up from below.
+const FRONT_SLOT = { transform: 'translate(156 196) scale(0.66)', side: 'up' } as const;
+
 type SceneProps = Readonly<{
   indi: ReactNode;
   tasso: ReactNode;
-  guests: readonly Readonly<{ character: Kid; node: ReactNode }>[];
+  // `front` places a girl in the foreground, between Indi and Tasso.
+  guests: readonly Readonly<{ character: Kid; node: ReactNode; front?: boolean }>[];
   // Character currently inviting a tap, outlined by a pulsing ring.
   hint?: 'tasso' | 'indi';
   // `close` brings their foreheads together.
@@ -139,8 +143,10 @@ export default function Scene({
         {/* Forehead to forehead, she comes to the front so her cyclops eye shows. */}
         {lean === 'close' || indiInFront ? [tassoGroup, indiGroup] : [indiGroup, tassoGroup]}
 
-        {guests.map(({ character, node }) => {
-          const { transform, side, label } = GUEST_SLOTS[character];
+        {guests.map(({ character, node, front }) => {
+          const { transform, side, label } = front
+            ? { ...FRONT_SLOT, label: GUEST_SLOTS[character].label }
+            : GUEST_SLOTS[character];
           return (
             <g key={character} transform={transform}>
               <g className={`guest-enter-${side}`}>

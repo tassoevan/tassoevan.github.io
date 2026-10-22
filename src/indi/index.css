@@ -110,6 +110,19 @@ body {
   animation: zoom-faces 4.2s ease-in-out;
 }
 
+/* Nana and Lolô roller-skating across the scene, in opposite directions. */
+.flork-skate-right {
+  animation: skate-right 4.2s linear both;
+}
+
+.flork-skate-left {
+  animation: skate-left 4.2s linear both;
+}
+
+.flork-gallop {
+  animation: gallop 0.36s ease-in-out infinite;
+}
+
 .flork-lecture {
   animation: lecture 0.8s ease-in-out infinite alternate;
 }
@@ -180,6 +193,12 @@ body {
   animation: spin 1.6s ease-in-out;
 }
 
+/* Lolô cartwheels in from the right, turning around her middle. */
+.flork-target > .flork-cartwheel {
+  transform-origin: center;
+  animation: cartwheel 1.4s ease-out;
+}
+
 .flork-trip {
   animation: trip 3s ease-in-out;
 }
@@ -213,12 +232,17 @@ body {
 }
 
 .guest-enter-left,
-.guest-enter-right {
+.guest-enter-right,
+.guest-enter-up {
   animation: enter-left 0.5s ease-out;
 }
 
 .guest-enter-right {
   animation-name: enter-right;
+}
+
+.guest-enter-up {
+  animation-name: enter-up;
 }
 
 .tap-hint {
@@ -275,6 +299,34 @@ body {
   20%,
   80% {
     transform: scale(2.2);
+  }
+}
+
+@keyframes skate-right {
+  from {
+    transform: translateX(-140px) rotate(4deg);
+  }
+  to {
+    transform: translateX(640px) rotate(4deg);
+  }
+}
+
+@keyframes skate-left {
+  from {
+    transform: translateX(160px) rotate(-4deg);
+  }
+  to {
+    transform: translateX(-700px) rotate(-4deg);
+  }
+}
+
+@keyframes gallop {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
   }
 }
 
@@ -373,6 +425,22 @@ body {
   from {
     opacity: 0;
     transform: translateX(-40px);
+  }
+}
+
+@keyframes cartwheel {
+  from {
+    transform: translateX(90px) rotate(0deg);
+  }
+  to {
+    transform: translateX(0) rotate(-360deg);
+  }
+}
+
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
   }
 }
 
@@ -526,17 +594,22 @@ body {
   .flork-boop,
   .flork-giggle,
   .flork-lecture,
+  .flork-gallop,
+  .flork-skate-right,
+  .flork-skate-left,
   .flork-swoon,
   .heart-eye,
   .game-screen,
   .game-star,
   .blanket,
   .flork-wag,
+  .flork-target > .flork-cartwheel,
   .brow-wiggle,
   .scene-zoom,
   .flag-pop,
   .guest-enter-left,
   .guest-enter-right,
+  .guest-enter-up,
   .speech-bubble,
   .note-card {
     animation: none;

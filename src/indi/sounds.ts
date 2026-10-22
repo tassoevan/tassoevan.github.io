@@ -22,6 +22,10 @@ export type Sound =
   | 'peteco'
   | 'math'
   | 'victory'
+  | 'sibling'
+  | 'cartwheel'
+  | 'piggyback'
+  | 'roller'
   | 'boopTasso'
   | 'boopIndi'
   | 'toggle';
@@ -204,6 +208,29 @@ const SOUNDS: Record<Sound, () => void> = {
       whoosh({ from: 2400, to: 900, at, duration: 0.08, volume: 0.6 });
       tone({ freq: 900, to: 320, at, duration: 0.12, type: 'triangle', volume: 0.4 });
     }),
+  // Bouncy boings in time with the girls' jumps, plus a sparkle.
+  sibling: () => {
+    [0, 0.6, 1.2, 1.8].forEach((at) =>
+      tone({ freq: 330, to: 880, at, duration: 0.22, type: 'triangle', volume: 0.4 }),
+    );
+    tone({ freq: C6, at: 2.3, duration: 0.5, volume: 0.25 });
+  },
+  // A whoosh while she turns, then "ta-dah!".
+  cartwheel: () => {
+    whoosh({ from: 400, to: 1600, duration: 1.2, volume: 0.35 });
+    tone({ freq: C5, at: 1.4, duration: 0.18, type: 'triangle', volume: 0.4 });
+    tone({ freq: G5, at: 1.6, duration: 0.45, type: 'triangle', volume: 0.45 });
+  },
+  // Clip-clop of hooves, in time with the gallop.
+  piggyback: () =>
+    Array.from({ length: 10 }, (_, i) => i).forEach((i) =>
+      tone({ freq: i % 2 ? 620 : 820, at: i * 0.18, duration: 0.07, type: 'square', volume: 0.12 }),
+    ),
+  // Low rumble of wheels on the floor, and a happy "uiii".
+  roller: () => {
+    whoosh({ from: 180, to: 260, duration: 3.6, volume: 0.25 });
+    tone({ freq: 700, to: 1100, at: 1.2, duration: 0.6, volume: 0.2 });
+  },
   // Short victory fanfare.
   victory: () => {
     [G4, C5, E5].forEach((freq, i) =>
