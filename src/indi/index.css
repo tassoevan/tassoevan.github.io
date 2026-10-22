@@ -73,6 +73,11 @@ body {
   transform-origin: 50% 100%;
 }
 
+/* Tapping focuses the character too; only keyboard focus should show an outline. */
+.flork-target:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .flork-target:focus-visible {
   outline: 3px dashed var(--primary);
   outline-offset: 4px;
