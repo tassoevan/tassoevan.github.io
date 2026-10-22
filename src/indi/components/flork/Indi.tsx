@@ -1,5 +1,5 @@
 import type { Outfit } from './clothes';
-import { Hoodie } from './clothes';
+import { Hoodie, WorkHoodie } from './clothes';
 import type { Pose, Shape } from './Flork';
 import Flork, { geometry } from './Flork';
 
@@ -7,7 +7,7 @@ const SHAPE: Shape = { width: 86, top: 12, eyeGap: 15, hugTo: 'right' };
 
 type IndiProps = Pose &
   Readonly<{
-    // Her bordô cardigan, or his pink hoodie when he lends it.
+    // Her bordô cardigan, or whichever of his hoodies he lends her.
     outfit?: Outfit;
     // Eyebrows raised in the middle, when she pouts.
     sad?: boolean;
@@ -53,6 +53,8 @@ export default function Indi({
         <>
           {outfit === 'hoodie' ? (
             <Hoodie t={t} />
+          ) : outfit === 'work' ? (
+            <WorkHoodie t={t} />
           ) : (
             // Bordô cardigan over a black top.
             <g>

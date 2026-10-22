@@ -110,6 +110,7 @@ const SKATE_COLORS: Record<Kid, string> = { jojo: '#8e5bb5', nana: '#f2c230', lo
 // Out-of-step jumps when the three girls bounce together.
 const JUMP_DELAYS: Record<Kid, string> = { jojo: '0s', nana: '0.2s', lolo: '0.4s' };
 const COMFORT_NOTE_CHANCE = 0.4;
+const WORK_HOODIE_CHANCE = 0.35;
 
 // Some moves get an answer from the other one, a moment later.
 const REPLIES: Partial<
@@ -271,6 +272,9 @@ export default function App() {
   const [speech, setSpeech] = useState<Speech | null>(greeting);
   const [blanket, setBlanket] = useState(false);
   const [hoodieOnIndi, setHoodieOnIndi] = useState(false);
+  // On some visits Tasso shows up in his black work hoodie instead of the pink one, and that is
+  // the one he lends Indi.
+  const [workHoodie] = useState(() => Math.random() < WORK_HOODIE_CHANCE);
   const [breathing, setBreathing] = useState(false);
   const [breathIn, setBreathIn] = useState(true);
   const [note, setNote] = useState<string | null>(null);
@@ -643,7 +647,7 @@ export default function App() {
                           ? 'flagGun'
                           : undefined
                   }
-                  outfit={hoodieOnIndi ? 'hoodie' : 'own'}
+                  outfit={hoodieOnIndi ? (workHoodie ? 'work' : 'hoodie') : 'own'}
                 />
               </g>
             }
@@ -662,7 +666,7 @@ export default function App() {
                   blush={type === 'eyebrows' || type === 'cyclops' || type === 'sibling'}
                   glassesShine={type === 'eyebrows'}
                   holding={tassoItem}
-                  outfit={hoodieOnIndi ? 'own' : 'hoodie'}
+                  outfit={hoodieOnIndi ? 'own' : workHoodie ? 'work' : 'hoodie'}
                 />
               </g>
             }

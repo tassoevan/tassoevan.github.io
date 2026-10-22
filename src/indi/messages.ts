@@ -58,7 +58,7 @@ export const LINES = {
   ],
   blanketOff: ['Bom dia, burrito! ☀️', 'Desembrulhando a bijuzinha…'],
   hoodieOn: [
-    'Pode ficar com ele, fica mais bonito em você 🩷',
+    'Pode ficar com ele, fica mais bonito em você 🤍',
     'Moletom emprestado. Pra sempre, né?',
   ],
   hoodieOff: ['Devolveu? Não acredito! 😅', 'Tá quentinho ainda, tem cheirinho de biju.'],
@@ -103,7 +103,7 @@ export const KID_LINES = {
     any: ['Oi, mãe! 💜', '🖤💜🖤', 'Tô de olho em vocês, hein.'],
     acai: ['Ei, cadê o meu?', 'E o meu açaí, gente?'],
     tea: ['Fiz do jeito que você gosta, mãe 💜', 'Chá novo saindo, mãe! 💜'],
-    hoodie: ['Depois é minha vez de usar, hein!', 'E eu? Também quero um moletom rosa!'],
+    hoodie: ['Depois é minha vez de usar, hein!', 'E eu? Também quero um moletom desses!'],
     sibling: ['A gente quer um irmãozinho! 👶'],
     silly: [
       'Que vergonha alheia 🙄',

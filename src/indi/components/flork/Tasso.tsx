@@ -1,5 +1,5 @@
 import type { Outfit } from './clothes';
-import { Hoodie } from './clothes';
+import { Hoodie, WorkHoodie } from './clothes';
 import type { Pose, Shape } from './Flork';
 import Flork, { geometry } from './Flork';
 
@@ -7,7 +7,7 @@ const SHAPE: Shape = { width: 100, top: 6, eyeGap: 18, hugTo: 'left' };
 
 type TassoProps = Pose &
   Readonly<{
-    // The pink hoodie, unless he lent it to Indi.
+    // The pink hoodie or his black work hoodie; a grey T-shirt when he lent it to Indi.
     outfit?: Outfit;
     // A flash on his glasses, when she catches him off guard.
     glassesShine?: boolean;
@@ -25,6 +25,8 @@ export default function Tasso({ outfit = 'own', glassesShine = false, ...pose }:
         <>
           {outfit === 'hoodie' ? (
             <Hoodie t={t} />
+          ) : outfit === 'work' ? (
+            <WorkHoodie t={t} />
           ) : (
             // Grey T-shirt with its zigzag print.
             <g>
