@@ -17,6 +17,8 @@ export type Sound =
   | 'trip'
   | 'dusty'
   | 'bark'
+  | 'eyebrows'
+  | 'cyclops'
   | 'boopTasso'
   | 'boopIndi'
   | 'toggle';
@@ -188,6 +190,16 @@ const SOUNDS: Record<Sound, () => void> = {
     tone({ freq: 620, to: 420, duration: 0.12, type: 'triangle', volume: 0.5 });
     tone({ freq: 620, to: 420, at: 0.2, duration: 0.12, type: 'triangle', volume: 0.5 });
   },
+  // Two cheeky slides up, in time with the eyebrows.
+  eyebrows: () => {
+    tone({ freq: 500, to: 820, duration: 0.14, type: 'triangle', volume: 0.4 });
+    tone({ freq: 500, to: 820, at: 0.28, duration: 0.14, type: 'triangle', volume: 0.4 });
+  },
+  // A soft heartbeat, twice.
+  cyclops: () =>
+    [0, 0.18, 0.8, 0.98].forEach((at) =>
+      tone({ freq: 90, to: 55, at, duration: 0.16, volume: 0.8 }),
+    ),
   boopTasso: () => tone({ freq: 520, to: 260, duration: 0.18, type: 'triangle', volume: 0.5 }),
   boopIndi: () => tone({ freq: 780, to: 460, duration: 0.18, type: 'triangle', volume: 0.5 }),
   toggle: () => tone({ freq: E5, duration: 0.15, volume: 0.3 }),

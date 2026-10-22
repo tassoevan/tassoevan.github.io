@@ -50,7 +50,8 @@ type SceneProps = Readonly<{
   guests: readonly Readonly<{ character: Kid; node: ReactNode }>[];
   // Character currently inviting a tap, outlined by a pulsing ring.
   hint?: 'tasso' | 'indi';
-  lean: boolean;
+  // `close` brings their foreheads together.
+  lean?: 'hug' | 'close';
   hearts: boolean;
   blanket: boolean;
   breathing: boolean;
@@ -80,6 +81,21 @@ export default function Scene({
       onBoop(character);
     },
   });
+
+  const indiGroup = (
+    <g key='indi' transform='translate(92 108)'>
+      <g className={lean ? `flork-lean lean-${lean}-right` : 'flork-lean'}>
+        <g {...characterProps('indi', 'Indi')}>{indi}</g>
+      </g>
+    </g>
+  );
+  const tassoGroup = (
+    <g key='tasso' transform='translate(190 108)'>
+      <g className={lean ? `flork-lean lean-${lean}-left` : 'flork-lean'}>
+        <g {...characterProps('tasso', 'Mor')}>{tasso}</g>
+      </g>
+    </g>
+  );
 
   return (
     <svg
@@ -113,16 +129,8 @@ export default function Scene({
         />
       )}
 
-      <g transform='translate(92 108)'>
-        <g className={lean ? 'flork-lean lean-right' : 'flork-lean'}>
-          <g {...characterProps('indi', 'Indi')}>{indi}</g>
-        </g>
-      </g>
-      <g transform='translate(190 108)'>
-        <g className={lean ? 'flork-lean lean-left' : 'flork-lean'}>
-          <g {...characterProps('tasso', 'Mor')}>{tasso}</g>
-        </g>
-      </g>
+      {/* Forehead to forehead, she comes to the front so her cyclops eye shows. */}
+      {lean === 'close' ? [tassoGroup, indiGroup] : [indiGroup, tassoGroup]}
 
       {guests.map(({ character, node }) => {
         const { transform, side, label } = GUEST_SLOTS[character];

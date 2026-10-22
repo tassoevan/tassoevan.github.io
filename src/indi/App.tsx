@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Arms, Character, Eyes, Item, Kid, Mouth } from './components/Flork';
 import Flork from './components/Flork';
 import InstallButton from './components/InstallButton';
@@ -13,10 +13,14 @@ import { hasTapped, rememberTap } from './tapHint';
 
 type Move = 'dance' | 'jump' | 'spin' | 'trip';
 type Silly = Move | 'dusty';
-type Action = 'hug' | 'pout' | 'tea' | 'acai' | Silly | 'boop-tasso' | 'boop-indi';
+// Indi's secret moves, unlocked by tapping her twice in a row.
+type Secret = 'eyebrows' | 'cyclops';
+type Action = 'hug' | 'pout' | 'tea' | 'acai' | Silly | Secret | 'boop-tasso' | 'boop-indi';
 
 const MOVES: readonly Move[] = ['dance', 'jump', 'spin', 'trip'];
 const SILLIES: readonly Silly[] = [...MOVES, 'dusty'];
+const SECRETS: readonly Secret[] = ['eyebrows', 'cyclops'];
+const DOUBLE_TAP_WINDOW = 450;
 
 // A girl dropping by. `accessory` is Nana's dog-ear headband or Lolô's pacifier.
 type Guest = Readonly<{ character: Kid; accessory: boolean }>;
@@ -40,6 +44,8 @@ const ACTION_DURATIONS: Record<Action, number> = {
   spin: 2000,
   trip: 3200,
   dusty: 4200,
+  eyebrows: 3600,
+  cyclops: 4200,
   'boop-tasso': 1200,
   'boop-indi': 2400,
 };
@@ -54,6 +60,8 @@ const ACTION_SOUNDS: Record<Action, Sound> = {
   spin: 'spin',
   trip: 'trip',
   dusty: 'dusty',
+  eyebrows: 'eyebrows',
+  cyclops: 'cyclops',
   'boop-tasso': 'boopTasso',
   'boop-indi': 'boopIndi',
 };
@@ -163,6 +171,7 @@ export default function App() {
   const [tapped, setTapped] = useState(hasTapped);
   const [hint, setHint] = useState<{ id: number; who: 'tasso' | 'indi' } | null>(null);
   const [hintCount, setHintCount] = useState(0);
+  const lastIndiTap = useRef(0);
 
   useEffect(() => {
     if (!action) return;
@@ -290,7 +299,16 @@ export default function App() {
       rememberTap();
     }
     if (character === 'tasso') return play('boop-tasso', 'tasso', LINES.boopTasso);
-    if (character === 'indi') return play('boop-indi', 'indi', LINES.boopIndi);
+    if (character === 'indi') {
+      const now = Date.now();
+      if (now - lastIndiTap.current < DOUBLE_TAP_WINDOW) {
+        lastIndiTap.current = 0;
+        const secret = pick(SECRETS, action?.type as Secret | undefined);
+        return play(secret, 'tasso', LINES[secret]);
+      }
+      lastIndiTap.current = now;
+      return play('boop-indi', 'indi', LINES.boopIndi);
+    }
     // Booping a girl keeps the current scene going.
     setKidBoop({ id: Date.now(), character });
     say(character, KID_LINES[character].any);
@@ -322,18 +340,22 @@ export default function App() {
 
   let indiMouth: Mouth = 'smile';
   if (type === 'pout') indiMouth = 'pout';
+  else if (type === 'eyebrows') indiMouth = 'smirk';
   else if (isSilly || type === 'boop-indi' || type === 'acai') indiMouth = 'grin';
 
   let tassoMouth: Mouth = 'smile';
   if (type === 'pout') tassoMouth = 'flat';
+  else if (type === 'eyebrows') tassoMouth = 'open';
   else if (type === 'trip') tassoMouth = 'open';
   else if (isSilly || type === 'boop-tasso') tassoMouth = 'grin';
 
   let tassoEyes: Eyes = resting ? 'closed' : 'open';
-  if (type === 'hug' || type === 'boop-tasso') tassoEyes = 'happy';
+  if (type === 'hug' || type === 'boop-tasso' || type === 'cyclops') tassoEyes = 'happy';
 
   let indiEyes: Eyes = resting ? 'closed' : 'open';
   if (type === 'hug' || type === 'boop-indi' || type === 'acai' || isSilly) indiEyes = 'happy';
+  else if (type === 'eyebrows') indiEyes = 'sly';
+  else if (type === 'cyclops') indiEyes = 'cyclops';
 
   let tassoMotion = 'flork-idle';
   if (breathing) tassoMotion = 'flork-breathe';
@@ -412,8 +434,8 @@ export default function App() {
         <div className='border-primary relative overflow-hidden rounded-3xl border-4'>
           <Scene
             hint={hint && speech?.id === hint.id ? hint.who : undefined}
-            lean={type === 'hug'}
-            hearts={type === 'hug' || type === 'boop-indi'}
+            lean={type === 'hug' ? 'hug' : type === 'cyclops' ? 'close' : undefined}
+            hearts={type === 'hug' || type === 'boop-indi' || type === 'cyclops'}
             blanket={blanket}
             breathing={breathing}
             guests={guests}
@@ -425,8 +447,9 @@ export default function App() {
                   arms={indiArms}
                   mouth={indiMouth}
                   eyes={indiEyes}
-                  blush={type === 'hug' || type === 'boop-indi'}
+                  blush={type === 'hug' || type === 'boop-indi' || type === 'cyclops'}
                   sad={type === 'pout'}
+                  wiggle={type === 'eyebrows'}
                   holding={type === 'tea' ? 'mug' : type === 'acai' ? 'acai' : undefined}
                   outfit={hoodieOnIndi ? 'hoodie' : 'own'}
                 />
@@ -439,6 +462,8 @@ export default function App() {
                   arms={tassoArms}
                   mouth={tassoMouth}
                   eyes={tassoEyes}
+                  blush={type === 'eyebrows' || type === 'cyclops'}
+                  shine={type === 'eyebrows'}
                   holding={tassoItem}
                   outfit={hoodieOnIndi ? 'own' : 'hoodie'}
                 />

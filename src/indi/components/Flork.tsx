@@ -3,9 +3,10 @@ import { useId } from 'react';
 export type Kid = 'jojo' | 'nana' | 'lolo';
 export type Character = 'tasso' | 'indi' | Kid;
 export type Arms = 'down' | 'up' | 'hug' | 'hold';
-export type Mouth = 'smile' | 'grin' | 'open' | 'flat' | 'pout';
+export type Mouth = 'smile' | 'grin' | 'open' | 'flat' | 'pout' | 'smirk';
 export type Item = 'mug' | 'note' | 'acai' | 'plush';
-export type Eyes = 'open' | 'closed' | 'happy';
+// `cyclops` is one big eye in the middle, for when she leans in so close that's all he sees.
+export type Eyes = 'open' | 'closed' | 'happy' | 'sly' | 'cyclops';
 
 const INK = '#111';
 const BOTTOM = 162;
@@ -78,6 +79,15 @@ function armShapes(character: Character, arms: Arms): [string, number, number][]
 function Eye({ x, y, eyes }: Readonly<{ x: number; y: number; eyes: Eyes }>) {
   if (eyes === 'closed') return <path d={`M${x - 7},${y - 1} Q${x},${y + 7} ${x + 7},${y - 1}`} />;
   if (eyes === 'happy') return <path d={`M${x - 7},${y + 3} Q${x},${y - 6} ${x + 7},${y + 3}`} />;
+  // Half-closed lids, for a knowing look.
+  if (eyes === 'sly') {
+    return (
+      <g>
+        <path d={`M${x - 5.5},${y} A5.5,5.5 0 0 0 ${x + 5.5},${y} Z`} fill={INK} stroke='none' />
+        <path d={`M${x - 7},${y} H${x + 7}`} strokeWidth={3} />
+      </g>
+    );
+  }
   return (
     <g stroke='none'>
       <circle cx={x} cy={y} r={5.5} fill={INK} />
@@ -105,6 +115,9 @@ function MouthShape({ mouth, y, gap }: Readonly<{ mouth: Mouth; y: number; gap?:
       return <ellipse cx={60} cy={y + 4} rx={5} ry={6} fill={INK} />;
     case 'flat':
       return <path d={`M52,${y + 3} L68,${y + 3}`} />;
+    // Lopsided, mischievous smile.
+    case 'smirk':
+      return <path d={`M49,${y + 2} Q62,${y + 9} 72,${y - 4}`} />;
     // Sulky frown with the lower lip pushed out.
     case 'pout':
       return (
@@ -353,6 +366,9 @@ type FlorkProps = Readonly<{
   sad?: boolean;
   // Nana's dog-ear headband or Lolô's pacifier, which they wear only sometimes.
   accessory?: boolean;
+  // Wiggling eyebrows (Indi) and a flash on the glasses (Tasso).
+  wiggle?: boolean;
+  shine?: boolean;
 }>;
 
 export default function Flork({
@@ -365,6 +381,8 @@ export default function Flork({
   outfit = 'own',
   sad = false,
   accessory = false,
+  wiggle = false,
+  shine = false,
 }: FlorkProps) {
   const clipId = useId();
   const { eyeGap } = TRAITS[character];
@@ -488,15 +506,24 @@ export default function Flork({
         </g>
       )}
 
-      <g className={eyes === 'open' ? 'flork-blink' : undefined}>
-        <Eye x={eyeXs[0]} y={eyeY} eyes={eyes} />
-        <Eye x={eyeXs[1]} y={eyeY} eyes={eyes} />
-      </g>
+      {eyes === 'cyclops' ? (
+        <g stroke='none'>
+          <circle cx={60} cy={eyeY} r={9} fill={INK} />
+          <circle cx={62.6} cy={eyeY - 2.8} r={2.8} fill='#fff' />
+        </g>
+      ) : (
+        <g className={eyes === 'open' ? 'flork-blink' : undefined}>
+          <Eye x={eyeXs[0]} y={eyeY} eyes={eyes} />
+          <Eye x={eyeXs[1]} y={eyeY} eyes={eyes} />
+        </g>
+      )}
 
       {character === 'indi' && (
         // Her strong, dark eyebrows; the inner ends rise when she is sad.
-        <g stroke='#2a160f' strokeWidth={3.5}>
-          {sad ? (
+        <g stroke='#2a160f' strokeWidth={3.5} className={wiggle ? 'brow-wiggle' : undefined}>
+          {eyes === 'cyclops' ? (
+            <path d={`M48,${eyeY - 14} Q60,${eyeY - 20} 72,${eyeY - 14}`} />
+          ) : sad ? (
             <path
               d={`M${eyeXs[0] - 8},${eyeY - 9} L${eyeXs[0] + 7},${eyeY - 15} M${eyeXs[1] - 7},${eyeY - 15} L${eyeXs[1] + 8},${eyeY - 9}`}
             />
@@ -513,6 +540,19 @@ export default function Flork({
           <rect x={eyeXs[0] - 14} y={eyeY - 10} width={28} height={19} rx={4} />
           <rect x={eyeXs[1] - 14} y={eyeY - 10} width={28} height={19} rx={4} />
           <path d={`M${eyeXs[0] + 14},${eyeY - 3} Q60,${eyeY - 7} ${eyeXs[1] - 14},${eyeY - 3}`} />
+          {shine && (
+            <path
+              className='glasses-shine'
+              d={eyeXs
+                .map(
+                  (x) =>
+                    `M${x - 8},${eyeY + 4} L${x - 2},${eyeY - 5} M${x - 3},${eyeY + 5} L${x + 2},${eyeY - 1}`,
+                )
+                .join(' ')}
+              stroke='#fff'
+              strokeWidth={2.5}
+            />
+          )}
         </g>
       )}
 

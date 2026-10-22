@@ -67,6 +67,8 @@ export const LINES = {
   jump: ['Boing! Boing!', 'Energia emprestada pra você!'],
   spin: ['Uiii, fiquei tonto…', 'Giro de alegria!'],
   trip: ['Ops…', 'Foi de propósito. Juro.'],
+  eyebrows: ['Hmm… conheço essa sobrancelha 😳', 'Recado recebido! 😳', 'Ih… lá vem ela. 😳'],
+  cyclops: ['Oi, ciclopinho 🥰', 'Tão pertinho que virou ciclope 🥰'],
   dusty: ['Olha esse polvinho: tá pôdi, pôdi!', 'Atchim! Tá pôdi, pôdi!'],
   boopTasso: ['Boop!', 'Oi, bijuzinha!', 'Me chamou, meu biju?', 'Te amo'],
   boopIndi: ['Mor!', 'Morzinho 🤍', 'hihi', 'Te amo'],
